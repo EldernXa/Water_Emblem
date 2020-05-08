@@ -1,7 +1,9 @@
 package frontend;
 
 import backend.Coordinate;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -31,13 +33,22 @@ public class AffichageGraphique {
         map.add(rect1, 0, 0);
         map.add(rect2, 1, 0);
 
+
         AffichePerso affichePerso = new AffichePerso();
         perso = affichePerso.getGridPanePerso();
 
         Coordinate coordinate = new Coordinate(1, 1);
         affichePerso.move(coordinate);
         perso = affichePerso.getGridPanePerso();
-        System.out.println(GridPane.getColumnIndex(affichePerso.getImgView()));
+
+        perso.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                int x = (int)Math.floor(event.getX()/width);
+                int y = (int)Math.floor(event.getY()/height);
+                affichePerso.move(new Coordinate(x, y));
+            }
+        });
 
         root.getChildren().addAll(map, perso);
         return root;
