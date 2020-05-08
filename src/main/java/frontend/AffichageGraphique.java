@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.Coordinate;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -14,7 +15,7 @@ public class AffichageGraphique {
         int height = 50, width = 50;
         GridPane root = new GridPane();
         GridPane map = new GridPane();
-        GridPane perso = new GridPane();
+        GridPane perso;
         Rectangle rect1 = new Rectangle();
         rect1.setHeight(height);
         rect1.setWidth(width);
@@ -31,7 +32,12 @@ public class AffichageGraphique {
         map.add(rect2, 1, 0);
 
         AffichePerso affichePerso = new AffichePerso();
-        perso = affichePerso.init();
+        perso = affichePerso.getGridPanePerso();
+
+        Coordinate coordinate = new Coordinate(1, 1);
+        affichePerso.move(coordinate);
+        perso = affichePerso.getGridPanePerso();
+        System.out.println(GridPane.getColumnIndex(affichePerso.getImgView()));
 
         root.getChildren().addAll(map, perso);
         return root;
