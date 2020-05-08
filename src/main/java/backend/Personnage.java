@@ -1,17 +1,21 @@
-package main.java.backend;
+package backend;
 
 public class Personnage {
     private int id; // surement affecter par une valeur satic
-    private Carac caracteristique;
+    private backend.Carac caracteristique;
 
-    public Personnage(int id, Carac caracteristique) {
+    public Personnage(int id, backend.Carac caracteristique) {
         this.id = id;
         this.caracteristique = caracteristique;
     }
 
-    public void attack(Coordinate coodinate){
-        Personnage adversaire = getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
+    public void attack(backend.Coordinate coodinate){
+        backend.Personnage adversaire = getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
         adversaire.getAttacked(caracteristique.getAttacStrength());
+    }
+
+    private backend.Personnage getPersonnageAt(backend.Coordinate coodinate) {
+
     }
 
     public void getAttacked(double attackStenght){
@@ -31,11 +35,11 @@ public class Personnage {
         this.id = id;
     }
 
-    public Carac getCaracteristique() {
+    public backend.Carac getCaracteristique() {
         return caracteristique;
     }
 
-    public void setCaracteristique(Carac caracteristique) {
+    public void setCaracteristique(backend.Carac caracteristique) {
         this.caracteristique = caracteristique;
     }
 }

@@ -1,4 +1,6 @@
-package main.java.backend;
+package backend;
+
+import java.lang.reflect.Field;
 
 public class Coordinate {
     private int x, y;
@@ -17,7 +19,7 @@ public class Coordinate {
         return y;
     }
 
-    public field getField() {
+    public Field getField() {
         return field;
     }
 }

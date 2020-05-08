@@ -1,3 +1,5 @@
+package backend;
+
 import javax.swing.text.html.ImageView;
 import java.io.FileInputStream;
 
@@ -6,10 +8,11 @@ public class PersonnageDisplay {
     ImageView imageView;
     String orientation;
     boolean isAlive;
-    Coordinate coordinate;
+    backend.Coordinate coordinate;
+    backend.Personnage perso;
 
     boolean sAlive(){
-        return isAlive;
+        return isAlive = perso.getCaracteristique().getHp() <= 0 ;
     }
     void setDeath(){
         isAlive = false;
@@ -17,8 +20,8 @@ public class PersonnageDisplay {
     void setOrientation(String orientation){
         this.orientation = orientation;
     }
-    void move(Coordinate coordinate){
-
+    void move(backend.Coordinate coordinate){
+        this.coordinate = coordinate;
     }
 
 }
