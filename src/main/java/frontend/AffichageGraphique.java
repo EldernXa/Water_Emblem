@@ -28,27 +28,23 @@ public class AffichageGraphique {
         rect2.setWidth(width);
         rect2.setFill(Color.GREEN);
         rect2.setStroke(Color.BLACK);
+        Rectangle rect3 = new Rectangle();
+        rect3.setHeight(height);
+        rect3.setWidth(width);
+        rect3.setFill(Color.WHITE);
+        rect3.setStroke(Color.BLACK);
         root.setAlignment(Pos.TOP_LEFT);
         map.setAlignment(Pos.TOP_LEFT);
         map.add(rect1, 0, 0);
         map.add(rect2, 1, 0);
+        map.add(rect3, 2, 0);
 
 
         AffichePerso affichePerso = new AffichePerso();
         perso = affichePerso.getGridPanePerso();
 
-        Coordinate coordinate = new Coordinate(1, 1);
-        affichePerso.move(coordinate);
-        perso = affichePerso.getGridPanePerso();
+        Event.clickOnMap(perso, affichePerso, width);
 
-        perso.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                int x = (int)Math.floor(event.getX()/width);
-                int y = (int)Math.floor(event.getY()/height);
-                affichePerso.move(new Coordinate(x, y));
-            }
-        });
 
         root.getChildren().addAll(map, perso);
         return root;

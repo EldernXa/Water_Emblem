@@ -25,11 +25,11 @@ public class AffichePerso {
         perso.setVgap(50);
         perso.setHgap(50);
         try {
-            FileInputStream inputStream = new FileInputStream("./src/main/resources/maps/WaterEmblemMap01.png");
+            FileInputStream inputStream = new FileInputStream("./src/main/resources/a.png");
             Image img = new Image(inputStream);
             imgView = new ImageView(img);
-            imgView.setFitHeight(25);
-            imgView.setFitWidth(25);
+            imgView.setFitHeight(50);
+            imgView.setFitWidth(50);
             perso.add(imgView, 0, 0);
         }catch(FileNotFoundException exception){
             System.out.println("Image non existant.");

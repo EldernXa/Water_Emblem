@@ -15,7 +15,7 @@ public class Personnage {
     }
 
     private backend.Personnage getPersonnageAt(backend.Coordinate coodinate) {
-
+        return null;
     }
 
     public void getAttacked(double attackStenght){

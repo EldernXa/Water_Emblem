@@ -1,5 +1,4 @@
 plugins {
-    id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.8'
 }
@@ -17,8 +16,8 @@ dependencies {
 }
 
 javafx {
-    modules = ['javafx.controls']
-    version = 14
+    modules = ['javafx.fxml', 'javafx.controls']
+    version = "11.0.2"
 }
 
 mainClassName = 'WaterEmblemMain'
