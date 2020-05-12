@@ -1,20 +1,12 @@
 import frontend.AffichageGraphique;
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 
 public class WaterEmblemMain extends Application {
 
-    public void start(Stage primaryStage)throws FileNotFoundException
+    public void start(Stage primaryStage)
     {
         /*int tailleX = 50, tailleY = 50;
         Rectangle rect = new Rectangle();
