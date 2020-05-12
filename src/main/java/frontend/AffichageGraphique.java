@@ -13,7 +13,7 @@ import java.io.FileNotFoundException;
 
 public class AffichageGraphique {
 
-    public Pane init(){
+    public Pane init() throws FileNotFoundException {
         int height = 50, width = 50;
         GridPane root = new GridPane();
         GridPane map = new GridPane();
