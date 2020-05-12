@@ -2,16 +2,22 @@ package backend;
 
 public class Personnage {
     private int id; // surement affecter par une valeur satic
-    private backend.Carac caracteristique;
+    static private int nbPerso;
+    private Carac caracteristique;
 
-    public Personnage(int id, backend.Carac caracteristique) {
-        this.id = id;
-        this.caracteristique = caracteristique;
+    public Personnage(String name , String type) {
+        id = nbPerso;
+        nbPerso++;
+        caracteristique = new Carac(name, type);
     }
-
-    public void attack(backend.Coordinate coodinate){
+    public Personnage(String type) {
+        id = nbPerso;
+        nbPerso++;
+        caracteristique = new Carac(type);
+    }
+    public void attack(Coordinate coodinate){
         backend.Personnage adversaire = getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
-        adversaire.getAttacked(caracteristique.getAttacStrength());
+        adversaire.getAttacked(caracteristique.getStr());
     }
 
     private backend.Personnage getPersonnageAt(backend.Coordinate coodinate) {
@@ -20,10 +26,10 @@ public class Personnage {
 
     public void getAttacked(double attackStenght){
         double hp = caracteristique.getHp();
-        if(attackStenght <= caracteristique.getDefence()){
+        if(attackStenght <= caracteristique.getDef()){
             return;
         }
-        hp = hp + caracteristique.getDefence() - attackStenght;
+        hp = hp + caracteristique.getDef() - attackStenght;
         caracteristique.setHp(hp);
     }
 

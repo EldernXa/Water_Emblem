@@ -125,17 +125,17 @@ public class DataPerso {
         }
     }
 
-    public ArrayList<String> getUnite(String nomUnite) {
+    static public ArrayList<String> getUnite(String nomUnite) {
         return getArrayListInfo("src/main/resources/data/Unites.txt", nomUnite);
 
     }
 
-    public ArrayList<String> getCharacter(String nom) {
+    static public ArrayList<String> getCharacter(String nom) {
         return getArrayListInfo("src/main/resources/data/Character.txt", nom);
 
     }
 
-    private ArrayList<String> getArrayListInfo(String file, String nomUnite) {
+    static private ArrayList<String> getArrayListInfo(String file, String nomUnite) {
         ArrayList<String> unite = new ArrayList<String>();
 
         try (Stream<String> stream = Files.lines(Paths.get(file))) {
@@ -170,16 +170,16 @@ public class DataPerso {
     }
 
 
-    public String getCharacterLine(String nom) {
+    static public String getCharacterLine(String nom) {
         ArrayList<String> character = getCharacter(nom);
         return  getLine(character);
     }
-    public String getUniteLine(String nomUnite) {
+    static public String getUniteLine(String nomUnite) {
         ArrayList<String> unite = getUnite(nomUnite);
         return getLine(unite);
 
     }
-    private String getLine(ArrayList unite) {
+    static private String getLine(ArrayList unite) {
 
         String name = "";
         for (int i = 0; i < unite.size(); i++) {
@@ -191,20 +191,20 @@ public class DataPerso {
     }
 
 
-    public String getStatsCharacter(String name, String stat) {
+    static public String getStatsCharacter(String name, String stat) {
         ArrayList<String> character = getCharacter(name);
         character.remove(0);
         return getStats(character, stat);
     }
 
-    public String getStatsUnite(String uniteChoisis, String stat) {
+    static public String getStatsUnite(String uniteChoisis, String stat) {
         ArrayList<String> unite = getUnite(uniteChoisis);
 
         return getStats(unite, stat);
 
     }
 
-    private String getStats(ArrayList<String> unite, String stat) {
+    static private String getStats(ArrayList<String> unite, String stat) {
 
         switch (stat) {
             case "unite":
@@ -253,7 +253,7 @@ public class DataPerso {
     }
 
 
-    public void setCharacterStats(String name, String stat, int value) {
+    static public void setCharacterStats(String name, String stat, int value) {
 
         ArrayList<String> character = getCharacter(name);
         String characterLine = getCharacterLine(name);
