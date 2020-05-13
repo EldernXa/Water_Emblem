@@ -1,19 +1,30 @@
 package backend;
 
+import java.util.ArrayList;
+
 public class Personnage {
     private int id; // surement affecter par une valeur satic
     static private int nbPerso;
     private Carac caracteristique;
+    private Coordinate pos;
+
 
     public Personnage(String name , String type) {
         id = nbPerso;
         nbPerso++;
         caracteristique = new Carac(name, type);
+        this.pos = pos;
     }
     public Personnage(String type) {
         id = nbPerso;
         nbPerso++;
         caracteristique = new Carac(type);
+        this.pos = pos;
+    }
+    private Personnage(Personnage perso){
+        id = perso.id;
+        pos = perso.pos;
+        caracteristique = perso.caracteristique;//pas sur, peut etre pb d adresse
     }
     public void attack(Coordinate coodinate){
         backend.Personnage adversaire = getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
@@ -33,6 +44,18 @@ public class Personnage {
         caracteristique.setHp(hp);
     }
 
+    public Personnage cloner(){
+        return new Personnage(this);
+
+    }
+    public ArrayList<Coordinate> getMovmentPossible(){
+        return new ArrayList<>();
+    }
+
+    public ArrayList<Coordinate> getAttaquePossible(){
+        return new ArrayList<>();
+    }
+
     public int getId() {
         return id;
     }
@@ -47,5 +70,13 @@ public class Personnage {
 
     public void setCaracteristique(backend.Carac caracteristique) {
         this.caracteristique = caracteristique;
+    }
+
+    public Coordinate getPos() {
+        return pos;
+    }
+
+    public void setPos(Coordinate pos) {
+        this.pos = pos;
     }
 }
