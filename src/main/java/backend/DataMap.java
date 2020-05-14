@@ -9,15 +9,32 @@ import java.util.stream.Stream;
 
 public class DataMap {
 
-    String path;
-    ArrayList<ArrayList<Coordinate>> coordiantes;
+   private String path;
+   private ArrayList<ArrayList<Coordinate>> coordinates;
+   private ArrayList<Integer> mapLimits;
 
     public DataMap(String map) {
-        path = "src/main/resources/data/" + map + ".txt";
+        mapLimits = new ArrayList<>();
+        path = "src/main/resources/dataMap/" + map + ".txt";
+        String pathCoord = "src/main/resources/dataCoordCharacters/" + map + ".co";
+        File f = new File(pathCoord);
+        if (!(f.exists() && !f.isDirectory())) {
 
+            try {
+
+                f.getParentFile().mkdirs();
+                f.createNewFile();
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        setCoordinate();
     }
 
-    public ArrayList<ArrayList<Coordinate>> setCoordinate() {
+    private void setCoordinate() {
         File map = new File(path);
 
 
@@ -36,7 +53,7 @@ public class DataMap {
 
                         Coordinate test = new Coordinate(i-1,j);
                         test.setField(getField(ary[j]));
-                        //System.out.println(test.getX()+" " +test.getY() + " " +test.getField());
+    
 
                         yCoordinates.add(test);
                     }
@@ -45,28 +62,29 @@ public class DataMap {
 
             }
 
-            coordiantes = xCoordinates;
+            this.coordinates = xCoordinates;
 
 
-//            for(int i =0; i < coordiantes.size(); i++){
-//                for( int j = 0; j < coordiantes.get(i).size() ; j++){
-//                    System.out.println(coordiantes.get(i).get(j).getX() + " " + coordiantes.get(i).get(j).getY() + " "+ coordiantes.get(i).get(j).getField() );
-//                }
-//            }
-
-
-        return coordiantes;
+            mapLimits.add(coordinates.size());
+            mapLimits.add(coordinates.get(0).size());
 
 
 
+        
 
 
 
         } catch (IOException e) {
-
+            coordinates = null;
         }
-        return null;
+
     }
+
+    public ArrayList<ArrayList<Coordinate>> getcoordinates(){
+        return coordinates;
+    }
+
+d
 
     private Field getField(String field) {
 
@@ -83,6 +101,10 @@ public class DataMap {
         }
 
         return null;
+    }
+
+    public ArrayList<Integer> getMapLimits(){
+        return mapLimits;
     }
 
 

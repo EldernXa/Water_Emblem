@@ -1,4 +1,3 @@
-import backend.Personnage;
 import frontend.AffichageGraphique;
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -13,7 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 
-public class WaterEmblemMain  {
+public class WaterEmblemMain extends Application {
 
     public void start(Stage primaryStage)throws FileNotFoundException
     {
@@ -58,18 +57,5 @@ public class WaterEmblemMain  {
     }
     public static void main(String[] args){
         //launch(args);
-        Personnage p = new Personnage( "Marth","Chevalier");
-        System.out.println(p.getCaracteristique().getName());
-        System.out.println(p.getCaracteristique().getHp());
-        System.out.println(p.getCaracteristique().getWep1());
-        Personnage r = p.cloner();
-        if(r.getCaracteristique().getDef() != p.getCaracteristique().getDef()){
-            System.out.println("aaaaa");
-        }
-        r.getCaracteristique().setDef(100);
-        if(r.getCaracteristique().getDef() != p.getCaracteristique().getDef()){
-            System.out.println(p.getCaracteristique().getDef() +" "+ r.getCaracteristique().getDef());
-        }
-
     }
 }
