@@ -18,7 +18,7 @@ public class DataPerso {
 
 
     public void createUnit() {
-        File BDPerso = new File("src/main/resources/data/Unites.txt");
+        File BDPerso = new File("src/main/resources/dataPerso/Unites.txt");
         try {
 
 
@@ -26,57 +26,57 @@ public class DataPerso {
             System.out.println("nom de l'Unité: ");
             Scanner scanner = new Scanner(System.in);
             String nomUnite = scanner.nextLine();
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), nomUnite.getBytes(), StandardOpenOption.APPEND);
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), nomUnite.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
 
             System.out.println("Hp l'Unité: ");
             String hp = scanner.nextLine();
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), hp.getBytes(), StandardOpenOption.APPEND);
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), hp.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
 
             System.out.println("STR de l'Unité: ");
             String str = scanner.nextLine();
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), str.getBytes(), StandardOpenOption.APPEND);
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), str.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
 
             System.out.println("MAG de l'Unité: ");
             String mag = scanner.nextLine();
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), mag.getBytes(), StandardOpenOption.APPEND);
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), mag.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
 
             System.out.println("SKL de l'Unité: ");
             String skl = scanner.nextLine();
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), skl.getBytes(), StandardOpenOption.APPEND);
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), skl.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
 
             System.out.println("SPD de l'Unité: ");
             String spd = scanner.nextLine();
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), spd.getBytes(), StandardOpenOption.APPEND);
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), spd.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
 
             System.out.println("LCK de l'Unité: ");
             String lck = scanner.nextLine();
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), lck.getBytes(), StandardOpenOption.APPEND);
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), lck.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
 
             System.out.println("DEF de l'Unité: ");
             String def = scanner.nextLine();
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), def.getBytes(), StandardOpenOption.APPEND);
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), def.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
 
             System.out.println("res de l'Unité: ");
             String res = scanner.nextLine();
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), res.getBytes(), StandardOpenOption.APPEND);
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), res.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
 
             System.out.println("mov de l'Unité: ");
             String mov = scanner.nextLine();
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), mov.getBytes(), StandardOpenOption.APPEND);
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), mov.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
 
             System.out.println("arme1 de l'Unité: ");
             String arme1 = scanner.nextLine();
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), arme1.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), arme1.getBytes(), StandardOpenOption.APPEND);
 
 
             System.out.println("l'Unité a-elle d'autres armes ? oui : 1 | non : 0 ");
@@ -85,10 +85,10 @@ public class DataPerso {
 
 
                 if (test.equals("1")) {
-                    Files.write(Paths.get("src/main/resources/data/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
+                    Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), ";".getBytes(), StandardOpenOption.APPEND);
                     System.out.println("arme de l'Unité: ");
                     String arme = scanner.nextLine();
-                    Files.write(Paths.get("src/main/resources/data/Unites.txt"), arme.getBytes(), StandardOpenOption.APPEND);
+                    Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), arme.getBytes(), StandardOpenOption.APPEND);
 
                     System.out.println("l'Unité a-elle d'autres armes ? oui : 1 | non : 0 ");
                     test = scanner.nextLine();
@@ -100,7 +100,7 @@ public class DataPerso {
                 }
 
             }
-            Files.write(Paths.get("src/main/resources/data/Unites.txt"), "\n".getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Unites.txt"), "\n".getBytes(), StandardOpenOption.APPEND);
 
 
         } catch (IOException e) {
@@ -113,11 +113,11 @@ public class DataPerso {
     public void createCharacterUnit(String name, String Unite) {
 
         try {
-            File test = new File("src/main/resources/data/Character.txt");
-            Files.write(Paths.get("src/main/resources/data/Character.txt"), name.getBytes(), StandardOpenOption.APPEND);
-            Files.write(Paths.get("src/main/resources/data/Character.txt"), ";".getBytes(), StandardOpenOption.APPEND);
-            Files.write(Paths.get("src/main/resources/data/Character.txt"), getUniteLine(Unite).getBytes(), StandardOpenOption.APPEND);
-            Files.write(Paths.get("src/main/resources/data/Character.txt"), "\n".getBytes(), StandardOpenOption.APPEND);
+            File test = new File("src/main/resources/dataPerso/Character.txt");
+            Files.write(Paths.get("src/main/resources/dataPerso/Character.txt"), name.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Character.txt"), ";".getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Character.txt"), getUniteLine(Unite).getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("src/main/resources/dataPerso/Character.txt"), "\n".getBytes(), StandardOpenOption.APPEND);
 
 
         } catch (IOException e) {
@@ -126,12 +126,12 @@ public class DataPerso {
     }
 
     static public ArrayList<String> getUnite(String nomUnite) {
-        return getArrayListInfo("src/main/resources/data/Unites.txt", nomUnite);
+        return getArrayListInfo("src/main/resources/dataPerso/Unites.txt", nomUnite);
 
     }
 
     static public ArrayList<String> getCharacter(String nom) {
-        return getArrayListInfo("src/main/resources/data/Character.txt", nom);
+        return getArrayListInfo("src/main/resources/dataPerso/Character.txt", nom);
 
     }
 
@@ -153,6 +153,7 @@ public class DataPerso {
                         statsunite.add(subString);
 
                     }
+
                     return statsunite;
                 }
 
@@ -303,7 +304,7 @@ public class DataPerso {
 
         try {
             List<String> fileContent = new ArrayList<String>();
-            fileContent = readAllLines(Paths.get("src/main/resources/data/Character.txt"));
+            fileContent = readAllLines(Paths.get("src/main/resources/dataPerso/Character.txt"));
 
 
             for (int i = 0; i < fileContent.size(); i++) {
@@ -315,7 +316,7 @@ public class DataPerso {
                 }
             }
 
-            Files.write(Paths.get("src/main/resources/data/Character.txt"), fileContent, StandardCharsets.UTF_8);
+            Files.write(Paths.get("src/main/resources/dataPerso/Character.txt"), fileContent, StandardCharsets.UTF_8);
 
 
         } catch (IOException e) {
