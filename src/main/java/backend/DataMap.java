@@ -62,7 +62,8 @@ public class DataMap {
 
             }
 
-            coordinates = xCoordinates;
+            this.coordinates = xCoordinates;
+
 
             mapLimits.add(coordinates.size());
             mapLimits.add(coordinates.get(0).size());
@@ -74,14 +75,16 @@ public class DataMap {
 
 
         } catch (IOException e) {
-
+            coordinates = null;
         }
-        coordinates = null;
+
     }
 
     public ArrayList<ArrayList<Coordinate>> getcoordinates(){
         return coordinates;
     }
+
+
 
     private Field getField(String field) {
 
