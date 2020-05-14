@@ -1,19 +1,15 @@
 package frontend;
 
-import backend.Coordinate;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.io.FileNotFoundException;
 
 public class AffichageGraphique {
 
-    public Pane init() throws FileNotFoundException {
+    public Pane init() {
         int height = 50, width = 50;
         GridPane root = new GridPane();
         GridPane map = new GridPane();
