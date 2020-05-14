@@ -24,7 +24,7 @@ public class Carac {
     // Prenom / nomUnite / HP / STR / MAG / Skl / Spd /Lck / Def / Res / Mov / Arme1 / Arme2 / Arme3
     //nom / type /HP / STR / MAG / Skl / Spd /Lck / Def / Res / Mov / Arme1 / Arme2 / Arme3
 
-    public Carac(String name, int a){
+    public Carac(String name){
         int i = 0;
         ArrayList<String> list;
         if(DataPerso.getCharacter(name) != null){

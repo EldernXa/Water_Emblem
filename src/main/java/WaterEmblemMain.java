@@ -58,7 +58,7 @@ public class WaterEmblemMain  {
     }
     public static void main(String[] args){
         //launch(args);
-        Personnage p = new Personnage("Cavalie", "aea");
+        Personnage p = new Personnage("Cavalie");
         System.out.println(p.getCaracteristique().getDef());
     }
 }
