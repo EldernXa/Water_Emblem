@@ -23,69 +23,50 @@ public class Carac {
     private String wep3;
     // Prenom / nomUnite / HP / STR / MAG / Skl / Spd /Lck / Def / Res / Mov / Arme1 / Arme2 / Arme3
     //nom / type /HP / STR / MAG / Skl / Spd /Lck / Def / Res / Mov / Arme1 / Arme2 / Arme3
-    public Carac(String name, String type){
 
-        ArrayList<String> list =  DataPerso.getCharacter(name);
-        this.name = list.get(0);
-        this.type = list.get(1);
-        if(this.type.compareTo(type) != 0){
-            System.out.println("pb de bd : pour : " + name + "on donne le type :" + type + "main on lit : "+ this.type );
+    public Carac(String name, int a){
+        int i = 0;
+        ArrayList<String> list;
+        if(DataPerso.getCharacter(name) != null){
+            list =  DataPerso.getCharacter(name);
+            this.name = list.get(0);
+            i++;
+        }
+        else if(DataPerso.getUnite(name) != null){
+            list =  DataPerso.getUnite(name);
+            this.name = "mechant";
+        }
+
+        else {
+            System.out.println("creation d un carac sans un non de perso ou de type, inconue : " + name);
             System.exit(3);
-        }
-        // maxHp = Integer.parseInt(list.get(2)); a voir si on garde
-        hp = Integer.parseInt(list.get(2));
-        str = Integer.parseInt(list.get(3));
-        mag = Integer.parseInt(list.get(4));
-        skl = Integer.parseInt(list.get(5));
-        spd = Integer.parseInt(list.get(6));
-        lck = Integer.parseInt(list.get(7));
-        def = Integer.parseInt(list.get(8));
-        res = Integer.parseInt(list.get(9));
-        mov = Integer.parseInt(list.get(10));
-        if(list.size() == 11){
             return;
         }
-        wep1 = list.get(11);
-        if(list.size() == 12){
-            return;
-        }
-        wep2 = list.get(12);
-        if(list.size() == 13){
-            return;
-        }
-        wep3 = list.get(13);
-    }
 
-    public Carac(String type) {
-        name = "mechant";
-        ArrayList<String> list =  DataPerso.getUnite(type);
-
-        for (String s : list){
-            System.out.println(s);
-        }
-        this.type = list.get(0);
+        this.type = list.get(i++);
         // maxHp = Integer.parseInt(list.get(1)); a voir si on garde
-        hp = Integer.parseInt(list.get(1));
-        str = Integer.parseInt(list.get(2));
-        mag = Integer.parseInt(list.get(3));
-        skl = Integer.parseInt(list.get(4));
-        spd = Integer.parseInt(list.get(5));
-        lck = Integer.parseInt(list.get(6));
-        def = Integer.parseInt(list.get(7));
-        res = Integer.parseInt(list.get(8));
-        mov = Integer.parseInt(list.get(9));
-        if(list.size() == 10){
+        hp = Integer.parseInt(list.get(i++));
+        str = Integer.parseInt(list.get(i++));
+        mag = Integer.parseInt(list.get(i++));
+        skl = Integer.parseInt(list.get(i++));
+        spd = Integer.parseInt(list.get(i++));
+        lck = Integer.parseInt(list.get(i++));
+        def = Integer.parseInt(list.get(i++));
+        res = Integer.parseInt(list.get(i++));
+        mov = Integer.parseInt(list.get(i++));
+        if(list.size() == i){
             return;
         }
-        wep1 = list.get(10);
-        if(list.size() == 11){
+        wep1 = list.get(i++);
+        if(list.size() == i){
             return;
         }
-        wep2 = list.get(11);
-        if(list.size() == 12){
+        wep2 = list.get(i++);
+        if(list.size() == i){
             return;
         }
-        wep3 = list.get(12);
+        wep3 = list.get(i);
+
     }
 
     private Carac(Carac c){

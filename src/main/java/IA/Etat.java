@@ -38,7 +38,7 @@ public class Etat {
             for (Personnage p : listMechant){
                 if(p.getPos() == pos){
                     Personnage newP = p.cloner();
-                    newP.getAttacked(gentil.getCaracteristique().getStr());
+                    //newP.getAttacked(gentil.getCaracteristique().getStr());
                     listMechant.set(listMechant.indexOf(p), newP);
                 }
             }

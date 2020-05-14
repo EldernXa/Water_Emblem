@@ -84,7 +84,7 @@ public class DataMap {
         return coordinates;
     }
 
-d
+
 
     private Field getField(String field) {
 

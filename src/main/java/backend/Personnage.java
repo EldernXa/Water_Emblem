@@ -9,18 +9,13 @@ public class Personnage {
     private Coordinate pos;
 
 
-    public Personnage(String name , String type) {
+    public Personnage(String name) {
         id = nbPerso;
         nbPerso++;
-        caracteristique = new Carac(name, type);
+        caracteristique = new Carac(name);
         this.pos = pos;
     }
-    public Personnage(String type) {
-        id = nbPerso;
-        nbPerso++;
-        caracteristique = new Carac(type);
-        this.pos = pos;
-    }
+
     private Personnage(Personnage perso){
         id = perso.id;
         pos = perso.pos;
