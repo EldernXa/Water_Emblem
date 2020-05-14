@@ -12,9 +12,10 @@ public class AffichageGraphique {
     public Pane init() {
         int height = 50, width = 50;
         GridPane root = new GridPane();
-        GridPane map = new GridPane();
+        AfficheMap afficheMap = new AfficheMap("Map");
+        GridPane map = afficheMap.getMap();
         GridPane perso;
-        Rectangle rect1 = new Rectangle();
+        /*Rectangle rect1 = new Rectangle();
         rect1.setHeight(height);
         rect1.setWidth(width);
         rect1.setFill(Color.WHITE);
@@ -33,7 +34,7 @@ public class AffichageGraphique {
         map.setAlignment(Pos.TOP_LEFT);
         map.add(rect1, 0, 0);
         map.add(rect2, 1, 0);
-        map.add(rect3, 2, 0);
+        map.add(rect3, 2, 0);*/
 
 
         AffichePerso affichePerso = new AffichePerso();
