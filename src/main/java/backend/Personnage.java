@@ -24,25 +24,25 @@ public class Personnage {
     private Personnage(Personnage perso){
         id = perso.id;
         pos = perso.pos;
-        caracteristique = perso.caracteristique;//pas sur, peut etre pb d adresse
+        caracteristique = perso.caracteristique.cloner();//pas sur, peut etre pb d adresse
     }
     public void attack(Coordinate coodinate){
         backend.Personnage adversaire = getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
-        adversaire.getAttacked(caracteristique.getStr());
+        //adversaire.getAttacked(caracteristique.getStr());
     }
 
     private backend.Personnage getPersonnageAt(backend.Coordinate coodinate) {
         return null;
     }
-
-    public void getAttacked(double attackStenght){
-        double hp = caracteristique.getHp();
+/*
+    public void getAttacked(int attackStenght){
+        int hp = caracteristique.getHp();
         if(attackStenght <= caracteristique.getDef()){
             return;
         }
         hp = hp + caracteristique.getDef() - attackStenght;
         caracteristique.setHp(hp);
-    }
+    }*/
 
     public Personnage cloner(){
         return new Personnage(this);

@@ -8,24 +8,25 @@ import java.util.Scanner;
 public class Carac {
     private String name;
     private String type;
-    private double maxHp;
-    private double hp;
-    private double str;
-    private double def;
-    private double mag;
-    private double skl;
-    private double lck;
-    private double res;
-    private double mov;
+    private int maxHp;
+    private int hp;
+    private int str;
+    private int def;
+    private int spd;
+    private int mag;
+    private int skl;
+    private int lck;
+    private int res;
+    private int mov;
     private String wep1;
     private String wep2;
     private String wep3;
-
+    // Prenom / nomUnite / HP / STR / MAG / Skl / Spd /Lck / Def / Res / Mov / Arme1 / Arme2 / Arme3
     //nom / type /HP / STR / MAG / Skl / Spd /Lck / Def / Res / Mov / Arme1 / Arme2 / Arme3
     public Carac(String name, String type){
 
         ArrayList<String> list =  DataPerso.getCharacter(name);
-        name = list.get(0);
+        this.name = list.get(0);
         this.type = list.get(1);
         if(this.type.compareTo(type) != 0){
             System.out.println("pb de bd : pour : " + name + "on donne le type :" + type + "main on lit : "+ this.type );
@@ -34,10 +35,43 @@ public class Carac {
         // maxHp = Integer.parseInt(list.get(2)); a voir si on garde
         hp = Integer.parseInt(list.get(2));
         str = Integer.parseInt(list.get(3));
-        def = Integer.parseInt(list.get(4));
-        mag = Integer.parseInt(list.get(5));
-        skl = Integer.parseInt(list.get(6));
+        mag = Integer.parseInt(list.get(4));
+        skl = Integer.parseInt(list.get(5));
+        spd = Integer.parseInt(list.get(6));
         lck = Integer.parseInt(list.get(7));
+        def = Integer.parseInt(list.get(8));
+        res = Integer.parseInt(list.get(9));
+        mov = Integer.parseInt(list.get(10));
+        if(list.size() == 11){
+            return;
+        }
+        wep1 = list.get(11);
+        if(list.size() == 12){
+            return;
+        }
+        wep2 = list.get(12);
+        if(list.size() == 13){
+            return;
+        }
+        wep3 = list.get(13);
+    }
+
+    public Carac(String type) {
+        name = "mechant";
+        ArrayList<String> list =  DataPerso.getUnite(type);
+
+        for (String s : list){
+            System.out.println(s);
+        }
+        this.type = list.get(0);
+        // maxHp = Integer.parseInt(list.get(1)); a voir si on garde
+        hp = Integer.parseInt(list.get(1));
+        str = Integer.parseInt(list.get(2));
+        mag = Integer.parseInt(list.get(3));
+        skl = Integer.parseInt(list.get(4));
+        spd = Integer.parseInt(list.get(5));
+        lck = Integer.parseInt(list.get(6));
+        def = Integer.parseInt(list.get(7));
         res = Integer.parseInt(list.get(8));
         mov = Integer.parseInt(list.get(9));
         if(list.size() == 10){
@@ -52,38 +86,31 @@ public class Carac {
             return;
         }
         wep3 = list.get(12);
-
-
     }
 
-    public Carac(String type) {
-        name = "mechant";
-        ArrayList<String> list =  DataPerso.getUnite(type);
-        type = list.get(0);
-        // maxHp = Integer.parseInt(list.get(1)); a voir si on garde
-        hp = Integer.parseInt(list.get(1));
-        str = Integer.parseInt(list.get(2));
-        def = Integer.parseInt(list.get(3));
-        mag = Integer.parseInt(list.get(4));
-        skl = Integer.parseInt(list.get(5));
-        lck = Integer.parseInt(list.get(6));
-        res = Integer.parseInt(list.get(7));
-        mov = Integer.parseInt(list.get(8));
-        if(list.size() == 9){
-            return;
-        }
-        wep1 = list.get(9);
-        if(list.size() == 10){
-            return;
-        }
-        wep2 = list.get(10);
-        if(list.size() == 11){
-            return;
-        }
-        wep3 = list.get(11);
+    private Carac(Carac c){
+        name = c.name;
+        type = c.type;
+        maxHp = c.maxHp;
+        hp = c.hp;
+        str = c.str;
+        def = c.def;
+        spd = c.spd;
+        mag = c.mag;
+        skl = c.skl;
+        lck = c.lck;
+        res = c.res;
+        mov = c.mov;
+        wep1 = c.wep1;
+        wep2 = c.wep2;
+        wep3 = c.wep3;
     }
 
-    public String getName() {
+    public Carac cloner(){
+        return new Carac(this);
+    }
+
+    public String getName(){
         return name;
     }
 
@@ -99,75 +126,75 @@ public class Carac {
         this.type = type;
     }
 
-    public double getMaxHp() {
+    public int getMaxHp() {
         return maxHp;
     }
 
-    public void setMaxHp(double maxHp) {
+    public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
     }
 
-    public double getHp() {
+    public int getHp() {
         return hp;
     }
 
-    public void setHp(double hp) {
+    public void setHp(int hp) {
         this.hp = hp;
     }
 
-    public double getStr() {
+    public int getStr() {
         return str;
     }
 
-    public void setStr(double str) {
+    public void setStr(int str) {
         this.str = str;
     }
 
-    public double getDef() {
+    public int getDef() {
         return def;
     }
 
-    public void setDef(double def) {
+    public void setDef(int def) {
         this.def = def;
     }
 
-    public double getMag() {
+    public int getMag() {
         return mag;
     }
 
-    public void setMag(double mag) {
+    public void setMag(int mag) {
         this.mag = mag;
     }
 
-    public double getSkl() {
+    public int getSkl() {
         return skl;
     }
 
-    public void setSkl(double skl) {
+    public void setSkl(int skl) {
         this.skl = skl;
     }
 
-    public double getLck() {
+    public int getLck() {
         return lck;
     }
 
-    public void setLck(double lck) {
+    public void setLck(int lck) {
         this.lck = lck;
     }
 
-    public double getRes() {
+    public int getRes() {
         return res;
     }
 
-    public void setRes(double res) {
+    public void setRes(int res) {
         this.res = res;
     }
 
-    public double getMov() {
+    public int getMov() {
         return mov;
     }
 
-    public void setMov(double mov) {
+    public void setMov(int mov) {
         this.mov = mov;
     }
 

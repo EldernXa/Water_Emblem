@@ -10,11 +10,15 @@ public class Etat {
     private ArrayList<Personnage> listMechant;
     private Personnage gentil;
     private Field field;
+    private int valHeuristique;
 
     public Etat(ArrayList<Personnage> listMechant, Personnage gentil, Field field) {
         this.listMechant = listMechant;
         this.gentil = gentil;
         this.field = field;
+    }
+    public ArrayList<Etat> getToutPossibilité(boolean gentilJoue){
+        return new ArrayList<>();
     }
 
     private ArrayList<Etat> déplacerGentil(){
@@ -42,4 +46,17 @@ public class Etat {
         }
         return listAttaque;
     }
+
+    public boolean estFinal(){
+        return false;
+    }
+
+    public int getValHeuristique() {
+        return valHeuristique;
+    }
+
+    public void setValHeuristique(int valHeuristique) {
+        this.valHeuristique = valHeuristique;
+    }
 }
+
