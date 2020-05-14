@@ -5,5 +5,5 @@ F---V-
 FF----
 -F----
 -F----
-
-(avec F une forêt, V volcan, R rivière et le reste plaine)
+//
+//(avec F une forêt, V volcan, R rivière et le reste plaine)
