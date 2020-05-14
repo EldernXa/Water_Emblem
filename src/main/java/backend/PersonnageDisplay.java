@@ -23,5 +23,7 @@ public class PersonnageDisplay {
     void move(backend.Coordinate coordinate){
         this.coordinate = coordinate;
     }
+    public Coordinate getCoordinate(){return this.coordinate;}
+    public Personnage getPersonnage(){return perso;}
 
 }

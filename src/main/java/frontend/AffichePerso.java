@@ -2,6 +2,7 @@ package frontend;
 
 import backend.Coordinate;
 import backend.Personnage;
+import backend.PersonnageDisplay;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -11,8 +12,8 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 public class AffichePerso {
-    List<Personnage> listPersonnage;
-    List<Personnage> listEnnemi;
+    static List<PersonnageDisplay> listPersonnage;
+    static List<PersonnageDisplay> listEnnemi;
     GridPane perso;
     ImageView imgView;
 
@@ -47,6 +48,22 @@ public class AffichePerso {
     public void move(Coordinate coordinate){
         GridPane.setColumnIndex(imgView, coordinate.getX());
         GridPane.setRowIndex(imgView, coordinate.getY());
+    }
+
+    public static Personnage getPersonnageAt(Coordinate coordinate){
+        for(PersonnageDisplay p: listPersonnage){
+            if(p.getCoordinate().equal(coordinate))
+            {
+                return p.getPersonnage();
+            }
+        }
+        for(PersonnageDisplay p:listEnnemi){
+            if(p.getCoordinate().equals(coordinate))
+            {
+                return p.getPersonnage();
+            }
+        }
+        return null;
     }
 
 }
