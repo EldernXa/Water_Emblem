@@ -1,9 +1,8 @@
 package backend;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import backend.data.DataPerso;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Carac {
     private String name;

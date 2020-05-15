@@ -1,4 +1,7 @@
-package backend;
+package backend.data;
+
+import backend.Coordinate;
+import backend.field.*;
 
 import java.io.File;
 import java.io.IOException;

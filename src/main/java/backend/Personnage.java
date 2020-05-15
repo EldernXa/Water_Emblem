@@ -1,5 +1,7 @@
 package backend;
 
+import frontend.AffichePerso;
+
 import java.util.ArrayList;
 
 public class Personnage {
@@ -22,13 +24,10 @@ public class Personnage {
         caracteristique = perso.caracteristique.cloner();//pas sur, peut etre pb d adresse
     }
     public void attack(Coordinate coodinate){
-        backend.Personnage adversaire = getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
-        //adversaire.getAttacked(caracteristique.getStr());
+        Personnage adversaire = AffichePerso.getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
+
     }
 
-    private backend.Personnage getPersonnageAt(backend.Coordinate coodinate) {
-        return null;
-    }
 /*
     public void getAttacked(int attackStenght){
         int hp = caracteristique.getHp();
@@ -41,8 +40,8 @@ public class Personnage {
 
     public Personnage cloner(){
         return new Personnage(this);
-
     }
+
     public ArrayList<Coordinate> getMovmentPossible(){
         return new ArrayList<>();
     }
