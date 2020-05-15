@@ -5,7 +5,7 @@ import frontend.AffichePerso;
 import java.util.ArrayList;
 
 public class Personnage {
-    private int id; // surement affecter par une valeur satic
+    private int id;
     static private int nbPerso;
     private Carac caracteristique;
     private Coordinate pos;
@@ -28,15 +28,7 @@ public class Personnage {
 
     }
 
-/*
-    public void getAttacked(int attackStenght){
-        int hp = caracteristique.getHp();
-        if(attackStenght <= caracteristique.getDef()){
-            return;
-        }
-        hp = hp + caracteristique.getDef() - attackStenght;
-        caracteristique.setHp(hp);
-    }*/
+
 
     public Personnage cloner(){
         return new Personnage(this);

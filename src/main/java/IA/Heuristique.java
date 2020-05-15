@@ -1,4 +1,5 @@
 package IA;
 
-public abstract class Heuristique  {
+public interface Heuristique  {
+    int calculerHeuristique(Etat e);
 }
