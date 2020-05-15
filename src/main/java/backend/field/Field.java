@@ -1,5 +1,6 @@
-package backend;
+package backend.field;
 
+import backend.Personnage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;

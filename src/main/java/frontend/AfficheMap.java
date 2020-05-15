@@ -18,7 +18,7 @@ public class AfficheMap {
 
         for(ArrayList<Coordinate> array: dataMap.getcoordinates()){
             for(Coordinate coordinate: array)
-                map.add(new Rectangle(50, 50, coordinate.getField().getColor()), coordinate.getY(), coordinate.getX());
+                map.add(coordinate.getField().getApsect(), coordinate.getY(), coordinate.getX());
         }
     }
 
