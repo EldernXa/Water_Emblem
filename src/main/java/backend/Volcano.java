@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 public class Volcano extends Field {
 
     public Volcano(){
-        super(Color.RED);
+        super("volcano");
     }
 
     void affect(Personnage personnage){

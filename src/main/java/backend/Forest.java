@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 public class Forest extends Field {
 
     public Forest(){
-        super(Color.GREEN);
+        super("forest");
     }
 
     void affect(Personnage personnage){

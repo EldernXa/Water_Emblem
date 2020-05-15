@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 public class Plaine extends Field {
 
     public Plaine(){
-        super(Color.WHITE);
+        super("paline");
     }
 
     void affect(Personnage personnage) {
