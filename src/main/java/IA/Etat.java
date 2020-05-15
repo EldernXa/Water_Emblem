@@ -8,14 +8,24 @@ import java.util.ArrayList;
 
 public class Etat {
     private ArrayList<Personnage> listMechant;
-    private Personnage gentil;
+    private ArrayList<Personnage> gentils;
     private Field field;
     private int valHeuristique;
+    static Heuristique heuristique;
 
-    public Etat(ArrayList<Personnage> listMechant, Personnage gentil, Field field) {
+    public Etat(ArrayList<Personnage> listMechant, ArrayList<Personnage> gentils, Field field) {
         this.listMechant = listMechant;
-        this.gentil = gentil;
+        this.gentils = gentils;
         this.field = field;
+        valHeuristique = heuristique.calculerHeuristique(this);
+    }
+
+    public Etat(ArrayList<Personnage> listMechant, ArrayList<Personnage> gentils, Field field, Heuristique h) {
+        this.listMechant = listMechant;
+        this.gentils = gentils;
+        this.field = field;
+        heuristique = h;
+        valHeuristique = heuristique.calculerHeuristique(this);
     }
     public ArrayList<Etat> getToutPossibilité(boolean gentilJoue){
         return new ArrayList<>();
@@ -23,10 +33,13 @@ public class Etat {
 
     private ArrayList<Etat> déplacerGentil(){
         ArrayList<Etat> listDeplacement = new ArrayList<>();
-        for(Coordinate pos : gentil.getMovmentPossible()){
-            Personnage p = gentil.cloner();
-            p.setPos(pos);
-            listDeplacement.add(new Etat(listMechant, p, field));
+        for (Personnage gentil : gentils){
+            for(Coordinate pos : gentil.getMovmentPossible()){
+                Personnage p = gentil.cloner();
+                p.setPos(pos);
+                gentils.set(gentils.indexOf(gentil), p);
+                listDeplacement.add(new Etat(listMechant, gentils, field));
+            }
         }
         return listDeplacement;
     }
@@ -34,15 +47,18 @@ public class Etat {
 
     private ArrayList<Etat> attaqueGentil(){
         ArrayList<Etat> listAttaque = new ArrayList<>();
-        for(Coordinate pos : gentil.getAttaquePossible()){
-            for (Personnage p : listMechant){
-                if(p.getPos() == pos){
-                    Personnage newP = p.cloner();
-                    //newP.getAttacked(gentil.getCaracteristique().getStr());
-                    listMechant.set(listMechant.indexOf(p), newP);
+        for (Personnage gentil : gentils){
+            for(Coordinate pos : gentil.getAttaquePossible()){
+                for (Personnage p : listMechant){
+                    if(p.getPos() == pos){
+                        Personnage newP = p.cloner();
+                        //newP.getAttacked(gentil.getCaracteristique().getStr());
+                        listMechant.set(listMechant.indexOf(p), newP);
+                    }
                 }
+                listAttaque.add(new Etat(listMechant, gentils, field));
             }
-            listAttaque.add(new Etat(listMechant, gentil, field));
+
         }
         return listAttaque;
     }
@@ -57,6 +73,30 @@ public class Etat {
 
     public void setValHeuristique(int valHeuristique) {
         this.valHeuristique = valHeuristique;
+    }
+
+    public ArrayList<Personnage> getListMechant() {
+        return listMechant;
+    }
+
+    public void setListMechant(ArrayList<Personnage> listMechant) {
+        this.listMechant = listMechant;
+    }
+
+    public ArrayList<Personnage> getGentils() {
+        return gentils;
+    }
+
+    public void setGentils(ArrayList<Personnage> gentils) {
+        this.gentils = gentils;
+    }
+
+    public Field getField() {
+        return field;
+    }
+
+    public void setField(Field field) {
+        this.field = field;
     }
 }
 

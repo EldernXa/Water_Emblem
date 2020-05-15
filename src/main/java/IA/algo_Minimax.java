@@ -2,6 +2,7 @@ package IA;
 
 public class algo_Minimax {
 
+
     static int minimax(Etat etat, int depth, boolean maxi){
         int value;
         if(depth == 0 || etat.estFinal()){
