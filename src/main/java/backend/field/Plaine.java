@@ -1,5 +1,7 @@
-package backend;
+package backend.field;
 
+import backend.Personnage;
+import backend.field.Field;
 import javafx.scene.paint.Color;
 
 public class Plaine extends Field {

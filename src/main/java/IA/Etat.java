@@ -1,7 +1,7 @@
 package IA;
 
 import backend.Coordinate;
-import backend.Field;
+import backend.field.Field;
 import backend.Personnage;
 
 import java.util.ArrayList;

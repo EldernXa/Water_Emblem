@@ -1,5 +1,6 @@
-package backend;
+package backend.field;
 
+import backend.Personnage;
 import javafx.scene.paint.Color;
 
 public abstract class Field {

@@ -1,7 +1,7 @@
 package frontend;
 
 import backend.Coordinate;
-import backend.DataMap;
+import backend.data.DataMap;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 

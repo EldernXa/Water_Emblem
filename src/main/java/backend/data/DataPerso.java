@@ -1,4 +1,4 @@
-package backend;
+package backend.data;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

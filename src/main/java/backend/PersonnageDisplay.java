@@ -8,8 +8,8 @@ public class PersonnageDisplay {
     ImageView imageView;
     String orientation;
     boolean isAlive;
-    backend.Coordinate coordinate;
-    backend.Personnage perso;
+    Coordinate coordinate;
+    Personnage perso;
 
     boolean sAlive(){
         return isAlive = perso.getCaracteristique().getHp() <= 0 ;
@@ -20,7 +20,7 @@ public class PersonnageDisplay {
     void setOrientation(String orientation){
         this.orientation = orientation;
     }
-    void move(backend.Coordinate coordinate){
+    void move(Coordinate coordinate){
         this.coordinate = coordinate;
     }
     public Coordinate getCoordinate(){return this.coordinate;}
