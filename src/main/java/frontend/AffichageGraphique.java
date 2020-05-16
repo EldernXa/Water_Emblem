@@ -46,7 +46,7 @@ public class AffichageGraphique {
             public void handle(ActionEvent event){
                 afficheMap = new AfficheMap(choiceMap.getValue());
                 map = afficheMap.getMap();
-                affichePerso = new AffichePerso();
+                affichePerso = new AffichePerso(choiceMap.getValue());
                 perso = affichePerso.getGridPanePerso();
                 root.getChildren().clear();
                 Event.clickOnMap(perso, affichePerso);

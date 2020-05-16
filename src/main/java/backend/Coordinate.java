@@ -1,6 +1,7 @@
 package backend;
 
 
+import backend.field.Field;
 
 public class Coordinate {
     private int x, y;

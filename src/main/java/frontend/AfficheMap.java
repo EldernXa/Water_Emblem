@@ -1,9 +1,8 @@
 package frontend;
 
 import backend.Coordinate;
-import backend.DataMap;
+import backend.data.DataMap;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public class AfficheMap {
 
         for(ArrayList<Coordinate> array: dataMap.getcoordinates()){
             for(Coordinate coordinate: array)
-                map.add(new Rectangle(50, 50, coordinate.getField().getColor()), coordinate.getY(), coordinate.getX());
+                map.add(coordinate.getField().getApsect(), coordinate.getY(), coordinate.getX());
         }
     }
 

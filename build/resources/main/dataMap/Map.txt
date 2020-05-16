@@ -1,0 +1,9 @@
+nomMap
+F---V-
+------
+--RR--
+FF----
+-F----
+-F----
+//
+//(avec F une forêt, V volcan, R rivière et le reste plaine)
