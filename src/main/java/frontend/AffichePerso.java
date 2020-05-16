@@ -3,21 +3,32 @@ package frontend;
 import backend.Coordinate;
 import backend.Personnage;
 import backend.PersonnageDisplay;
+import backend.data.DataCoordCharacters;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AffichePerso {
     static List<PersonnageDisplay> listPersonnage;
     static List<PersonnageDisplay> listEnnemi;
-    GridPane perso;
-    ImageView imgView;
+    private GridPane perso;
+    private DataCoordCharacters dataCoordCharacters;
 
-    public AffichePerso(){
+    public AffichePerso(String dataCoordinate){
+        dataCoordCharacters = new DataCoordCharacters(dataCoordinate);
+        listPersonnage = new ArrayList<>();
+        listEnnemi = new ArrayList<>();
+        for(int i=0;i <dataCoordCharacters.getGentilCharactersList().size(); i++)
+        {
+            int x = Integer.parseInt(dataCoordCharacters.getGentilCoord().get(i).get(0));
+            int y = Integer.parseInt(dataCoordCharacters.getGentilCoord().get(i).get(1));
+            listPersonnage.add(new PersonnageDisplay(dataCoordCharacters.getGentilCharactersList().get(i),x, y));
+        }
         init();
     }
 
@@ -25,6 +36,13 @@ public class AffichePerso {
         perso = new GridPane();
         perso.setVgap(50);
         perso.setHgap(50);
+
+        for(PersonnageDisplay p: listPersonnage){
+            p.getImageView().setFitWidth(50);
+            p.getImageView().setFitHeight(50);
+            perso.add(p.getImageView(), p.getCoordinate().getY(), p.getCoordinate().getX());
+        }
+/*
         try {
             FileInputStream inputStream = new FileInputStream("./src/main/resources/spritesPersos/SrpriteEliwwod/EliwoodAvant1.png");
             Image img = new Image(inputStream);
@@ -34,20 +52,16 @@ public class AffichePerso {
             perso.add(imgView, 0, 0);
         }catch(FileNotFoundException exception){
             System.out.println("Image non existant.");
-        }
+        }*/
     }
 
     public GridPane getGridPanePerso(){
         return perso;
     }
 
-    public ImageView getImgView(){
-        return imgView;
-    }
-
-    public void move(Coordinate coordinate){
-        GridPane.setColumnIndex(imgView, coordinate.getX());
-        GridPane.setRowIndex(imgView, coordinate.getY());
+    public void move(PersonnageDisplay persoToMove, Coordinate coordinate){
+        GridPane.setColumnIndex(persoToMove.getImageView(), coordinate.getX());
+        GridPane.setRowIndex(persoToMove.getImageView(), coordinate.getY());
     }
 
     public static Personnage getPersonnageAt(Coordinate coordinate){

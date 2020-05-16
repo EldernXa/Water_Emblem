@@ -3,7 +3,6 @@ package frontend;
 import backend.Coordinate;
 import backend.data.DataMap;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
