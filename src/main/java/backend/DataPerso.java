@@ -81,7 +81,7 @@ public class DataPerso {
 
             System.out.println("l'Unité a-elle d'autres armes ? oui : 1 | non : 0 ");
             String test = scanner.nextLine();
-            while (test.equals("0") == false) {
+            while (!test.equals("0")) {
 
 
                 if (test.equals("1")) {
@@ -93,7 +93,7 @@ public class DataPerso {
                     System.out.println("l'Unité a-elle d'autres armes ? oui : 1 | non : 0 ");
                     test = scanner.nextLine();
 
-                } else if (test.equals("0") == false) {
+                } else if (!test.equals("0")) {
                     System.out.println("rentrez une réponse correcte");
                     System.out.println("l'Unité a-elle d'autres armes ? oui : 1 | non : 0 ");
                     test = scanner.nextLine();
@@ -140,14 +140,14 @@ public class DataPerso {
 
         try (Stream<String> stream = Files.lines(Paths.get(file))) {
             stream.forEach(x -> unite.add(x));
-            int flag = 0;
+
             for (int i = 0; i < unite.size(); i++) {
 
                 String[] parts = unite.get(i).split(";");
                 ArrayList<String> statsunite = new ArrayList<String>();
 
                 if (parts[0].equals(nomUnite)) {
-                    flag = 1;
+
                     for (String subString : parts) {
 
                         statsunite.add(subString);
@@ -159,10 +159,8 @@ public class DataPerso {
 
 
             }
-            if (flag == 0) {
-                //System.out.println("Ce que vous recherchez n'existe pas");
-                return null;
-            }
+            //System.out.println("Ce que vous recherchez n'existe pas");
+            return null;
 
         } catch (IOException e) {
 
