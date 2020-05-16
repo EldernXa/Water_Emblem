@@ -11,7 +11,9 @@ public class Volcano extends Field {
     }
 
     void affect(Personnage personnage){
-
+        /*Carac caracPerso = personnage.getCaracteristique();
+        int burn = (int) (caracPerso.getMaxHp() * 0.95);
+        caracPerso.setHp(caracPerso.getHp() - burn);*/
     }
 
     void disaffect(Personnage personnage){

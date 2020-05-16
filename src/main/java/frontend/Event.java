@@ -16,7 +16,7 @@ public class Event {
             {
                 int x = (int) Math.floor(event.getX()/AffichageGraphique.size);
                 int y = (int) Math.floor(event.getY()/AffichageGraphique.size);
-                affichePerso.move(new Coordinate(x, y));
+                //affichePerso.move(new Coordinate(x, y));
             }
         });
     }

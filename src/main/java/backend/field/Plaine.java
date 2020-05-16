@@ -11,6 +11,7 @@ public class Plaine extends Field {
     }
 
     void affect(Personnage personnage) {
+        //Carac caracPerso = personnage.getCaracteristique();
 
     }
 
