@@ -15,6 +15,7 @@ public class CalculStats {
                 }
                 case "Hache": {
                     caracPerso.setStr(str + 2);
+
                 }
             }
     }
