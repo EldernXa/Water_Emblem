@@ -26,7 +26,7 @@ public class AffichePerso {
         perso.setVgap(50);
         perso.setHgap(50);
         try {
-            FileInputStream inputStream = new FileInputStream("./src/main/resources/spritesPersos/SrpriteEliwwod/EliwoodAvant1.png");
+            FileInputStream inputStream = new FileInputStream("src/main/resources/spritesPersos/SpriteEliwood/EliwoodAvant1.png");
             Image img = new Image(inputStream);
             imgView = new ImageView(img);
             imgView.setFitHeight(50);
