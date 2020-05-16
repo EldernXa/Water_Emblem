@@ -27,7 +27,14 @@ public class AffichePerso {
         {
             int x = Integer.parseInt(dataCoordCharacters.getGentilCoord().get(i).get(0));
             int y = Integer.parseInt(dataCoordCharacters.getGentilCoord().get(i).get(1));
-            listPersonnage.add(new PersonnageDisplay(dataCoordCharacters.getGentilCharactersList().get(i),x, y));
+            listPersonnage.add(new PersonnageDisplay(dataCoordCharacters.getGentilCharactersList().get(i), x, y));
+        }
+        for(int i=0; i<dataCoordCharacters.getMechantCharactersList().size();i++)
+        {
+            int x=Integer.parseInt(dataCoordCharacters.getMechantCoord().get(i).get(0));
+            int y=Integer.parseInt(dataCoordCharacters.getMechantCoord().get(i).get(1));
+            listEnnemi.add(new PersonnageDisplay(dataCoordCharacters.getMechantCharactersList().get(i), x, y));
+
         }
         init();
     }
@@ -40,7 +47,13 @@ public class AffichePerso {
         for(PersonnageDisplay p: listPersonnage){
             p.getImageView().setFitWidth(50);
             p.getImageView().setFitHeight(50);
-            perso.add(p.getImageView(), p.getCoordinate().getY(), p.getCoordinate().getX());
+            perso.add(p.getImageView(), p.getCoordinate().getX(), p.getCoordinate().getY());
+        }
+
+        for(PersonnageDisplay p: listEnnemi){
+            p.getImageView().setFitWidth(50);
+            p.getImageView().setFitHeight(50);
+            perso.add(p.getImageView(), p.getCoordinate().getX(), p.getCoordinate().getY());
         }
 /*
         try {
