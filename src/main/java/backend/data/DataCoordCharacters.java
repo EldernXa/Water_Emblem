@@ -170,35 +170,34 @@ public class DataCoordCharacters {
 
         int x = coordinate.getX();
         int y = coordinate.getY();
+        System.out.println("Coord : "+x +" "+y);
+        System.out.println("mov :" + mov);
 
-        for(int i = x; i < dataMap.getMapLimits().get(0) ; i++){
-            for(int j = x; j < dataMap.getMapLimits().get(1); j ++){
+        for(int i = 0; i < dataMap.getMapLimits().get(0) ; i++) {
+            for (int j = 0; j < dataMap.getMapLimits().get(1); j++) {
 
-                int mov2 = mov + (x-i);
-                mov2 = mov2 + (y-j);
+                int mov2 = mov + (x - i);
+                mov2 = mov2 + (y - j);
 
-                if(mov2 >=0&& (i != x || j != y)){
-                    coordMovArraylist.add(dataMap.getThisCoordinate(i,j));
+
+                int test2 = (i - x) + (y - y) ;
+                int test = Math.abs(x-i) + Math.abs((y - j)) ;
+                System.out.println(i + " " + j);
+                System.out.println(test);
+                System.out.println();
+
+
+                if (test <=mov && (i != x || j != y)) {
+
+                    if (!coordMovArraylist.contains(dataMap.getThisCoordinate(i, j))) {
+                        coordMovArraylist.add(dataMap.getThisCoordinate(i,j));
+
+                    }
+
                 }
-
-
             }
         }
 
-        for(int i = x; i > 0 ; i--) {
-            for (int j = x; j > 0; j--) {
-
-                int mov2 = mov;
-                mov2 = mov2 - (x-i);
-                mov2 = mov2 - (y-j);
-
-
-                if(mov2 >=0 && (i != x || j != y)){
-                    coordMovArraylist.add(dataMap.getThisCoordinate(i,j));
-                }
-
-            }
-        }
 
     return coordMovArraylist;
 
