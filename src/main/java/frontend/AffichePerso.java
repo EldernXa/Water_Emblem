@@ -43,6 +43,10 @@ public class AffichePerso {
         init();
     }
 
+    public ArrayList<Coordinate> getCoordinate(Personnage personnage, Coordinate coordinate){
+        return dataCoordCharacters.getMovementField(personnage, coordinate);
+    }
+
     void init() {
         perso = new GridPane();
         perso.setAlignment(Pos.TOP_LEFT);
