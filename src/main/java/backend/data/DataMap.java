@@ -88,6 +88,10 @@ public class DataMap {
         return coordinates;
     }
 
+    public Coordinate getThisCoordinate(int x, int y){
+
+        return coordinates.get(x).get(y);
+    }
 
 
     private Field getField(String field) {
