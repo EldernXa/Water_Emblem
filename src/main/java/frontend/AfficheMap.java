@@ -35,10 +35,10 @@ public class AfficheMap {
 
         for(int i=0; i<AfficheMap.y;i++)
         {
-            map.getColumnConstraints().add(new ColumnConstraints(AfficheMap.x/2));
+            map.getColumnConstraints().add(new ColumnConstraints(0));
         }
         for(int i=0; i<AfficheMap.x;i++)
-            map.getRowConstraints().add(new RowConstraints(AfficheMap.y/2));
+            map.getRowConstraints().add(new RowConstraints(0));
     }
 
     public GridPane getMap(){

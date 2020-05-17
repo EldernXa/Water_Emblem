@@ -50,10 +50,10 @@ public class AffichePerso {
         perso.setHgap(AffichageGraphique.size);
         for(int i=0; i<AfficheMap.y;i++)
         {
-            perso.getColumnConstraints().add(new ColumnConstraints(AfficheMap.x/2));
+            perso.getColumnConstraints().add(new ColumnConstraints(0));
         }
         for(int i=0; i<AfficheMap.x;i++)
-            perso.getRowConstraints().add(new RowConstraints(AfficheMap.y/2));
+            perso.getRowConstraints().add(new RowConstraints(0));
 
         for(PersonnageDisplay p: listPersonnage){
             p.getImageView().setFitWidth(AffichageGraphique.size);
