@@ -24,6 +24,7 @@ public class AffichageGraphique {
     AffichePerso affichePerso;
     GridPane map;
     static public GridPane perso;
+    static public GridPane grilleMvt;
 
     public Pane init() {
         GridPane root = new GridPane();
@@ -49,6 +50,16 @@ public class AffichageGraphique {
             @Override
             public void handle(ActionEvent event){
                 afficheMap = new AfficheMap(choiceMap.getValue());
+                grilleMvt = new GridPane();
+                grilleMvt.setAlignment(Pos.TOP_LEFT);
+                grilleMvt.setVgap(AffichageGraphique.size);
+                grilleMvt.setHgap(AffichageGraphique.size);
+                for(int i=0; i<AfficheMap.y;i++)
+                {
+                    grilleMvt.getColumnConstraints().add(new ColumnConstraints(0));
+                }
+                for(int i=0; i<AfficheMap.x;i++)
+                    grilleMvt.getRowConstraints().add(new RowConstraints(0));
                 map = afficheMap.getMap();
                 affichePerso = new AffichePerso(choiceMap.getValue());
                 perso = affichePerso.getGridPanePerso();
@@ -56,7 +67,7 @@ public class AffichageGraphique {
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
                 Event.clickOnMap(perso, affichePerso);
-                root.getChildren().addAll(map, perso);
+                root.getChildren().addAll(map, grilleMvt, perso);
             }
         });
 
