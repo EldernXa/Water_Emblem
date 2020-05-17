@@ -16,6 +16,8 @@ public class Personnage {
         nbPerso++;
         caracteristique = new Carac(name);
         this.pos = pos;
+        calculerStats();
+
     }
 
     private Personnage(Personnage perso){
@@ -68,24 +70,32 @@ public class Personnage {
 
     public void calculerStats(){
         String arme1 = caracteristique.getWep1();
+
         int str = caracteristique.getStr();
         switch (arme1){
             case "Epee":{
+
                 caracteristique.setStr(str + 4);
+                break;
             }
             case "Lance": {
                 caracteristique.setStr(str + 3);
-                caracteristique.setPorte(1);
+
+                break;
             }
             case "Hache": {
+
                 caracteristique.setStr(str + 2);
+                break;
             }
             case "Arc" : {
                 caracteristique.setStr(str + 2);
                 caracteristique.setPorte(2);
+                break;
             }
             case "Magie" : {
                 caracteristique.setPorte(2);
+                break;
             }
         }
     }

@@ -152,26 +152,16 @@ public class DataCoordCharacters {
     }
 
 
-    public ArrayList<Coordinate> getMovementField(Personnage name, Coordinate coordinate){
+    private ArrayList<Coordinate> getArea(Personnage name, Coordinate coordinate, int choice ){
 
-//        int mov;
-//        if(DataPerso.getCharacter(name) != null){
-//            mov = Integer.parseInt(DataPerso.getStatsCharacter(name,"mov"));
-//        }
-//        else if(DataPerso.getUnite(name) != null){
-//            mov = Integer.parseInt(DataPerso.getStatsUnite(name,"mov"));
-//        }
-//        else {
-//            return null;
-//        }
+
 
         int mov = name.getCaracteristique().getMov();
         ArrayList<Coordinate> coordMovArraylist = new ArrayList<>();
 
         int x = coordinate.getX();
         int y = coordinate.getY();
-        System.out.println("Coord : "+x +" "+y);
-        System.out.println("mov :" + mov);
+
 
         for(int i = 0; i < dataMap.getMapLimits().get(0) ; i++) {
             for (int j = 0; j < dataMap.getMapLimits().get(1); j++) {
@@ -182,19 +172,35 @@ public class DataCoordCharacters {
 
                 int test2 = (i - x) + (y - y) ;
                 int test = Math.abs(x-i) + Math.abs((y - j)) ;
-                System.out.println(i + " " + j);
-                System.out.println(test);
-                System.out.println();
 
 
-                if (test <=mov && (i != x || j != y)) {
+                if(choice == 0){
+                    if (test <=mov && (i != x || j != y)) {
 
-                    if (!coordMovArraylist.contains(dataMap.getThisCoordinate(i, j))) {
-                        coordMovArraylist.add(dataMap.getThisCoordinate(i,j));
+                        if (!coordMovArraylist.contains(dataMap.getThisCoordinate(i, j))) {
+                            coordMovArraylist.add(dataMap.getThisCoordinate(i,j));
+
+                        }
 
                     }
 
                 }
+                else if(choice == 1){
+                    int range = mov+1;
+
+                    if (name.getCaracteristique().getPorte() >1){
+                        range = mov+2;
+                    }
+                    if (test > mov && test <= range && (i != x || j != y)) {
+
+                        if (!coordMovArraylist.contains(dataMap.getThisCoordinate(i, j))) {
+                            coordMovArraylist.add(dataMap.getThisCoordinate(i,j));
+
+                        }
+
+                    }
+                }
+
             }
         }
 
@@ -202,4 +208,14 @@ public class DataCoordCharacters {
     return coordMovArraylist;
 
     }
+
+
+    public ArrayList<Coordinate> getMovementArea(Personnage name, Coordinate coordinate){
+        return getArea(name,coordinate,0);
+    }
+    public ArrayList<Coordinate> getAttackArea(Personnage name, Coordinate coordinate){
+        return getArea(name,coordinate,1);
+    }
+
+
 }
