@@ -4,25 +4,29 @@ import backend.Coordinate;
 import backend.Personnage;
 import backend.PersonnageDisplay;
 import backend.data.DataCoordCharacters;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class AffichePerso {
     static List<PersonnageDisplay> listPersonnage;
     static List<PersonnageDisplay> listEnnemi;
-    private GridPane perso;
+    static private GridPane perso;
     private DataCoordCharacters dataCoordCharacters;
+    static HashMap<Coordinate, ImageView> listImageView;
 
     public AffichePerso(String dataCoordinate){
         dataCoordCharacters = new DataCoordCharacters(dataCoordinate);
         listPersonnage = new ArrayList<>();
         listEnnemi = new ArrayList<>();
+        listImageView = new HashMap<>();
         for(int i=0;i <dataCoordCharacters.getGentilCharactersList().size(); i++)
         {
             int x = Integer.parseInt(dataCoordCharacters.getGentilCoord().get(i).get(0));
@@ -41,31 +45,32 @@ public class AffichePerso {
 
     void init() {
         perso = new GridPane();
-        perso.setVgap(50);
-        perso.setHgap(50);
+        perso.setAlignment(Pos.TOP_LEFT);
+        perso.setVgap(AffichageGraphique.size);
+        perso.setHgap(AffichageGraphique.size);
+        for(int i=0; i<AfficheMap.y;i++)
+        {
+            perso.getColumnConstraints().add(new ColumnConstraints(AfficheMap.x/2));
+        }
+        for(int i=0; i<AfficheMap.x;i++)
+            perso.getRowConstraints().add(new RowConstraints(AfficheMap.y/2));
 
         for(PersonnageDisplay p: listPersonnage){
-            p.getImageView().setFitWidth(50);
-            p.getImageView().setFitHeight(50);
+            p.getImageView().setFitWidth(AffichageGraphique.size);
+            p.getImageView().setFitHeight(AffichageGraphique.size);
             perso.add(p.getImageView(), p.getCoordinate().getX(), p.getCoordinate().getY());
+            GridPane.setHalignment(p.getImageView(), HPos.LEFT);
+            GridPane.setValignment(p.getImageView(), VPos.TOP);
         }
 
         for(PersonnageDisplay p: listEnnemi){
-            p.getImageView().setFitWidth(50);
-            p.getImageView().setFitHeight(50);
+            p.getImageView().setFitWidth(AffichageGraphique.size);
+            p.getImageView().setFitHeight(AffichageGraphique.size);
             perso.add(p.getImageView(), p.getCoordinate().getX(), p.getCoordinate().getY());
+            GridPane.setHalignment(p.getImageView(), HPos.LEFT);
+            GridPane.setValignment(p.getImageView(), VPos.TOP);
         }
-/*
-        try {
-            FileInputStream inputStream = new FileInputStream("src/main/resources/spritesPersos/SpriteEliwood/EliwoodAvant1.png");
-            Image img = new Image(inputStream);
-            imgView = new ImageView(img);
-            imgView.setFitHeight(50);
-            imgView.setFitWidth(50);
-            perso.add(imgView, 0, 0);
-        }catch(FileNotFoundException exception){
-            System.out.println("Image non existant.");
-        }*/
+
     }
 
     public GridPane getGridPanePerso(){
@@ -73,8 +78,18 @@ public class AffichePerso {
     }
 
     public void move(PersonnageDisplay persoToMove, Coordinate coordinate){
-        GridPane.setColumnIndex(persoToMove.getImageView(), coordinate.getX());
-        GridPane.setRowIndex(persoToMove.getImageView(), coordinate.getY());
+        AffichageGraphique.perso.getChildren().clear();
+        persoToMove.setCoordinate(new Coordinate(coordinate.getX(), coordinate.getY()));
+        for(PersonnageDisplay p: listPersonnage){
+            perso.add(p.getImageView(), p.getCoordinate().getX(), p.getCoordinate().getY());
+            GridPane.setHalignment(p.getImageView(), HPos.LEFT);
+            GridPane.setValignment(p.getImageView(), VPos.TOP);
+        }
+        for(PersonnageDisplay p:listEnnemi){
+            perso.add(p.getImageView(), p.getCoordinate().getX(), p.getCoordinate().getY());
+            GridPane.setHalignment(p.getImageView(), HPos.LEFT);
+            GridPane.setValignment(p.getImageView(), VPos.TOP);
+        }
     }
 
     public static Personnage getPersonnageAt(Coordinate coordinate){
@@ -85,9 +100,25 @@ public class AffichePerso {
             }
         }
         for(PersonnageDisplay p:listEnnemi){
-            if(p.getCoordinate().equals(coordinate))
+            if(p.getCoordinate().equal(coordinate))
             {
                 return p.getPersonnage();
+            }
+        }
+        return null;
+    }
+
+    public static PersonnageDisplay getPersonnageDisplayAt(Coordinate coordinate){
+        for(PersonnageDisplay p: listPersonnage){
+            if(p.getCoordinate().equal(coordinate))
+            {
+                return p;
+            }
+        }
+        for(PersonnageDisplay p:listEnnemi){
+            if(p.getCoordinate().equal(coordinate))
+            {
+                return p;
             }
         }
         return null;

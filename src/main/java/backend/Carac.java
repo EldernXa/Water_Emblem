@@ -17,6 +17,7 @@ public class Carac {
     private int lck;
     private int res;
     private int mov;
+    private int porte = 0;
     private String wep1;
     private String wep2;
     private String wep3;
@@ -37,14 +38,14 @@ public class Carac {
         }
 
         else {
-            System.out.println("creation d un carac sans un non de perso ou de type, inconue : " + name);
+            System.out.println("creation d un carac sans un nom de perso ou de type, inconnu : " + name);
             System.exit(3);
             return;
         }
 
         this.type = list.get(i++);
-        // maxHp = Integer.parseInt(list.get(1)); a voir si on garde
-        hp = Integer.parseInt(list.get(i++));
+
+        maxHp = hp = Integer.parseInt(list.get(i++));
         str = Integer.parseInt(list.get(i++));
         mag = Integer.parseInt(list.get(i++));
         skl = Integer.parseInt(list.get(i++));
@@ -200,5 +201,13 @@ public class Carac {
 
     public void setWep3(String wep3) {
         this.wep3 = wep3;
+    }
+
+    public int getPorte() {
+        return porte;
+    }
+
+    public void setPorte(int porte) {
+        this.porte = porte;
     }
 }

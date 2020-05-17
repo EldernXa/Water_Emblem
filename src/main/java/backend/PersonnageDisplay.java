@@ -44,5 +44,8 @@ public class PersonnageDisplay {
     }
     public Coordinate getCoordinate(){return this.coordinate;}
     public Personnage getPersonnage(){return perso;}
+    public void setCoordinate(Coordinate coordinate){
+        this.coordinate = coordinate;
+    }
 
 }

@@ -1,5 +1,6 @@
 package backend.field;
 
+import backend.Carac;
 import backend.Personnage;
 import backend.field.Field;
 import javafx.scene.paint.Color;

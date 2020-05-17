@@ -4,11 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,10 +23,11 @@ public class AffichageGraphique {
     AfficheMap afficheMap;
     AffichePerso affichePerso;
     GridPane map;
-    GridPane perso;
+    static public GridPane perso;
 
     public Pane init() {
         GridPane root = new GridPane();
+        root.setAlignment(Pos.TOP_LEFT);
         File file = new File("./src/main/resources/dataMap");
         ArrayList<String> list = new ArrayList<>();
         ObservableList<String> listMap;
@@ -48,6 +52,8 @@ public class AffichageGraphique {
                 map = afficheMap.getMap();
                 affichePerso = new AffichePerso(choiceMap.getValue());
                 perso = affichePerso.getGridPanePerso();
+                map.setAlignment(Pos.TOP_LEFT);
+                perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
                 Event.clickOnMap(perso, affichePerso);
                 root.getChildren().addAll(map, perso);
