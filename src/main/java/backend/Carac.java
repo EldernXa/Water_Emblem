@@ -17,7 +17,7 @@ public class Carac {
     private int lck;
     private int res;
     private int mov;
-    private int porte = 1;
+    private int porte = 0;
     private String wep1;
     private String wep2;
     private String wep3;
@@ -44,8 +44,8 @@ public class Carac {
         }
 
         this.type = list.get(i++);
-        // maxHp = Integer.parseInt(list.get(1)); a voir si on garde
-        hp = Integer.parseInt(list.get(i++));
+
+        maxHp = hp = Integer.parseInt(list.get(i++));
         str = Integer.parseInt(list.get(i++));
         mag = Integer.parseInt(list.get(i++));
         skl = Integer.parseInt(list.get(i++));
