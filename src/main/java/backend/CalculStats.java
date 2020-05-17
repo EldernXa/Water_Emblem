@@ -9,6 +9,7 @@ public class CalculStats {
         switch (arme1){
             case "Epee":{
                 caracPerso.setStr(str + 4);
+
             }
             case "Lance": {
                 caracPerso.setStr(str + 3);
