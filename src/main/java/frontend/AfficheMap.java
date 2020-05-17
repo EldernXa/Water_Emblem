@@ -16,8 +16,6 @@ public class AfficheMap {
     public AfficheMap(String nomDuFichier){
         map = new GridPane();
         dataMap = new DataMap(nomDuFichier);
-        map.setVgap(AffichageGraphique.size);
-        map.setHgap(AffichageGraphique.size);
         x = 0;
         y = 0;
 
@@ -33,12 +31,7 @@ public class AfficheMap {
             }
         }
 
-        for(int i=0; i<AfficheMap.y;i++)
-        {
-            map.getColumnConstraints().add(new ColumnConstraints(0));
-        }
-        for(int i=0; i<AfficheMap.x;i++)
-            map.getRowConstraints().add(new RowConstraints(0));
+
     }
 
     public GridPane getMap(){
