@@ -1,5 +1,8 @@
 package backend.data;
 
+import backend.Coordinate;
+import backend.Personnage;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +15,7 @@ import java.util.stream.Stream;
 public class DataCoordCharacters {
     private final String path;
     private final DataMap dataMap;
+
 
     public DataCoordCharacters(String map) {
         path = "src/main/resources/dataCoordCharacters/" + map + ".co";
@@ -145,5 +149,58 @@ public class DataCoordCharacters {
         ArrayList<ArrayList<String>> strList = (ArrayList<ArrayList<String>>) (ArrayList<?>) (test);
 
         return strList;
+    }
+
+
+    public ArrayList<Coordinate> getMovementField(Personnage name, Coordinate coordinate){
+
+//        int mov;
+//        if(DataPerso.getCharacter(name) != null){
+//            mov = Integer.parseInt(DataPerso.getStatsCharacter(name,"mov"));
+//        }
+//        else if(DataPerso.getUnite(name) != null){
+//            mov = Integer.parseInt(DataPerso.getStatsUnite(name,"mov"));
+//        }
+//        else {
+//            return null;
+//        }
+
+        int mov = name.getCaracteristique().getMov();
+        ArrayList<Coordinate> coordMovArraylist = new ArrayList<>();
+
+        int x = coordinate.getX();
+        int y = coordinate.getY();
+
+        for(int i = x; i < dataMap.getMapLimits().get(0) ; i++){
+            for(int j = x; j < dataMap.getMapLimits().get(1); j ++){
+
+                int mov2 = mov + (x-i);
+                mov2 = mov2 + (y-j);
+
+                if(mov2 >=0&& (i != x || j != y)){
+                    coordMovArraylist.add(dataMap.getThisCoordinate(i,j));
+                }
+
+
+            }
+        }
+
+        for(int i = x; i > 0 ; i--) {
+            for (int j = x; j > 0; j--) {
+
+                int mov2 = mov;
+                mov2 = mov2 - (x-i);
+                mov2 = mov2 - (y-j);
+
+
+                if(mov2 >=0 && (i != x || j != y)){
+                    coordMovArraylist.add(dataMap.getThisCoordinate(i,j));
+                }
+
+            }
+        }
+
+    return coordMovArraylist;
+
     }
 }

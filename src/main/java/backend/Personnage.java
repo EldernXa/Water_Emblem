@@ -65,4 +65,29 @@ public class Personnage {
     public void setPos(Coordinate pos) {
         this.pos = pos;
     }
+
+    public void calculerStats(){
+        String arme1 = caracteristique.getWep1();
+        int str = caracteristique.getStr();
+        switch (arme1){
+            case "Epee":{
+                caracteristique.setStr(str + 4);
+            }
+            case "Lance": {
+                caracteristique.setStr(str + 3);
+                caracteristique.setPorte(1);
+            }
+            case "Hache": {
+                caracteristique.setStr(str + 2);
+            }
+            case "Arc" : {
+                caracteristique.setStr(str + 2);
+                caracteristique.setPorte(2);
+            }
+            case "Magie" : {
+                caracteristique.setPorte(2);
+            }
+        }
+    }
+
 }
