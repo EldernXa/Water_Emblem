@@ -1,6 +1,7 @@
 package backend.data;
 
 import backend.Coordinate;
+import backend.Personnage;
 
 import java.io.File;
 import java.io.IOException;
@@ -151,19 +152,20 @@ public class DataCoordCharacters {
     }
 
 
-    public ArrayList<Coordinate> getMovementField(String name, Coordinate coordinate){
+    public ArrayList<Coordinate> getMovementField(Personnage name, Coordinate coordinate){
 
-        int mov;
-        if(DataPerso.getCharacter(name) != null){
-            mov = Integer.parseInt(DataPerso.getStatsCharacter(name,"mov"));
-        }
-        else if(DataPerso.getUnite(name) != null){
-            mov = Integer.parseInt(DataPerso.getStatsUnite(name,"mov"));
-        }
-        else {
-            return null;
-        }
+//        int mov;
+//        if(DataPerso.getCharacter(name) != null){
+//            mov = Integer.parseInt(DataPerso.getStatsCharacter(name,"mov"));
+//        }
+//        else if(DataPerso.getUnite(name) != null){
+//            mov = Integer.parseInt(DataPerso.getStatsUnite(name,"mov"));
+//        }
+//        else {
+//            return null;
+//        }
 
+        int mov = name.getCaracteristique().getMov();
         ArrayList<Coordinate> coordMovArraylist = new ArrayList<>();
 
         int x = coordinate.getX();
