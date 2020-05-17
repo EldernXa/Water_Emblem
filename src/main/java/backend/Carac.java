@@ -17,7 +17,7 @@ public class Carac {
     private int lck;
     private int res;
     private int mov;
-    private int porte = 0;
+    private int porte = 1;
     private String wep1;
     private String wep2;
     private String wep3;

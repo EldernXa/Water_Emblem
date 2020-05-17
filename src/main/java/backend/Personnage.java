@@ -16,12 +16,14 @@ public class Personnage {
         nbPerso++;
         caracteristique = new Carac(name);
         this.pos = pos;
+        this.calculerStats();
     }
 
     private Personnage(Personnage perso){
         id = perso.id;
         pos = perso.pos;
         caracteristique = perso.caracteristique.cloner();//pas sur, peut etre pb d adresse
+        this.calculerStats();
     }
     public void attack(Coordinate coodinate){
         Personnage adversaire = AffichePerso.getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
@@ -75,7 +77,6 @@ public class Personnage {
             }
             case "Lance": {
                 caracteristique.setStr(str + 3);
-                caracteristique.setPorte(1);
             }
             case "Hache": {
                 caracteristique.setStr(str + 2);
