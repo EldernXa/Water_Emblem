@@ -66,27 +66,26 @@ public class Personnage {
         this.pos = pos;
     }
 
-    public void calculerStat(){
-        Carac caracPerso = this.getCaracteristique();
-        String arme1 = caracPerso.getWep1();
-        int str = caracPerso.getStr();
+    public void calculerStats(){
+        String arme1 = caracteristique.getWep1();
+        int str = caracteristique.getStr();
         switch (arme1){
             case "Epee":{
-                caracPerso.setStr(str + 4);
+                caracteristique.setStr(str + 4);
             }
             case "Lance": {
-                caracPerso.setStr(str + 3);
-                caracPerso.setPorte(2);
+                caracteristique.setStr(str + 3);
+                caracteristique.setPorte(2);
             }
             case "Hache": {
-                caracPerso.setStr(str + 2);
+                caracteristique.setStr(str + 2);
             }
             case "Arc" : {
-                caracPerso.setStr(str + 2);
-                caracPerso.setPorte(5);
+                caracteristique.setStr(str + 2);
+                caracteristique.setPorte(5);
             }
             case "Magie" : {
-                caracPerso.setPorte(3);
+                caracteristique.setPorte(3);
             }
         }
     }
