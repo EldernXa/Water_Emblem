@@ -200,6 +200,18 @@ public class DataCoordCharacters {
 
                     }
                 }
+                else if(choice == 2){
+
+                    if (test <= name.getCaracteristique().getPorte() && (i != x || j != y)) {
+
+                        if (!coordMovArraylist.contains(dataMap.getThisCoordinate(i, j))) {
+                            coordMovArraylist.add(dataMap.getThisCoordinate(i,j));
+
+                        }
+
+                    }
+
+                }
 
             }
         }
@@ -215,6 +227,10 @@ public class DataCoordCharacters {
     }
     public ArrayList<Coordinate> getAttackArea(Personnage name, Coordinate coordinate){
         return getArea(name,coordinate,1);
+    }
+
+    public ArrayList<Coordinate> getAttackAreaAfterMovement(Personnage name, Coordinate coordinate){
+        return getArea(name,coordinate,2);
     }
 
 
