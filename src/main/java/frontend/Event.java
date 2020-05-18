@@ -26,6 +26,8 @@ import java.util.HashMap;
 
 public class Event {
     static private PersonnageDisplay personnageSelected = null;
+    static private boolean booleanMove = false;
+    static private boolean booleanAttack = false;
     static void clickOnMap(GridPane perso, AffichePerso affichePerso, GridPane grilleMvt, GridPane grilleAttack,
                            VBox information, Button move, Button attack, Button stay){
         perso.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -37,12 +39,7 @@ public class Event {
                 if(personnageSelected == null)
                 {
                     personnageSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
-                    if(personnageSelected!=null)
-                    {
-                        for(Coordinate c: affichePerso.getCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
-                            addRectangle(grilleMvt, c, Color.rgb(0, 0, 255, 0.3));
-                        for(Coordinate c: affichePerso.getAttackCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
-                            addRectangle(grilleAttack, c, Color.rgb(255, 0, 0, 0.3));
+                    if(personnageSelected!=null){
                         HBox photoNom = new HBox();
                         ImageView imgView = new ImageView(personnageSelected.getImageView().getImage());
                         imgView.setFitWidth(AffichageGraphique.size);
@@ -52,35 +49,69 @@ public class Event {
                         ProgressBar progressBar = new ProgressBar();
                         progressBar.setProgress((float)personnageSelected.getPersonnage().getCaracteristique().getHp()/personnageSelected.getPersonnage().getCaracteristique().getMaxHp());
                         pv.getChildren().add(progressBar);
+                        information.setVisible(true);
                         information.getChildren().addAll(photoNom, pv);
-                        move.setVisible(true);
-                        attack.setVisible(true);
+                    }
+                    if(personnageSelected!=null && !AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected))
+                    {
+                        for(Coordinate c: affichePerso.getCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
+                            addRectangle(grilleMvt, c, Color.rgb(0, 0, 255, 0.3));
+                        for(Coordinate c: affichePerso.getAttackCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
+                            addRectangle(grilleAttack, c, Color.rgb(255, 0, 0, 0.3));
+                        move.setVisible(false);
+                        attack.setVisible(false);
                         stay.setVisible(true);
                     }
                 }
                 else{
-                    if(personnageSelected != AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))
-                    {
-                        ArrayList<Coordinate> listMvt = affichePerso.getCoordinate(personnageSelected.getPersonnage(),
-                                personnageSelected.getCoordinate());
-                        for (Coordinate c : listMvt) {
-                            if (c.equal(new Coordinate(x, y))) {
-                                if(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))==null) {
-                                    affichePerso.move(personnageSelected, new Coordinate(x, y), perso);
-                                    personnageSelected = null;
-                                    grilleMvt.getChildren().clear();
-                                    grilleAttack.getChildren().clear();
+                    if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)) {
+                        if (personnageSelected != AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))) {
+                            ArrayList<Coordinate> listMvt = affichePerso.getCoordinate(personnageSelected.getPersonnage(),
+                                    personnageSelected.getCoordinate());
+                            for (Coordinate c : listMvt) {
+                                if (c.equal(new Coordinate(x, y))) {
+                                    if (AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)) == null) {
+                                        move.setVisible(true);
+                                        move.setOnAction(new EventHandler<ActionEvent>() {
+                                            @Override
+                                            public void handle(ActionEvent event) {
+                                                move.setVisible(false);
+                                                information.getChildren().clear();
+                                                affichePerso.move(personnageSelected, new Coordinate(x, y), perso);
+                                                personnageSelected = null;
+                                                grilleMvt.getChildren().clear();
+                                                grilleAttack.getChildren().clear();
+                                                stay.setText("Fin");
+                                            }
+                                        });
+                                    }else if(AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
+                                        attack.setVisible(true);
+                                        attack.setOnAction(new EventHandler<ActionEvent>(){
+                                            @Override
+                                            public void handle(ActionEvent event){
+                                                attack.setVisible(false);
+                                                information.getChildren().clear();
+                                                personnageSelected.getPersonnage().attack(new Coordinate(x, y));
+                                                personnageSelected = null;
+                                                grilleMvt.getChildren().clear();
+                                                grilleAttack.getChildren().clear();
+                                                stay.setText("Fin");
+                                            }
+                                        });
+                                    }
                                 }
                             }
                         }
                     }
-                    move.setVisible(false);
-                    attack.setVisible(false);
-                    stay.setVisible(false);
-                    information.getChildren().clear();
-                    personnageSelected = null;
-                    grilleMvt.getChildren().clear();
-                    grilleAttack.getChildren().clear();
+                    else {
+                        move.setVisible(false);
+                        attack.setVisible(false);
+                        stay.setVisible(false);
+                        information.getChildren().clear();
+                        personnageSelected = null;
+                        grilleMvt.getChildren().clear();
+                        grilleAttack.getChildren().clear();
+                    }
                 }
             }
         });
@@ -102,5 +133,22 @@ public class Event {
             GridPane.setHalignment(rect, HPos.LEFT);
             GridPane.setValignment(rect, VPos.TOP);
         }
+    }
+
+    public static void buttonStay(Button stay, VBox information, Button move, Button attack,
+                           GridPane grilleMvt, GridPane grilleAttack){
+        stay.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                information.setVisible(false);
+                information.getChildren().clear();
+                stay.setVisible(false);
+                move.setVisible(false);
+                attack.setVisible(false);
+                grilleMvt.getChildren().clear();
+                grilleAttack.getChildren().clear();
+                personnageSelected =null;
+            }
+        });
     }
 }
