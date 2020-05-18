@@ -4,12 +4,15 @@ import backend.Coordinate;
 import backend.Personnage;
 import backend.PersonnageDisplay;
 import backend.data.DataCoordCharacters;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,6 +28,7 @@ public class AffichePerso {
         dataCoordCharacters = new DataCoordCharacters(dataCoordinate);
         listPersonnage = new ArrayList<>();
         listEnnemi = new ArrayList<>();
+
         for(int i=0;i <dataCoordCharacters.getGentilCharactersList().size(); i++)
         {
             int x = Integer.parseInt(dataCoordCharacters.getGentilCoord().get(i).get(0));
@@ -63,6 +67,24 @@ public class AffichePerso {
 
         initListPersonnage(listPersonnage);
         initListPersonnage(listEnnemi);
+
+        Timeline t = new Timeline();
+        t.setCycleCount(Timeline.INDEFINITE);
+        t.getKeyFrames().add(new KeyFrame(
+                Duration.millis(200),
+                (ActionEvent event) -> {
+                    perso.getChildren().clear();
+                    for(PersonnageDisplay p: listPersonnage){
+                        p.nextPosition();
+                    }
+                    for(PersonnageDisplay p:listEnnemi){
+                        p.nextPosition();
+                    }
+                    initListPersonnage(listPersonnage);
+                    initListPersonnage(listEnnemi);
+                }
+        ));
+        t.play();
 
     }
 

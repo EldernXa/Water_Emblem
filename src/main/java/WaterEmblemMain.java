@@ -4,9 +4,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-
 public class WaterEmblemMain extends Application {
-
     public void start(Stage primaryStage)
     {
         primaryStage.setScene(new Scene(new AffichageGraphique().init(), 600, 800));

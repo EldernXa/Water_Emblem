@@ -79,6 +79,7 @@ public class AffichageGraphique {
                 Event.buttonStay(stay, information, move, attack, grilleMvt, grilleAttack);
                 Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack, information,
                         move, attack, stay);
+
                 root.getChildren().addAll(map, grilleMvt, grilleAttack, perso);
                 window.getChildren().add(panel);
             }
