@@ -188,7 +188,7 @@ public class DataCoordCharacters {
                 else if(choice == 1){
                     int range = mov+1;
 
-                    if (name.getCaracteristique().getPorte() >1){
+                    if (name.getCaracteristique().getPortee() >1){
                         range = mov+2;
                     }
                     if (test > mov && test <= range && (i != x || j != y)) {

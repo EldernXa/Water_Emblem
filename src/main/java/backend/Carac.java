@@ -17,7 +17,7 @@ public class Carac {
     private int lck;
     private int res;
     private int mov;
-    private int porte = 1;
+    private int portee = 1;
     private String wep1;
     private String wep2;
     private String wep3;
@@ -203,11 +203,19 @@ public class Carac {
         this.wep3 = wep3;
     }
 
-    public int getPorte() {
-        return porte;
+    public int getPortee() {
+        return portee;
     }
 
-    public void setPorte(int porte) {
-        this.porte = porte;
+    public void setPortee(int portee) {
+        this.portee = portee;
+    }
+
+    public int getSpd() {
+        return spd;
+    }
+
+    public void setSpd(int spd) {
+        this.spd = spd;
     }
 }
