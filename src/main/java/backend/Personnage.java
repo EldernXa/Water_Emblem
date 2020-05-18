@@ -10,26 +10,44 @@ public class Personnage {
     private Carac caracteristique;
     private Coordinate pos;
 
-
+    public Personnage(String name, Coordinate coordinate){
+        this(name);
+        pos = coordinate;
+    }
     public Personnage(String name) {
         id = nbPerso;
         nbPerso++;
         caracteristique = new Carac(name);
-        this.pos = pos;
-        calculerStats();
+        pos = new Coordinate(0,0);
+        Stat.calculerStats(this);
 
     }
 
     private Personnage(Personnage perso){
         id = perso.id;
         pos = perso.pos;
-        caracteristique = perso.caracteristique.cloner();//pas sur, peut etre pb d adresse
+        caracteristique = perso.caracteristique.cloner();
     }
     public void attack(Coordinate coodinate){
         Personnage adversaire = AffichePerso.getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
+        int damage = Stat.damage(caracteristique, adversaire.caracteristique);
+        adversaire.attacked(damage);
+    }
+
+    public void attacked(int damage){
+        int hp = caracteristique.getHp() - damage;
+        if(hp <= 0){
+            die();
+        }
+        caracteristique.setHp(hp);
+    }
+    public void die(){
 
     }
 
+    public boolean isMage(){
+        return caracteristique.getWep1().compareTo("Magie") == 0;
+    }
 
 
     public Personnage cloner(){
@@ -68,36 +86,6 @@ public class Personnage {
         this.pos = pos;
     }
 
-    public void calculerStats(){
-        String arme1 = caracteristique.getWep1();
 
-        int str = caracteristique.getStr();
-        switch (arme1){
-            case "Epee":{
-
-                caracteristique.setStr(str + 4);
-                break;
-            }
-            case "Lance": {
-                caracteristique.setStr(str + 3);
-
-                break;
-            }
-            case "Hache": {
-
-                caracteristique.setStr(str + 2);
-                break;
-            }
-            case "Arc" : {
-                caracteristique.setStr(str + 2);
-                caracteristique.setPorte(2);
-                break;
-            }
-            case "Magie" : {
-                caracteristique.setPorte(2);
-                break;
-            }
-        }
-    }
 
 }
