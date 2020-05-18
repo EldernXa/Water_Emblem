@@ -18,15 +18,13 @@ import java.util.*;
 public class AffichePerso {
     static List<PersonnageDisplay> listPersonnage;
     static List<PersonnageDisplay> listEnnemi;
-    static private GridPane perso;
+    private GridPane perso;
     private DataCoordCharacters dataCoordCharacters;
-    static HashMap<Coordinate, ImageView> listImageView;
 
     public AffichePerso(String dataCoordinate){
         dataCoordCharacters = new DataCoordCharacters(dataCoordinate);
         listPersonnage = new ArrayList<>();
         listEnnemi = new ArrayList<>();
-        listImageView = new HashMap<>();
         for(int i=0;i <dataCoordCharacters.getGentilCharactersList().size(); i++)
         {
             int x = Integer.parseInt(dataCoordCharacters.getGentilCoord().get(i).get(0));
@@ -44,7 +42,11 @@ public class AffichePerso {
     }
 
     public ArrayList<Coordinate> getCoordinate(Personnage personnage, Coordinate coordinate){
-        return dataCoordCharacters.getMovementField(personnage, coordinate);
+        return dataCoordCharacters.getMovementArea(personnage, coordinate);
+    }
+
+    public ArrayList<Coordinate> getAttackCoordinate(Personnage personnage, Coordinate coordinate){
+        return dataCoordCharacters.getAttackArea(personnage, coordinate);
     }
 
     void init() {
@@ -59,30 +61,27 @@ public class AffichePerso {
         for(int i=0; i<AfficheMap.x;i++)
             perso.getRowConstraints().add(new RowConstraints(0));
 
-        for(PersonnageDisplay p: listPersonnage){
+        initListPersonnage(listPersonnage);
+        initListPersonnage(listEnnemi);
+
+    }
+
+    public void initListPersonnage(List<PersonnageDisplay> list){
+        for(PersonnageDisplay p: list){
             p.getImageView().setFitWidth(AffichageGraphique.size);
             p.getImageView().setFitHeight(AffichageGraphique.size);
             perso.add(p.getImageView(), p.getCoordinate().getX(), p.getCoordinate().getY());
             GridPane.setHalignment(p.getImageView(), HPos.LEFT);
             GridPane.setValignment(p.getImageView(), VPos.TOP);
         }
-
-        for(PersonnageDisplay p: listEnnemi){
-            p.getImageView().setFitWidth(AffichageGraphique.size);
-            p.getImageView().setFitHeight(AffichageGraphique.size);
-            perso.add(p.getImageView(), p.getCoordinate().getX(), p.getCoordinate().getY());
-            GridPane.setHalignment(p.getImageView(), HPos.LEFT);
-            GridPane.setValignment(p.getImageView(), VPos.TOP);
-        }
-
     }
 
     public GridPane getGridPanePerso(){
         return perso;
     }
 
-    public void move(PersonnageDisplay persoToMove, Coordinate coordinate){
-        AffichageGraphique.perso.getChildren().clear();
+    public void move(PersonnageDisplay persoToMove, Coordinate coordinate, GridPane perso){
+        perso.getChildren().clear();
         persoToMove.setCoordinate(new Coordinate(coordinate.getX(), coordinate.getY()));
         for(PersonnageDisplay p: listPersonnage){
             perso.add(p.getImageView(), p.getCoordinate().getX(), p.getCoordinate().getY());

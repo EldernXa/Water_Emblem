@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Event {
-    static PersonnageDisplay personnageSelected = null;
-    static void clickOnMap(Pane pane, AffichePerso affichePerso){
-        pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    static private PersonnageDisplay personnageSelected = null;
+    static void clickOnMap(GridPane perso, AffichePerso affichePerso, GridPane grilleMvt, GridPane grilleAttack){
+        perso.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event)
             {
@@ -31,13 +31,10 @@ public class Event {
                     personnageSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
                     if(personnageSelected!=null)
                     {
-                        for(Coordinate c: affichePerso.getCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate())){
-                            Rectangle rect = new Rectangle(AffichageGraphique.size, AffichageGraphique.size);
-                            rect.setFill(Color.rgb(0, 0, 255, 0.3));
-                            GridPane.setHalignment(rect, HPos.LEFT);
-                            GridPane.setValignment(rect, VPos.TOP);
-                            AffichageGraphique.grilleMvt.add(rect, c.getX(), c.getY());
-                        }
+                        for(Coordinate c: affichePerso.getCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
+                            addRectangle(grilleMvt, c, Color.rgb(0, 0, 255, 0.3));
+                        for(Coordinate c: affichePerso.getAttackCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
+                            addRectangle(grilleAttack, c, Color.rgb(255, 0, 0, 0.3));
                     }
                 }
                 else{
@@ -45,13 +42,22 @@ public class Event {
                             personnageSelected.getCoordinate());
                     for(Coordinate c:listMvt){
                         if(c.equal(new Coordinate(x, y))) {
-                            affichePerso.move(personnageSelected, new Coordinate(x, y));
+                            affichePerso.move(personnageSelected, new Coordinate(x, y), perso);
                             personnageSelected = null;
-                            AffichageGraphique.grilleMvt.getChildren().clear();
+                            grilleMvt.getChildren().clear();
+                            grilleAttack.getChildren().clear();
                         }
                     }
                 }
             }
         });
+    }
+
+    static private void addRectangle(GridPane grille, Coordinate c, Color color){
+        Rectangle rect = new Rectangle(AffichageGraphique.size, AffichageGraphique.size);
+        rect.setFill(color);
+        grille.add(rect, c.getX(), c.getY());
+        GridPane.setHalignment(rect, HPos.LEFT);
+        GridPane.setValignment(rect, VPos.TOP);
     }
 }

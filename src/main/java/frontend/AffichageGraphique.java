@@ -20,11 +20,12 @@ import java.util.Objects;
 
 public class AffichageGraphique {
     static int size = 50;
-    AfficheMap afficheMap;
-    AffichePerso affichePerso;
-    GridPane map;
-    static public GridPane perso;
-    static public GridPane grilleMvt;
+    private AfficheMap afficheMap;
+    private AffichePerso affichePerso;
+    private GridPane map;
+    private GridPane perso;
+    private GridPane grilleMvt;
+    private GridPane grilleAttack;
 
     public Pane init() {
         GridPane root = new GridPane();
@@ -50,24 +51,16 @@ public class AffichageGraphique {
             @Override
             public void handle(ActionEvent event){
                 afficheMap = new AfficheMap(choiceMap.getValue());
-                grilleMvt = new GridPane();
-                grilleMvt.setAlignment(Pos.TOP_LEFT);
-                grilleMvt.setVgap(AffichageGraphique.size);
-                grilleMvt.setHgap(AffichageGraphique.size);
-                for(int i=0; i<AfficheMap.y;i++)
-                {
-                    grilleMvt.getColumnConstraints().add(new ColumnConstraints(0));
-                }
-                for(int i=0; i<AfficheMap.x;i++)
-                    grilleMvt.getRowConstraints().add(new RowConstraints(0));
+                grilleMvt = initGridPane();
+                grilleAttack = initGridPane();
                 map = afficheMap.getMap();
                 affichePerso = new AffichePerso(choiceMap.getValue());
                 perso = affichePerso.getGridPanePerso();
                 map.setAlignment(Pos.TOP_LEFT);
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
-                Event.clickOnMap(perso, affichePerso);
-                root.getChildren().addAll(map, grilleMvt, perso);
+                Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack);
+                root.getChildren().addAll(map, grilleMvt, grilleAttack, perso);
             }
         });
 
@@ -76,5 +69,17 @@ public class AffichageGraphique {
         root.add(start, 1, 1);
         //root.getChildren().addAll(txt, choiceMap);
         return root;
+    }
+
+    private GridPane initGridPane(){
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.TOP_LEFT);
+        gridPane.setVgap(AffichageGraphique.size);
+        gridPane.setHgap(AffichageGraphique.size);
+        for(int i=0; i<AfficheMap.x;i++)
+            gridPane.getRowConstraints().add(new RowConstraints(0));
+        for(int i=0; i<AfficheMap.y; i++)
+            gridPane.getColumnConstraints().add(new ColumnConstraints(0));
+        return gridPane;
     }
 }
