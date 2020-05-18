@@ -202,7 +202,7 @@ public class DataCoordCharacters {
                 }
                 else if(choice == 2){
 
-                    if (test <= name.getCaracteristique().getPorte() && (i != x || j != y)) {
+                    if (test <= name.getCaracteristique().getPortee() && (i != x || j != y)) {
 
                         if (!coordMovArraylist.contains(dataMap.getThisCoordinate(i, j))) {
                             coordMovArraylist.add(dataMap.getThisCoordinate(i,j));
