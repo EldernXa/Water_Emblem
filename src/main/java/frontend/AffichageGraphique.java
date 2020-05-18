@@ -8,10 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,9 +23,22 @@ public class AffichageGraphique {
     private GridPane perso;
     private GridPane grilleMvt;
     private GridPane grilleAttack;
+    private VBox panel;
+    private HBox window;
+    private VBox information;
+    private VBox button;
 
     public Pane init() {
+        Button move = new Button("bouger");
+        Button attack = new Button("attaquer");
+        Button stay = new Button("Rien faire");
+        move.setVisible(false);
+        attack.setVisible(false);
+        stay.setVisible(false);
+        window = new HBox();
+        window.setSpacing(50);
         GridPane root = new GridPane();
+        window.getChildren().add(root);
         root.setAlignment(Pos.TOP_LEFT);
         File file = new File("./src/main/resources/dataMap");
         ArrayList<String> list = new ArrayList<>();
@@ -51,6 +61,13 @@ public class AffichageGraphique {
             @Override
             public void handle(ActionEvent event){
                 afficheMap = new AfficheMap(choiceMap.getValue());
+                panel = new VBox();
+                information = new VBox();
+                information.setMaxHeight(150);
+                information.setMinHeight(150);
+                button = new VBox();
+                button.getChildren().addAll(move, attack, stay);
+                panel.getChildren().addAll(information, button);
                 grilleMvt = initGridPane();
                 grilleAttack = initGridPane();
                 map = afficheMap.getMap();
@@ -59,8 +76,10 @@ public class AffichageGraphique {
                 map.setAlignment(Pos.TOP_LEFT);
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
-                Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack);
+                Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack, information,
+                        move, attack, stay);
                 root.getChildren().addAll(map, grilleMvt, grilleAttack, perso);
+                window.getChildren().add(panel);
             }
         });
 
@@ -68,7 +87,7 @@ public class AffichageGraphique {
         root.add(choiceMap, 0, 1);
         root.add(start, 1, 1);
         //root.getChildren().addAll(txt, choiceMap);
-        return root;
+        return window;
     }
 
     private GridPane initGridPane(){

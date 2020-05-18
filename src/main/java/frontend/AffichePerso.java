@@ -66,6 +66,15 @@ public class AffichePerso {
 
     }
 
+    public static boolean contains(List<PersonnageDisplay> list, PersonnageDisplay personnage){
+        for(PersonnageDisplay p : list)
+        {
+            if(p.getPersonnage().getCaracteristique().getName().compareTo(personnage.getPersonnage().getCaracteristique().getName())==0)
+                return true;
+        }
+        return false;
+    }
+
     public void initListPersonnage(List<PersonnageDisplay> list){
         for(PersonnageDisplay p: list){
             p.getImageView().setFitWidth(AffichageGraphique.size);
