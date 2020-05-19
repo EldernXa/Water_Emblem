@@ -6,6 +6,7 @@ import backend.PersonnageDisplay;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +20,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import javafx.scene.text.Font;
 
 import javax.swing.plaf.ProgressBarUI;
 import java.util.ArrayList;
@@ -48,9 +51,11 @@ public class Event {
                         HBox pv = new HBox();
                         ProgressBar progressBar = new ProgressBar();
                         progressBar.setProgress((float)personnageSelected.getPersonnage().getCaracteristique().getHp()/personnageSelected.getPersonnage().getCaracteristique().getMaxHp());
+                        Label pvLab = new Label(String.valueOf(personnageSelected.getPersonnage().getCaracteristique().getHp()) + "/" + personnageSelected.getPersonnage().getCaracteristique().getMaxHp());
+                        pvLab.setFont(new Font("Arial",10));
                         pv.getChildren().add(progressBar);
                         information.setVisible(true);
-                        information.getChildren().addAll(photoNom, pv);
+                        information.getChildren().addAll(photoNom, pv, pvLab);
                     }
                     if(personnageSelected!=null && !AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected))
                     {
