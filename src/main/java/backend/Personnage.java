@@ -34,6 +34,11 @@ public class Personnage {
         adversaire.attacked(damage);
     }
 
+    public void attack(Personnage adversaire){
+        int damage = Stat.damage(caracteristique, adversaire.caracteristique);
+        adversaire.attacked(damage);
+    }
+
     public void attacked(int damage){
         int hp = caracteristique.getHp() - damage;
         if(hp <= 0){
@@ -55,7 +60,15 @@ public class Personnage {
     }
 
     public ArrayList<Coordinate> getMovmentPossible(){
-        return new ArrayList<>();
+        ArrayList<Coordinate> lCoor = new ArrayList<>();
+        for(int i = pos.getX() - 2 ; i <= pos.getX() + 2; i++){
+            for(int j = pos.getY() - 2 ; j <= pos.getY() + 2; j++){
+                if(i != pos.getX() || j != pos.getY()){
+                    lCoor.add(new Coordinate(i,j));
+                }
+            }
+        }
+        return lCoor;
     }
 
     public ArrayList<Coordinate> getAttaquePossible(){

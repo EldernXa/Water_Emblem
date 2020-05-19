@@ -28,39 +28,73 @@ public class Etat {
         valHeuristique = heuristique.calculerHeuristique(this);
     }
     public ArrayList<Etat> getToutPossibilité(boolean gentilJoue){
-        return new ArrayList<>();
+        return deplacerMechant();
     }
 
-    private ArrayList<Etat> déplacerGentil(){
+    private ArrayList<Etat> deplacerMechant(){
         ArrayList<Etat> listDeplacement = new ArrayList<>();
-        for (Personnage gentil : gentils){
-            for(Coordinate pos : gentil.getMovmentPossible()){
-                Personnage p = gentil.cloner();
+        for (Personnage mechant : listMechant){
+            for(Coordinate pos : mechant.getMovmentPossible()){
+                Etat test = cloner();
+                Personnage p = mechant.cloner();
                 p.setPos(pos);
-                gentils.set(gentils.indexOf(gentil), p);
-                listDeplacement.add(new Etat(listMechant, gentils, field));
+                test.listMechant.set(listMechant.indexOf(mechant), p);
+                listDeplacement.add(test);
             }
         }
+        System.out.println("deplacement : ");
+        for (Etat e : listDeplacement){
+            e.affEtat();
+        }
+        System.out.println("fin deplacement");
         return listDeplacement;
     }
 
 
-    private ArrayList<Etat> attaqueGentil(){
+    private ArrayList<Etat> attaqueMechant(){
         ArrayList<Etat> listAttaque = new ArrayList<>();
-        for (Personnage gentil : gentils){
-            for(Coordinate pos : gentil.getAttaquePossible()){
-                for (Personnage p : listMechant){
+        for (Personnage mechant : listMechant){
+            for(Coordinate pos : mechant.getAttaquePossible()){
+                Etat test = this.cloner();
+                for (Personnage p : gentils){
                     if(p.getPos() == pos){
                         Personnage newP = p.cloner();
-                        //newP.getAttacked(gentil.getCaracteristique().getStr());
-                        listMechant.set(listMechant.indexOf(p), newP);
+                        mechant.attack(newP);
+                        test.listMechant.set(test.listMechant.indexOf(p), newP);
                     }
                 }
-                listAttaque.add(new Etat(listMechant, gentils, field));
+                listAttaque.add(test);
             }
 
         }
         return listAttaque;
+    }
+
+    public Etat cloner(){
+        ArrayList<Personnage> lMechant = new ArrayList<>();
+        for (Personnage p : listMechant){
+            lMechant.add(p.cloner());
+        }
+        ArrayList<Personnage> lGentil = new ArrayList<>();
+        for (Personnage p : gentils){
+            lGentil.add(p.cloner());
+        }
+        Etat e = new Etat(lMechant, lGentil, field);
+
+        return e;
+    }
+
+    public void affEtat(){
+        System.out.println("etat : ");
+        for (Personnage p :listMechant){
+            System.out.print(p.getCaracteristique().getName()+ " hp : "+p.getCaracteristique().getHp());
+            p.getPos().affPos();
+        }
+        for (Personnage p : gentils){
+            System.out.print(p.getCaracteristique().getName() + " hp : "+p.getCaracteristique().getHp());
+            p.getPos().affPos();
+        }
+        System.out.println();
     }
 
     public boolean estFinal(){

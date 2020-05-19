@@ -1,6 +1,6 @@
 package IA;
 
-public class algo_Minimax {
+public class Algo_Minimax {
 
 
     static public Etat startMini(Etat etat, int depth, boolean maxi){

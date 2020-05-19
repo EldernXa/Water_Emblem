@@ -23,8 +23,8 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class AffichePerso {
-    static List<PersonnageDisplay> listPersonnage;
-    static List<PersonnageDisplay> listEnnemi;
+    public static List<PersonnageDisplay> listPersonnage;
+    public static List<PersonnageDisplay> listEnnemi;
     private GridPane perso;
     private DataCoordCharacters dataCoordCharacters;
     static ImageView imgView;
