@@ -10,6 +10,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.io.File;
@@ -38,15 +39,39 @@ public class AffichageGraphique {
             ImageView mvtImage = new ImageView(mvtImg);
             move.setGraphic(mvtImage);
         }catch(Exception e){
-            System.out.println("Image movement probleme");
+            System.out.println("Image bouger pose probleme");
         }
+        move.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    Image mvtImgHov = new Image(new FileInputStream("src/main/resources/bouger_hover.png"));
+                    ImageView mvtImageHov = new ImageView(mvtImgHov);
+                    move.setGraphic(mvtImageHov);
+                }catch(Exception e){
+                    System.out.println("Image bouger_hover pose probleme");
+                }
+            }
+        });
+        move.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    Image mvtImg = new Image(new FileInputStream("src/main/resources/bouger.png"));
+                    ImageView mvtImage = new ImageView(mvtImg);
+                    move.setGraphic(mvtImage);
+                }catch(Exception e){
+                    System.out.println("Image bouger pose probleme");
+                }
+            }
+        });
         Button attack = new Button("Attaquer");
         try {
             Image attackImg = new Image(new FileInputStream("src/main/resources/attaquer.png"));
             ImageView attackImage = new ImageView(attackImg);
             attack.setGraphic(attackImage);
         }catch(Exception e){
-            System.out.println("Image movement probleme");
+            System.out.println("Image attaquer pose probleme");
         }
         Button stay = new Button("Rien faire");
         move.setVisible(false);
