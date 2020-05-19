@@ -72,7 +72,7 @@ public class PersonnageDisplay {
             for(File f: Objects.requireNonNull(file.listFiles())){
                 if(f.getName().contains("Arret"))
                     inputStream[0].add(new FileInputStream(f.getAbsoluteFile()));
-                else if(f.getName().contains("Arrière")){
+                else if(f.getName().contains("Arri")){
                     inputStream[1].add(new FileInputStream(f.getAbsoluteFile()));
                 }else if(f.getName().contains("Attaque")){
                     inputStream[2].add(new FileInputStream(f.getAbsoluteFile()));

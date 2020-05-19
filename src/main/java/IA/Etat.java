@@ -27,11 +27,11 @@ public class Etat {
         heuristique = h;
         valHeuristique = heuristique.calculerHeuristique(this);
     }
-    public ArrayList<Etat> getToutPossibilité(boolean gentilJoue){
+    public ArrayList<Etat> getToutPossibilite(boolean gentilJoue){
         return new ArrayList<>();
     }
 
-    private ArrayList<Etat> déplacerGentil(){
+    private ArrayList<Etat> deplacerGentil(){
         ArrayList<Etat> listDeplacement = new ArrayList<>();
         for (Personnage gentil : gentils){
             for(Coordinate pos : gentil.getMovmentPossible()){
