@@ -8,10 +8,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -30,10 +32,22 @@ public class AffichageGraphique {
     private VBox button;
 
     public Pane init() {
-        Button move = new Button("bouger");
-        ImageView mvtImage = new ImageView("./src/main/resources/shoe.png");
-        move.setGraphic(mvtImage);
+        Button move = new Button("Bouger");
+        try {
+            Image mvtImg = new Image(new FileInputStream("src/main/resources/bouger.png"));
+            ImageView mvtImage = new ImageView(mvtImg);
+            move.setGraphic(mvtImage);
+        }catch(Exception e){
+            System.out.println("Image movement probleme");
+        }
         Button attack = new Button("Attaquer");
+        try {
+            Image attackImg = new Image(new FileInputStream("src/main/resources/attaquer.png"));
+            ImageView attackImage = new ImageView(attackImg);
+            attack.setGraphic(attackImage);
+        }catch(Exception e){
+            System.out.println("Image movement probleme");
+        }
         Button stay = new Button("Rien faire");
         move.setVisible(false);
         attack.setVisible(false);
