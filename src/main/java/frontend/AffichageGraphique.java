@@ -35,7 +35,7 @@ public class AffichageGraphique {
     public Pane init() {
         Button move = new Button("Bouger");
         try {
-            Image mvtImg = new Image(new FileInputStream("src/main/resources/bouger.png"));
+            Image mvtImg = new Image(new FileInputStream("src/main/resources/icoButtons/bouger.png"));
             ImageView mvtImage = new ImageView(mvtImg);
             move.setGraphic(mvtImage);
         }catch(Exception e){
@@ -45,7 +45,7 @@ public class AffichageGraphique {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    Image mvtImgHov = new Image(new FileInputStream("src/main/resources/bouger_hover.png"));
+                    Image mvtImgHov = new Image(new FileInputStream("src/main/resources/icoButtons/bouger_hover.png"));
                     ImageView mvtImageHov = new ImageView(mvtImgHov);
                     move.setGraphic(mvtImageHov);
                 }catch(Exception e){
@@ -57,7 +57,7 @@ public class AffichageGraphique {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    Image mvtImg = new Image(new FileInputStream("src/main/resources/bouger.png"));
+                    Image mvtImg = new Image(new FileInputStream("src/main/resources/icoButtons/bouger.png"));
                     ImageView mvtImage = new ImageView(mvtImg);
                     move.setGraphic(mvtImage);
                 }catch(Exception e){
@@ -67,7 +67,7 @@ public class AffichageGraphique {
         });
         Button attack = new Button("Attaquer");
         try {
-            Image attackImg = new Image(new FileInputStream("src/main/resources/attaquer.png"));
+            Image attackImg = new Image(new FileInputStream("src/main/resources/icoButtons/attaquer.png"));
             ImageView attackImage = new ImageView(attackImg);
             attack.setGraphic(attackImage);
         }catch(Exception e){
@@ -77,7 +77,7 @@ public class AffichageGraphique {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    Image attackImgHov = new Image(new FileInputStream("src/main/resources/attaquer_hover.png"));
+                    Image attackImgHov = new Image(new FileInputStream("src/main/resources/icoButtons/attaquer_hover.png"));
                     ImageView attackImageHov = new ImageView(attackImgHov);
                     attack.setGraphic(attackImageHov);
                 }catch(Exception e){
@@ -89,7 +89,7 @@ public class AffichageGraphique {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    Image attackImgHov = new Image(new FileInputStream("src/main/resources/attaquer.png"));
+                    Image attackImgHov = new Image(new FileInputStream("src/main/resources/icoButtons/attaquer.png"));
                     ImageView attackImageHov = new ImageView(attackImgHov);
                     attack.setGraphic(attackImageHov);
                 }catch(Exception e){
