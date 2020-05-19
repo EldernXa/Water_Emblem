@@ -3,6 +3,7 @@ package frontend;
 import backend.Coordinate;
 import backend.Personnage;
 import backend.PersonnageDisplay;
+import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -22,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 import javax.swing.plaf.ProgressBarUI;
 import java.util.ArrayList;
@@ -141,7 +143,7 @@ public class Event {
     }
 
     public static void buttonStay(Button stay, VBox information, Button move, Button attack,
-                           GridPane grilleMvt, GridPane grilleAttack){
+                           GridPane grilleMvt, GridPane grilleAttack, GridPane perso){
         stay.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
@@ -150,6 +152,7 @@ public class Event {
                 stay.setVisible(false);
                 move.setVisible(false);
                 attack.setVisible(false);
+                AffichageGraphique.group.getChildren().clear();
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
                 personnageSelected =null;
