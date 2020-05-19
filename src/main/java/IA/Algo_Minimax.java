@@ -8,7 +8,7 @@ public class Algo_Minimax {
         Etat etatFin = etat;
         if(maxi){
             value = -100000;
-            for (Etat e : etat.getToutPossibilité(maxi)){
+            for (Etat e : etat.getToutPossibilite(maxi)){
                 int x =  minimax(e, depth - 1, !maxi);
                 if(x > value){
                     value = x;
@@ -20,7 +20,7 @@ public class Algo_Minimax {
 
         else{
             value = 100000;
-            for (Etat e : etat.getToutPossibilité(maxi)){
+            for (Etat e : etat.getToutPossibilite(maxi)){
                 int x =  minimax(e, depth - 1, !maxi);
                 if(x < value){
                     value = x;
@@ -39,7 +39,7 @@ public class Algo_Minimax {
 
         if(maxi){
             value = -100000;
-            for (Etat e : etat.getToutPossibilité(maxi)){
+            for (Etat e : etat.getToutPossibilite(maxi)){
                 value = Math.max(value, minimax(e, depth - 1, !maxi));
             }
             return value;
@@ -47,7 +47,7 @@ public class Algo_Minimax {
 
         else{
             value = 100000;
-            for (Etat e : etat.getToutPossibilité(maxi)){
+            for (Etat e : etat.getToutPossibilite(maxi)){
                 value = Math.min(value, minimax(e, depth - 1, !maxi));
             }
             return value;

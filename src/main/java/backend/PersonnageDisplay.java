@@ -72,7 +72,7 @@ public class PersonnageDisplay {
             for(File f: Objects.requireNonNull(file.listFiles())){
                 if(f.getName().contains("Arret"))
                     inputStream[0].add(new FileInputStream(f.getAbsoluteFile()));
-                else if(f.getName().contains("Arrière")){
+                else if(f.getName().contains("Arri")){
                     inputStream[1].add(new FileInputStream(f.getAbsoluteFile()));
                 }else if(f.getName().contains("Attaque")){
                     inputStream[2].add(new FileInputStream(f.getAbsoluteFile()));
@@ -125,9 +125,6 @@ public class PersonnageDisplay {
             case 5:
                 this.orientation=5;
                 break;
-            case 6:
-                this.orientation=6;
-                break;
         }
         num = 0;
     }
@@ -138,8 +135,8 @@ public class PersonnageDisplay {
     public Personnage getPersonnage(){return perso;}
     public void setCoordinate(Coordinate coordinate){
         this.coordinate = new Coordinate(coordinate.getX(), coordinate.getY());
-        for(int i=0; i<imageView.length;i++)
-            for(int is=0; is<imageView[i].size(); is++)
+        for(int i=0; i<inputStream.length;i++)
+            for(int is=0; is<inputStream[i].size(); is++)
             {
                 imageView[i].get(is).setTranslateX(0);
                 imageView[i].get(is).setTranslateY(0);
