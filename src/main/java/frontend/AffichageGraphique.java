@@ -5,10 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Box;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class AffichageGraphique {
     private HBox window;
     private VBox information;
     private VBox button;
+    public static GridPane group;
 
     public Pane init() {
         Button move = new Button("bouger");
@@ -60,6 +63,8 @@ public class AffichageGraphique {
         start.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
+                group = new GridPane();
+                group.setAlignment(Pos.TOP_LEFT);
                 afficheMap = new AfficheMap(choiceMap.getValue());
                 panel = new VBox();
                 information = new VBox();
@@ -76,11 +81,10 @@ public class AffichageGraphique {
                 map.setAlignment(Pos.TOP_LEFT);
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
-                Event.buttonStay(stay, information, move, attack, grilleMvt, grilleAttack);
+                Event.buttonStay(stay, information, move, attack, grilleMvt, grilleAttack, perso);
                 Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack, information,
                         move, attack, stay);
-
-                root.getChildren().addAll(map, grilleMvt, grilleAttack, perso);
+                root.getChildren().addAll(map, grilleMvt, grilleAttack, group, perso);
                 window.getChildren().add(panel);
             }
         });
