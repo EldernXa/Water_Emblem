@@ -17,7 +17,7 @@ public abstract class Field {
     public Field(String nomImg){
         apsect = new Pane();
         try {
-            FileInputStream inputStream = new FileInputStream("src/main/resources/"+ nomImg +".png");
+            FileInputStream inputStream = new FileInputStream("src/main/resources/dataMap/"+ nomImg +".png");
             Image img = new Image(inputStream);
             imgView = new ImageView(img);
             apsect.getChildren().add(imgView);
