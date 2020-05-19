@@ -136,9 +136,9 @@ public class AffichePerso {
     public void move(PersonnageDisplay persoToMove, Coordinate coordinate, GridPane perso){
         perso.getChildren().clear();
         persoToMove.setPresent(false);
-        TranslateTransition ttX = new TranslateTransition(Duration.millis(600), persoToMove.getImageView());
+        TranslateTransition ttX = new TranslateTransition(Duration.millis(1000), persoToMove.getImageView());
         ttX.setToX((coordinate.getX()-persoToMove.getCoordinate().getX())*50);
-        TranslateTransition ttY = new TranslateTransition(Duration.millis(600), persoToMove.getImageView());
+        TranslateTransition ttY = new TranslateTransition(Duration.millis(1000), persoToMove.getImageView());
         ttY.setToY((coordinate.getY()-persoToMove.getCoordinate().getY())*50);
         SequentialTransition seq = new SequentialTransition(ttX, ttY);
         Timeline timeline = new Timeline();
@@ -146,13 +146,13 @@ public class AffichePerso {
         timeline.getKeyFrames().add(new KeyFrame(
                 Duration.millis(200),
                 (ActionEvent event)->{
-                    if(ttX.getNode().getTranslateX()<0 && ttX.getNode().getTranslateX()!=ttX.getToX())
+                    if(ttX.getNode().getTranslateX()<0 && ttX.getNode().getTranslateX()!=ttX.getToX() && persoToMove.getOrientation()!=5)
                         persoToMove.setOrientation(5);
-                    else if(ttX.getNode().getTranslateX()>0 && ttX.getNode().getTranslateX()!=ttX.getToX())
+                    else if(ttX.getNode().getTranslateX()>0 && ttX.getNode().getTranslateX()!=ttX.getToX()&&persoToMove.getOrientation()!=4)
                         persoToMove.setOrientation(4);
-                    else if(ttY.getNode().getTranslateY()<0 && ttY.getNode().getTranslateY()!=ttY.getToY())
+                    else if(ttY.getNode().getTranslateY()<0 && ttY.getNode().getTranslateY()!=ttY.getToY() && persoToMove.getOrientation()!=1)
                         persoToMove.setOrientation(1);
-                    else if(ttY.getNode().getTranslateY()>0 && ttY.getNode().getTranslateY()!=ttY.getToY())
+                    else if(ttY.getNode().getTranslateY()>0 && ttY.getNode().getTranslateY()!=ttY.getToY() && persoToMove.getOrientation()!=3)
                         persoToMove.setOrientation(3);
                     imgView.setTranslateX(0);
                     imgView.setTranslateY(0);
