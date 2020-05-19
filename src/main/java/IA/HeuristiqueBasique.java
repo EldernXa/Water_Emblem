@@ -3,7 +3,7 @@ package IA;
 import backend.Personnage;
 
 import java.util.ArrayList;
-
+ /*
 public class HeuristiqueBasique implements Heuristique {
 
     @Override
@@ -19,3 +19,4 @@ public class HeuristiqueBasique implements Heuristique {
         return value;
     }
 }
+*/

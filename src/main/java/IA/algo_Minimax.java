@@ -2,7 +2,7 @@ package IA;
 
 public class algo_Minimax {
 
-
+/*
     static public Etat startMini(Etat etat, int depth, boolean maxi){
         int value ;
         Etat etatFin = etat;
@@ -52,5 +52,5 @@ public class algo_Minimax {
             }
             return value;
         }
-    }
+    }  */
 }
