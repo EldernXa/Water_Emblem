@@ -73,6 +73,30 @@ public class AffichageGraphique {
         }catch(Exception e){
             System.out.println("Image attaquer pose probleme");
         }
+        attack.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    Image attackImgHov = new Image(new FileInputStream("src/main/resources/attaquer_hover.png"));
+                    ImageView attackImageHov = new ImageView(attackImgHov);
+                    attack.setGraphic(attackImageHov);
+                }catch(Exception e){
+                    System.out.println("Image attaquer_hover pose probleme");
+                }
+            }
+        });
+        attack.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    Image attackImgHov = new Image(new FileInputStream("src/main/resources/attaquer.png"));
+                    ImageView attackImageHov = new ImageView(attackImgHov);
+                    attack.setGraphic(attackImageHov);
+                }catch(Exception e){
+                    System.out.println("Image attaquer pose probleme");
+                }
+            }
+        });
         Button stay = new Button("Rien faire");
         move.setVisible(false);
         attack.setVisible(false);
