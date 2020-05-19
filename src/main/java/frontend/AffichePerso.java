@@ -23,7 +23,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class AffichePerso {
-    static List<PersonnageDisplay> listPersonnage;
+    public static List<PersonnageDisplay> listPersonnage;
     static List<PersonnageDisplay> listEnnemi;
     private GridPane perso;
     private DataCoordCharacters dataCoordCharacters;
@@ -92,8 +92,12 @@ public class AffichePerso {
                     perso.getChildren().clear();
                     for(PersonnageDisplay p: listPersonnage){
                         p.nextPosition();
+                        p.getImageView().setTranslateY(0);
+                        p.getImageView().setTranslateX(0);
                     }
                     for(PersonnageDisplay p:listEnnemi){
+                        p.getImageView().setTranslateY(0);
+                        p.getImageView().setTranslateX(0);
                         p.nextPosition();
                     }
                     initListPersonnage(listPersonnage, perso);
@@ -150,7 +154,8 @@ public class AffichePerso {
                         persoToMove.setOrientation(1);
                     else if(ttY.getNode().getTranslateY()>0 && ttY.getNode().getTranslateY()!=ttY.getToY())
                         persoToMove.setOrientation(3);
-
+                    imgView.setTranslateX(0);
+                    imgView.setTranslateY(0);
                     persoToMove.nextPosition();
                     AffichageGraphique.group.getChildren().clear();
                     ImageView imgView = new ImageView(persoToMove.getImageView().getImage());
@@ -162,6 +167,8 @@ public class AffichePerso {
                     imgView.setTranslateY(ttY.getNode().getTranslateY());
                     if(ttX.getNode().getTranslateX()== ttX.getToX() &&
                     ttY.getNode().getTranslateY() == ttY.getToY()){
+                        imgView.setTranslateX(0);
+                        imgView.setTranslateY(0);
                         AffichageGraphique.group.getChildren().clear();
                         timeline.stop();
                         seq.stop();
