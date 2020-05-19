@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.io.File;
@@ -30,7 +31,9 @@ public class AffichageGraphique {
 
     public Pane init() {
         Button move = new Button("bouger");
-        Button attack = new Button("attaquer");
+        ImageView mvtImage = new ImageView("./src/main/resources/shoe.png");
+        move.setGraphic(mvtImage);
+        Button attack = new Button("Attaquer");
         Button stay = new Button("Rien faire");
         move.setVisible(false);
         attack.setVisible(false);
