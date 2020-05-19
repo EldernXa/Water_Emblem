@@ -9,10 +9,14 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Box;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -32,8 +36,70 @@ public class AffichageGraphique {
     public static GridPane group;
 
     public Pane init() {
-        Button move = new Button("bouger");
-        Button attack = new Button("attaquer");
+        Button move = new Button("Bouger");
+        try {
+            Image mvtImg = new Image(new FileInputStream("src/main/resources/icoButtons/bouger.png"));
+            ImageView mvtImage = new ImageView(mvtImg);
+            move.setGraphic(mvtImage);
+        }catch(Exception e){
+            System.out.println("Image bouger pose probleme");
+        }
+        move.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    Image mvtImgHov = new Image(new FileInputStream("src/main/resources/icoButtons/bouger_hover.png"));
+                    ImageView mvtImageHov = new ImageView(mvtImgHov);
+                    move.setGraphic(mvtImageHov);
+                }catch(Exception e){
+                    System.out.println("Image bouger_hover pose probleme");
+                }
+            }
+        });
+        move.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    Image mvtImg = new Image(new FileInputStream("src/main/resources/icoButtons/bouger.png"));
+                    ImageView mvtImage = new ImageView(mvtImg);
+                    move.setGraphic(mvtImage);
+                }catch(Exception e){
+                    System.out.println("Image bouger pose probleme");
+                }
+            }
+        });
+        Button attack = new Button("Attaquer");
+        try {
+            Image attackImg = new Image(new FileInputStream("src/main/resources/icoButtons/attaquer.png"));
+            ImageView attackImage = new ImageView(attackImg);
+            attack.setGraphic(attackImage);
+        }catch(Exception e){
+            System.out.println("Image attaquer pose probleme");
+        }
+        attack.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    Image attackImgHov = new Image(new FileInputStream("src/main/resources/icoButtons/attaquer_hover.png"));
+                    ImageView attackImageHov = new ImageView(attackImgHov);
+                    attack.setGraphic(attackImageHov);
+                }catch(Exception e){
+                    System.out.println("Image attaquer_hover pose probleme");
+                }
+            }
+        });
+        attack.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    Image attackImgHov = new Image(new FileInputStream("src/main/resources/icoButtons/attaquer.png"));
+                    ImageView attackImageHov = new ImageView(attackImgHov);
+                    attack.setGraphic(attackImageHov);
+                }catch(Exception e){
+                    System.out.println("Image attaquer pose probleme");
+                }
+            }
+        });
         Button stay = new Button("Rien faire");
         move.setVisible(false);
         attack.setVisible(false);
