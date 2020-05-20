@@ -48,7 +48,7 @@ public class Personnage {
     public void attack(Personnage adversaire){
         System.out.println(caracteristique.getName() + " attaque");
         int damage = Stat.damage(caracteristique, adversaire.caracteristique);
-        System.out.println("damage attaq "+damage);
+
         if(caracteristique.getHp() > 0) {
             adversaire.attacked(damage);
         }
@@ -64,7 +64,7 @@ public class Personnage {
              hp = caracteristique.getHp() + damage;
         }
 
-        System.out.println("damage recu " + damage);
+
         if (hp <= 0) {
             hp = 0;
             die();
