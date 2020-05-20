@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class AffichePerso {
+
     public static List<PersonnageDisplay> listPersonnage;
     public static List<PersonnageDisplay> listEnnemi;
     private GridPane perso;
@@ -86,7 +87,7 @@ public class AffichePerso {
         for(PersonnageDisplay p : listEnnemi)
             p.setOrientation(0);
         t.getKeyFrames().add(new KeyFrame(
-                Duration.millis(200),
+                Duration.millis(280),
                 (ActionEvent event) -> {
                     perso.getChildren().clear();
                     for(PersonnageDisplay p: listPersonnage){
@@ -142,57 +143,74 @@ public class AffichePerso {
 
     public void move(PersonnageDisplay persoToMove, Coordinate coordinate, GridPane perso,
                      GridPane grilleMvt){
-        perso.getChildren().clear();
+
+
+        perso.getChildren().clear(); // aucun changement si je mets en commentaire
         persoToMove.setPresent(false);
-        TranslateTransition ttX = new TranslateTransition(Duration.millis(600), persoToMove.getImageView());
+
+        int deplacementHorizontal = Math.abs(coordinate.getX() - persoToMove.getCoordinate().getX()) ;
+        int deplacementVertical = Math.abs((coordinate.getY() -persoToMove.getCoordinate().getY()));
+
+        TranslateTransition ttX = new TranslateTransition(Duration.millis(400*deplacementHorizontal), persoToMove.getImageView());
         ttX.setToX((coordinate.getX()-persoToMove.getCoordinate().getX())*50);
-        TranslateTransition ttY = new TranslateTransition(Duration.millis(600), persoToMove.getImageView());
+        TranslateTransition ttY = new TranslateTransition(Duration.millis(400*deplacementVertical), persoToMove.getImageView());
         ttY.setToY((coordinate.getY()-persoToMove.getCoordinate().getY())*50);
         SequentialTransition seq = new SequentialTransition(ttX, ttY);
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(new KeyFrame(
-                Duration.millis(200),
+                Duration.millis(1),
                 (ActionEvent event)->{
+
+
                     persoToMove.getImageView().setTranslateY(0);
                     persoToMove.getImageView().setTranslateX(0);
                     if(ttX.getNode().getTranslateX()<0 && ttX.getNode().getTranslateX()!=ttX.getToX() &&
-                        persoToMove.getOrientation()!=5)
+                            persoToMove.getOrientation()!=5)
                         persoToMove.setOrientation(5);
                     else if(ttX.getNode().getTranslateX()>0 && ttX.getNode().getTranslateX()!=ttX.getToX()&&
-                        persoToMove.getOrientation()!=4)
+                            persoToMove.getOrientation()!=4)
                         persoToMove.setOrientation(4);
                     else if(ttY.getNode().getTranslateY()<0 && ttY.getNode().getTranslateY()!=ttY.getToY()&&
-                        persoToMove.getOrientation()!=1)
+                            persoToMove.getOrientation()!=1)
                         persoToMove.setOrientation(1);
                     else if(ttY.getNode().getTranslateY()>0 && ttY.getNode().getTranslateY()!=ttY.getToY()&&
-                        persoToMove.getOrientation()!=3)
+                            persoToMove.getOrientation()!=3){
                         persoToMove.setOrientation(3);
+                    }
+
+
                     persoToMove.getImageView().setTranslateX(0);
                     persoToMove.getImageView().setTranslateY(0);
-                    persoToMove.nextPosition();
+                    // persoToMove.nextPosition();
+
                     AffichageGraphique.group.getChildren().clear();
                     imgView = new ImageView(persoToMove.getImageView().getImage());
+
                     imgView.setFitHeight(AffichageGraphique.size);
                     imgView.setFitWidth(AffichageGraphique.size);
                     AffichageGraphique.group.add(imgView, persoToMove.getCoordinate().getX(),
                             persoToMove.getCoordinate().getY());
+
                     imgView.setTranslateX(ttY.getNode().getTranslateX());
                     imgView.setTranslateY(ttY.getNode().getTranslateY());
                     if(ttX.getNode().getTranslateX()== ttX.getToX() &&
-                    ttY.getNode().getTranslateY() == ttY.getToY()){
+                            ttY.getNode().getTranslateY() == ttY.getToY()){
                         persoToMove.getImageView().setTranslateX(0);
                         persoToMove.getImageView().setTranslateY(0);
                         AffichageGraphique.group.getChildren().clear();
                         timeline.stop();
                         seq.stop();
                         timeline.getKeyFrames().clear();
-                        persoToMove.setOrientation(0);
                         persoToMove.setCoordinate(coordinate);
+                        persoToMove.setOrientation(0);
+                        persoToMove.setPresent(true);
                         for(Coordinate c: getAttackAreaAfterMovement(persoToMove.getPersonnage(), persoToMove.getCoordinate()))
                             Event.addRectangle(grilleMvt, c, Color.rgb(255, 0, 0, 0.3));
-                        persoToMove.setPresent(true);
+
                     }
+
+
                 }
         ));
         timeline.play();
