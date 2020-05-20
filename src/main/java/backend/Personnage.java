@@ -40,20 +40,31 @@ public class Personnage {
 
     public void attack(Personnage adversaire){
         int damage = Stat.damage(caracteristique, adversaire.caracteristique);
-        System.out.println(damage);
+        System.out.println("damage attaq "+damage);
         adversaire.attacked(damage);
     }
 
-    public void attacked(int damage){
-        int hp = caracteristique.getHp() - damage;
-        System.out.println(damage);
-        if(hp <= 0){
+    public void attacked(int damage) {
+        int hp;
+        if (damage > 0) {
+             hp= caracteristique.getHp() - damage;
+        }
+        else {
+             hp = caracteristique.getHp() + damage;
+        }
+
+        System.out.println("damage recu " + damage);
+        if (hp <= 0) {
+            hp = 0;
             die();
         }
         caracteristique.setHp(hp);
+
+
     }
     public void die(){
-
+        caracteristique.setStr(0);
+        caracteristique.setWep1("Vide");
     }
 
     public boolean isMage(){

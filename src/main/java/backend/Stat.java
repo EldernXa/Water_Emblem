@@ -5,11 +5,11 @@ import java.util.Random;
 public class Stat {
 
     public static int damage(Carac attacker, Carac defender){
-        /*int accu = accuracy(attacker, defender);
+        int accu = accuracy(attacker, defender);
         System.out.println("accu " + accu );
         if(!rate(accu)){
             return 0;
-        } */
+        }
         int att = 0;
         int def = 0;
         if(attacker.getWep1().compareTo("Magie") == 0){
@@ -52,12 +52,23 @@ public class Stat {
 
     private static boolean rate(int rate){
         Random r = new Random();
-        int x = r.nextInt(100) + 1;
+        int x = r.nextInt(7) + 1;
+        System.out.println("x = " + x);
+
         return x <= rate;
+
     }
     private static int accuracy(Carac attacker, Carac defender){
         int accu = (attacker.getSkl() *2) + (attacker.getLck() / 2) + weaponTriangle(attacker.getWep1(), defender.getWep1()) * 15;
         int avoid = defender.getMov() * 2 + defender.getLck();
+
+        System.out.println(accu +" - " + avoid);
+        System.out.println("accuracy " + (accu-avoid));
+        if ((accu -avoid) == 0){
+            Random r = new Random();
+            return r.nextInt(15) + 1;
+
+        }
         return accu - avoid;
     }
 
@@ -129,6 +140,9 @@ public class Stat {
             case "Magie" : {
                 caracteristique.setPortee(2);
                 break;
+            }
+            case "Vide" : {
+                caracteristique.setStr(0);
             }
         }
     }
