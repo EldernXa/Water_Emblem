@@ -5,19 +5,22 @@ import java.util.Random;
 public class Stat {
 
     public static int damage(Carac attacker, Carac defender){
-        int accu = accuracy(attacker, defender);
+        /*int accu = accuracy(attacker, defender);
+        System.out.println("accu " + accu );
         if(!rate(accu)){
             return 0;
-        }
+        } */
         int att = 0;
         int def = 0;
         if(attacker.getWep1().compareTo("Magie") == 0){
             att += attacker.getMag();
             att += weaponTriangle(attacker.getWep1(), defender.getWep1());
+
         }
         else {
             att += attacker.getStr();
             att += weaponTriangle(attacker.getWep1(), defender.getWep1());
+            System.out.println("attaque : " +att);
         }
 
         if(defender.getWep1().compareTo("Magie") == 0){
@@ -25,6 +28,7 @@ public class Stat {
         }
         else {
             def += defender.getDef();
+            System.out.println("def" + def);
         }
         int crit = critical(attacker, defender);
         if(!rate(crit)){

@@ -65,6 +65,7 @@ public class Event {
                             addRectangle(grilleMvt, c, Color.rgb(0, 0, 255, 0.3));
                         for(Coordinate c: affichePerso.getAttackCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
                             addRectangle(grilleAttack, c, Color.rgb(255, 0, 0, 0.3));
+
                         move.setVisible(false);
                         attack.setVisible(false);
                         stay.setVisible(true);
@@ -99,7 +100,22 @@ public class Event {
                                         {
                                             if(coordinate.equal(new Coordinate(x, y)))
                                             {
+                                                HBox photoNom = new HBox();
+                                                ImageView imgView = new ImageView(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)).getImageView().getImage());
+                                                imgView.setFitWidth(AffichageGraphique.size);
+                                                imgView.setFitHeight(AffichageGraphique.size);
+                                                photoNom.getChildren().addAll(imgView, new Label(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)).getPersonnage().getCaracteristique().getName()));
+                                                HBox pv = new HBox();
+                                                ProgressBar progressBar = new ProgressBar();
+                                                progressBar.setProgress((float)AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)).getPersonnage().getCaracteristique().getHp()/AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)).getPersonnage().getCaracteristique().getMaxHp());
+                                                progressBar.setStyle("-fx-accent: RED;");
+                                                Label pvLab = new Label(String.valueOf(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)).getPersonnage().getCaracteristique().getHp()) + "/" + AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)).getPersonnage().getCaracteristique().getMaxHp());
+                                                pvLab.setFont(new Font("Red",10));
+                                                pv.getChildren().add(progressBar);
+                                                information.setVisible(true);
+                                                information.getChildren().addAll(photoNom, pv, pvLab);
                                                 attack.setVisible(true);
+
                                                 attack.setOnAction(new EventHandler<ActionEvent>(){
                                                     @Override
                                                     public void handle(ActionEvent event){

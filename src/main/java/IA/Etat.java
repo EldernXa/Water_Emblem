@@ -6,7 +6,7 @@ import backend.Personnage;
 
 import java.util.ArrayList;
 
-public class Etat {  /*
+public class Etat {
     private ArrayList<Personnage> listMechant;
     private ArrayList<Personnage> gentils;
     private Field field;
@@ -131,6 +131,6 @@ public class Etat {  /*
 
     public void setField(Field field) {
         this.field = field;
-    } */
+    }
 }
 

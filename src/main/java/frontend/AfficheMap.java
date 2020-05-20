@@ -30,8 +30,6 @@ public class AfficheMap {
                 map.setStyle("-fx-grid-lines-visible: true;");
             }
         }
-
-
     }
 
     public GridPane getMap(){
