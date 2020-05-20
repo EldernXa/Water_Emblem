@@ -16,6 +16,7 @@ import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.io.FileInputStream;
@@ -133,7 +134,8 @@ public class AffichePerso {
         return dataCoordCharacters.getAttackAreaAfterMovement(name, coordinate);
     }
 
-    public void move(PersonnageDisplay persoToMove, Coordinate coordinate, GridPane perso){
+    public void move(PersonnageDisplay persoToMove, Coordinate coordinate, GridPane perso,
+                     GridPane grilleMvt){
         perso.getChildren().clear();
         persoToMove.setPresent(false);
         TranslateTransition ttX = new TranslateTransition(Duration.millis(600), persoToMove.getImageView());
@@ -171,6 +173,8 @@ public class AffichePerso {
                         seq.stop();
                         timeline.getKeyFrames().clear();
                         persoToMove.setCoordinate(coordinate);
+                        for(Coordinate c: getAttackAreaAfterMovement(persoToMove.getPersonnage(), persoToMove.getCoordinate()))
+                            Event.addRectangle(grilleMvt, c, Color.rgb(255, 0, 0, 0.3));
                         persoToMove.setPresent(true);
                         persoToMove.setOrientation(0);
                     }

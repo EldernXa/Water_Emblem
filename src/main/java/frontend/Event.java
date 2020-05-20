@@ -84,12 +84,10 @@ public class Event {
                                             public void handle(ActionEvent event) {
                                                 move.setVisible(false);
                                                 information.getChildren().clear();
-                                                affichePerso.move(personnageSelected, new Coordinate(x, y), perso);
+                                                affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt);
                                                 personnageSelected.setBooleanMove(true);
                                                 grilleMvt.getChildren().clear();
                                                 grilleAttack.getChildren().clear();
-                                                for(Coordinate c: affichePerso.getAttackAreaAfterMovement(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
-                                                    addRectangle(grilleMvt, c, Color.rgb(255, 0, 0, 0.3));
                                                 stay.setText("Fin");
                                             }
                                         });
@@ -142,7 +140,7 @@ public class Event {
         });
     }
 
-    static private void addRectangle(GridPane grille, Coordinate c, Color color){
+    static public void addRectangle(GridPane grille, Coordinate c, Color color){
         if(AffichePerso.getPersonnageAt(c)!=null && AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(c)))
         {
             Rectangle rect = new Rectangle(AffichageGraphique.size, AffichageGraphique.size);
@@ -173,6 +171,8 @@ public class Event {
                 AffichageGraphique.group.getChildren().clear();
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
+                personnageSelected.setBooleanAttack(false);
+                personnageSelected.setBooleanMove(false);
                 personnageSelected =null;
             }
         });
