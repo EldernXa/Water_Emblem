@@ -29,22 +29,33 @@ public class Personnage {
         caracteristique = perso.caracteristique.cloner();
     }
     public void attack(Coordinate coodinate){
+
         Personnage adversaire = AffichePerso.getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
         if(adversaire!=null) {
+            System.out.println(caracteristique.getName() + " attaque");
             int damage = Stat.damage(caracteristique, adversaire.getCaracteristique());
-            adversaire.attacked(damage);
+            if(caracteristique.getHp() >0) {
+                adversaire.attacked(damage);
+            }
+            System.out.println(adversaire.caracteristique.getName() + " attaque");
             damage = Stat.damage(adversaire.getCaracteristique(), caracteristique);
-            this.attacked(damage);
+            if(adversaire.getCaracteristique().getHp() > 0) {
+                this.attacked(damage);
+            }
         }
     }
 
     public void attack(Personnage adversaire){
+        System.out.println(caracteristique.getName() + " attaque");
         int damage = Stat.damage(caracteristique, adversaire.caracteristique);
         System.out.println("damage attaq "+damage);
-        adversaire.attacked(damage);
+        if(caracteristique.getHp() > 0) {
+            adversaire.attacked(damage);
+        }
     }
 
     public void attacked(int damage) {
+        System.out.println(caracteristique.getName() + " bouclier");
         int hp;
         if (damage > 0) {
              hp= caracteristique.getHp() - damage;
