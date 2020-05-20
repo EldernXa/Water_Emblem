@@ -84,7 +84,6 @@ public class Event {
                                             @Override
                                             public void handle(ActionEvent event) {
                                                 move.setVisible(false);
-                                                information.getChildren().clear();
                                                 affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt);
                                                 personnageSelected.setBooleanMove(true);
                                                 grilleMvt.getChildren().clear();
@@ -120,7 +119,6 @@ public class Event {
                                                     @Override
                                                     public void handle(ActionEvent event){
                                                         attack.setVisible(false);
-                                                        information.getChildren().clear();
                                                         personnageSelected.getPersonnage().attack(new Coordinate(x, y));
                                                         personnageSelected.setBooleanAttack(true);
                                                         grilleMvt.getChildren().clear();
