@@ -35,8 +35,9 @@ public class Stat {
             crit = 3;
         }
         int damage = (att - def) * crit ;
+
         if(attacker.getSpd() - defender.getSpd() >= 4){
-            damage = damage * 2;
+            damage = (int) (damage * 1.4);
         }
         return damage;
     }
