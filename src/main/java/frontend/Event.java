@@ -91,23 +91,29 @@ public class Event {
                                                 stay.setText("Fin");
                                             }
                                         });
-                                    }else if(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
-                                            AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))
-                                    && !personnageSelected.getBooleanAttack() &&
-                                            affichePerso.getAttackAreaAfterMovement(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()).contains(new Coordinate(x, y))){
-                                        attack.setVisible(true);
-                                        attack.setOnAction(new EventHandler<ActionEvent>(){
-                                            @Override
-                                            public void handle(ActionEvent event){
-                                                attack.setVisible(false);
-                                                information.getChildren().clear();
-                                                personnageSelected.getPersonnage().attack(new Coordinate(x, y));
-                                                personnageSelected.setBooleanAttack(true);
-                                                grilleMvt.getChildren().clear();
-                                                grilleAttack.getChildren().clear();
-                                                stay.setText("Fin");
+                                    }
+                                    if(!personnageSelected.getBooleanAttack()&&
+                                        AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
+                                        AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
+                                        for(Coordinate coordinate:affichePerso.getAttackAreaAfterMovement(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
+                                        {
+                                            if(coordinate.equal(new Coordinate(x, y)))
+                                            {
+                                                attack.setVisible(true);
+                                                attack.setOnAction(new EventHandler<ActionEvent>(){
+                                                    @Override
+                                                    public void handle(ActionEvent event){
+                                                        attack.setVisible(false);
+                                                        information.getChildren().clear();
+                                                        personnageSelected.getPersonnage().attack(new Coordinate(x, y));
+                                                        personnageSelected.setBooleanAttack(true);
+                                                        grilleMvt.getChildren().clear();
+                                                        grilleAttack.getChildren().clear();
+                                                        stay.setText("Fin");
+                                                    }
+                                                });
                                             }
-                                        });
+                                        }
                                     }
                                 }
                             }
