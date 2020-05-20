@@ -44,6 +44,7 @@ public class Event {
                 if(personnageSelected == null)
                 {
                     information.getChildren().clear();
+                    stay.setText("Rien faire");
                     personnageSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
                     if(personnageSelected!=null){
                         addInformation(information, personnageSelected);
@@ -177,7 +178,7 @@ public class Event {
     private static void addInformation(VBox information, PersonnageDisplay personnage){
         HBox photoNom = new HBox();
         ImageView imgView = new ImageView(personnage.getImageView().getImage());
-        imgView.setFitWidth(AffichageGraphique.size);
+        imgView.setFitHeight(AffichageGraphique.size);
         imgView.setFitWidth(AffichageGraphique.size);
         photoNom.getChildren().addAll(imgView, new Label(personnage.getPersonnage().getCaracteristique().getName()));
         HBox pv = new HBox();
