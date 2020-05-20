@@ -4,6 +4,7 @@ import backend.Coordinate;
 import backend.data.DataCoordCharacters;
 import backend.field.Field;
 import backend.Personnage;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
 import java.util.ArrayList;
 
@@ -31,12 +32,14 @@ public class Etat {
         valHeuristique = heuristique.calculerHeuristique(this);
     }
     public ArrayList<Etat> getToutPossibilite(boolean gentilJoue){
-        if (gentilJoue){
+        /*if (gentilJoue){
             return deplacerGentil();
         }
         else {
             return deplacerMechant();
-        }
+        }*/
+
+        return deplacerUnCamp(gentilJoue);
     }
     private ArrayList<Etat> deplacerGentil(){
         ArrayList<Etat> listDeplacement = new ArrayList<>();
@@ -49,6 +52,7 @@ public class Etat {
                     etatDep.gentils.set(gentils.indexOf(gentil), persoG);
                     listDeplacement.add(etatDep);
                     for(Coordinate coor : dataCoordCharacters.getAttackAreaAfterMovement(persoG, persoG.getPos())){
+
                         int index = mechantAt(coor);
                         if (index != -1){
                             Etat etatDepAtt = etatDep.cloner();
@@ -100,25 +104,47 @@ public class Etat {
         System.out.println("fin deplacement");*/
         return listDeplacement;
     }
-/*
 
-    private ArrayList<Etat> attaqueMechant(){
-        ArrayList<Etat> listAttaque = new ArrayList<>();
-        for (Personnage mechant : listMechant){
-            for(Coordinate pos : dataCoordCharacters.getMovementArea(mechant, mechant.getPos())){
-                if(gentilAt(pos)){
+
+    private ArrayList<Etat> attaqueUnCamp(boolean estGentil){
+        ArrayList<Etat> listToutAttaque = new ArrayList<>();
+        ArrayList<Personnage> listAttaqe ;
+        ArrayList<Personnage> listDef ;
+        if(estGentil){
+            listAttaqe = gentils;
+            listDef = listMechant;
+        }
+        else {
+            listAttaqe = listMechant;
+            listDef = gentils;
+        }
+        for (Personnage personnage : listAttaqe){
+            for(Coordinate pos : dataCoordCharacters.getAttackArea(personnage, personnage.getPos())){
+                int index;
+                if(estGentil){
+                    index = mechantAt(pos);
+                }
+                else {
+                    index = gentilAt(pos);
+                }
+                if(index != -1){
                     Etat test = this.cloner();
-                    Personnage p = getPersoAt(pos);
+                    Personnage p = listDef.get(index);
                     Personnage newP = p.cloner();
-                    mechant.attack(newP);
-                    test.listMechant.set(test.listMechant.indexOf(p), newP);
-                    listAttaque.add(test);
+                    personnage.attack(newP);
+                    if(estGentil){
+                        test.listMechant.set(index, newP);
+                    }
+                    else {
+                        test.gentils.set(index, newP);
+                    }
+                    listToutAttaque.add(test);
                 }
             }
         }
-        return listAttaque;
+        return listToutAttaque;
     }
-*/
+
     public Etat cloner(){
         ArrayList<Personnage> lMechant = new ArrayList<>();
         for (Personnage p : listMechant){
@@ -218,6 +244,65 @@ public class Etat {
 
     public void setField(Field field) {
         this.field = field;
+    }
+
+
+
+
+    private ArrayList<Etat> deplacerUnCamp(boolean equipeGentil){
+        ArrayList<Etat> listToutDeplacement = new ArrayList<>();
+        ArrayList<Personnage> listAttaqe ;
+        ArrayList<Personnage> listDef ;
+        if(equipeGentil){
+            listAttaqe = gentils;
+            listDef = listMechant;
+        }
+        else {
+            listAttaqe = listMechant;
+            listDef = gentils;
+        }
+        for (Personnage persoAttaque : listAttaqe){
+            for(Coordinate pos : dataCoordCharacters.getMovementArea(persoAttaque, persoAttaque.getPos())){
+                if (persoAt(pos) == -1){
+                    Etat etatDep = cloner();
+                    Personnage persoA = persoAttaque.cloner();
+                    persoA.setPos(pos);
+                    if(equipeGentil){
+                        etatDep.gentils.set(gentils.indexOf(persoAttaque), persoA);
+                    }
+                    else {
+                        etatDep.listMechant.set(listMechant.indexOf(persoAttaque), persoA);
+                    }
+                    listToutDeplacement.add(etatDep);
+
+                    for(Coordinate coor : dataCoordCharacters.getAttackAreaAfterMovement(persoA, persoA.getPos())){
+
+                        int index;
+                        if(equipeGentil){
+                            index = mechantAt(coor);
+                        }
+                        else {
+                            index = gentilAt(coor);
+                        }
+                        if (index != -1){
+                            Etat etatDepAtt = etatDep.cloner();
+                            Personnage persoDef = listDef.get(index);
+                            Personnage newPersoDef = persoDef.cloner();
+                            persoA.attack(newPersoDef);
+
+                            if(equipeGentil){
+                                etatDepAtt.listMechant.set(index, newPersoDef);
+                            }
+                            else {
+                                etatDepAtt.gentils.set(index, newPersoDef);
+                            }
+                            listToutDeplacement.add(etatDepAtt);
+                        }
+                    }
+                }
+            }
+        }
+        return listToutDeplacement;
     }
 }
 

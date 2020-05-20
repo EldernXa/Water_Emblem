@@ -17,7 +17,7 @@ public class MainIA {
         LG.add(persoG);
         LG.add(persoG1);
         ArrayList<Personnage> LM = new ArrayList<>();
-        Personnage persoM = new Personnage("Chevalier", new Coordinate(1,1));
+        Personnage persoM = new Personnage("Chevalier", new Coordinate(4,1));
         Personnage persoM1 = new Personnage("Cavalier", new Coordinate(4,4));
         LM.add(persoM);
         LM.add(persoM1);

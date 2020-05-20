@@ -6,7 +6,9 @@ public class Stat {
 
     public static int damage(Carac attacker, Carac defender){
         int accu = accuracy(attacker, defender);
+        System.out.println("accuracy : " + accu);
         if(!rate(accu)){
+            System.out.println("quoi");
             return 0;
         }
         int att = 0;
@@ -39,6 +41,9 @@ public class Stat {
         if(attacker.getSpd() - defender.getSpd() >= 4){
             damage = (int) (damage * 1.4);
         }
+        if(damage < 0 ){
+            return 0;
+        }
         return damage;
     }
 
@@ -49,23 +54,29 @@ public class Stat {
     }
 
     private static boolean rate(int rate){
+        if(rate >= 100){
+            return true;
+        }
         Random r = new Random();
-        int x = r.nextInt(7) + 1;
+        int x = r.nextInt(100) + 1;
 
         return x <= rate;
 
     }
     private static int accuracy(Carac attacker, Carac defender){
-        int accu = (attacker.getSkl() *2) + (attacker.getLck() / 2) + weaponTriangle(attacker.getWep1(), defender.getWep1()) * 15;
-        int avoid = defender.getMov() * 2 + defender.getLck();
+        int accu = ((attacker.getSkl() *3) + (attacker.getLck()) + weaponTriangle(attacker.getWep1(), defender.getWep1()) * 15) *3;
+        int avoid = defender.getSpd() + defender.getLck();
 
-
-        if ((accu -avoid) == 0){
+        int x = accu - avoid;
+        if ((x) <= 15){
+            if(x <= 0){
+                x = 0;
+            }
+            System.out.print("rand : ");
             Random r = new Random();
-            return r.nextInt(15) + 1;
-
+            return r.nextInt(15 - x) + x;
         }
-        return accu - avoid;
+        return x;
     }
 
 
