@@ -184,6 +184,8 @@ public class AffichePerso {
                             Event.addRectangle(grilleMvt, c, Color.rgb(255, 0, 0, 0.3));
                         persoToMove.setPresent(true);
                         persoToMove.setOrientation(0);
+                        persoToMove.getImageView().setTranslateX(0);
+                        persoToMove.getImageView().setTranslateY(0);
                     }
                 }
         ));
