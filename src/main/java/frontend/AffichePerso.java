@@ -16,6 +16,7 @@ import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.io.FileInputStream;
@@ -24,7 +25,7 @@ import java.util.*;
 
 public class AffichePerso {
     public static List<PersonnageDisplay> listPersonnage;
-    static List<PersonnageDisplay> listEnnemi;
+    public static List<PersonnageDisplay> listEnnemi;
     private GridPane perso;
     private DataCoordCharacters dataCoordCharacters;
     static ImageView imgView;
@@ -92,12 +93,8 @@ public class AffichePerso {
                     perso.getChildren().clear();
                     for(PersonnageDisplay p: listPersonnage){
                         p.nextPosition();
-                        p.getImageView().setTranslateY(0);
-                        p.getImageView().setTranslateX(0);
                     }
                     for(PersonnageDisplay p:listEnnemi){
-                        p.getImageView().setTranslateY(0);
-                        p.getImageView().setTranslateX(0);
                         p.nextPosition();
                     }
                     initListPersonnage(listPersonnage, perso);
@@ -133,7 +130,12 @@ public class AffichePerso {
         return perso;
     }
 
-    public void move(PersonnageDisplay persoToMove, Coordinate coordinate, GridPane perso){
+    public ArrayList<Coordinate> getAttackAreaAfterMovement(Personnage name, Coordinate coordinate){
+        return dataCoordCharacters.getAttackAreaAfterMovement(name, coordinate);
+    }
+
+    public void move(PersonnageDisplay persoToMove, Coordinate coordinate, GridPane perso,
+                     GridPane grilleMvt){
         perso.getChildren().clear();
         persoToMove.setPresent(false);
         TranslateTransition ttX = new TranslateTransition(Duration.millis(600), persoToMove.getImageView());
@@ -154,8 +156,7 @@ public class AffichePerso {
                         persoToMove.setOrientation(1);
                     else if(ttY.getNode().getTranslateY()>0 && ttY.getNode().getTranslateY()!=ttY.getToY())
                         persoToMove.setOrientation(3);
-                    imgView.setTranslateX(0);
-                    imgView.setTranslateY(0);
+
                     persoToMove.nextPosition();
                     AffichageGraphique.group.getChildren().clear();
                     ImageView imgView = new ImageView(persoToMove.getImageView().getImage());
@@ -167,13 +168,13 @@ public class AffichePerso {
                     imgView.setTranslateY(ttY.getNode().getTranslateY());
                     if(ttX.getNode().getTranslateX()== ttX.getToX() &&
                     ttY.getNode().getTranslateY() == ttY.getToY()){
-                        imgView.setTranslateX(0);
-                        imgView.setTranslateY(0);
                         AffichageGraphique.group.getChildren().clear();
                         timeline.stop();
                         seq.stop();
                         timeline.getKeyFrames().clear();
                         persoToMove.setCoordinate(coordinate);
+                        for(Coordinate c: getAttackAreaAfterMovement(persoToMove.getPersonnage(), persoToMove.getCoordinate()))
+                            Event.addRectangle(grilleMvt, c, Color.rgb(255, 0, 0, 0.3));
                         persoToMove.setPresent(true);
                         persoToMove.setOrientation(0);
                     }

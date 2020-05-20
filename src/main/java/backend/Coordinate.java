@@ -18,6 +18,10 @@ public class Coordinate {
         }
         return true;
     }
+
+    public void affPos(){
+        System.out.println(" x : "+ x + ", y : " + y);
+    }
     public int getX() {
         return x;
     }
