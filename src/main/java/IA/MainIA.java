@@ -22,8 +22,8 @@ public class MainIA {
 
         Etat e = new Etat(LM, LG, new Forest(), new HeuristiqueBasique());
         e.affEtat();
-        Etat etat = Algo_Minimax.startMini(e,2, true);
-        etat.affEtat();
+       /* Etat etat = Algo_Minimax.startMini(e,2, true);
+        etat.affEtat();*/
         //etat.getListMechant().get(0).setPos(new Coordinate(7,7));
         //etat.affEtat();
         //e.affEtat();
