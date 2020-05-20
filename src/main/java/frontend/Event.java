@@ -100,13 +100,16 @@ public class Event {
                                                     @Override
                                                     public void handle(ActionEvent event){
                                                         attack.setVisible(false);
-                                                        personnageSelected.getPersonnage().attack(new Coordinate(x, y));
+                                                        personnageSelected.getPersonnage().attack(ennemiSelected.getCoordinate());
                                                         personnageSelected.setBooleanAttack(true);
                                                         grilleMvt.getChildren().clear();
                                                         grilleAttack.getChildren().clear();
                                                         information.getChildren().clear();
+                                                        if(!ennemiSelected.isAlive())
+                                                            ennemiSelected=null;
                                                         addInformation(information, personnageSelected);
-                                                        addInformation(information, ennemiSelected);
+                                                        if(ennemiSelected!=null)
+                                                            addInformation(information, ennemiSelected);
                                                         if(personnageSelected.getBooleanMove())
                                                             stay.fire();
                                                         stay.setText("Fin");

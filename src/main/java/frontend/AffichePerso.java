@@ -90,20 +90,8 @@ public class AffichePerso {
                 Duration.millis(280),
                 (ActionEvent event) -> {
                     perso.getChildren().clear();
-                    for(PersonnageDisplay p: listPersonnage){
-                        p.getImageView().setTranslateX(0);
-                        p.getImageView().setTranslateY(0);
-                        p.nextPosition();
-                        p.getImageView().setTranslateX(0);
-                        p.getImageView().setTranslateY(0);
-                    }
-                    for(PersonnageDisplay p:listEnnemi){
-                        p.getImageView().setTranslateX(0);
-                        p.getImageView().setTranslateY(0);
-                        p.nextPosition();
-                        p.getImageView().setTranslateX(0);
-                        p.getImageView().setTranslateY(0);
-                    }
+                    initAnimation(listPersonnage);
+                    initAnimation(listEnnemi);
                     initListPersonnage(listPersonnage, perso);
                     initListPersonnage(listEnnemi, perso);
                 }
@@ -123,13 +111,23 @@ public class AffichePerso {
 
     public static void initListPersonnage(List<PersonnageDisplay> list, GridPane perso){
         for(PersonnageDisplay p: list){
-            if(p.isPresent()) {
+            if(p.isPresent() && p.isAlive()) {
                 p.getImageView().setFitWidth(AffichageGraphique.size);
                 p.getImageView().setFitHeight(AffichageGraphique.size);
                 perso.add(p.getImageView(), p.getCoordinate().getX(), p.getCoordinate().getY());
                 GridPane.setHalignment(p.getImageView(), HPos.LEFT);
                 GridPane.setValignment(p.getImageView(), VPos.TOP);
             }
+        }
+    }
+
+    private void initAnimation(List<PersonnageDisplay> personnage){
+        for(PersonnageDisplay p: personnage){
+            p.getImageView().setTranslateX(0);
+            p.getImageView().setTranslateY(0);
+            p.nextPosition();
+            p.getImageView().setTranslateX(0);
+            p.getImageView().setTranslateY(0);
         }
     }
 
@@ -143,8 +141,6 @@ public class AffichePerso {
 
     public void move(PersonnageDisplay persoToMove, Coordinate coordinate, GridPane perso,
                      GridPane grilleMvt){
-
-
         perso.getChildren().clear(); // aucun changement si je mets en commentaire
         persoToMove.setPresent(false);
 
@@ -219,13 +215,13 @@ public class AffichePerso {
 
     public static Personnage getPersonnageAt(Coordinate coordinate){
         for(PersonnageDisplay p: listPersonnage){
-            if(p.getCoordinate().equal(coordinate))
+            if(p.getCoordinate().equal(coordinate) && p.isAlive())
             {
                 return p.getPersonnage();
             }
         }
         for(PersonnageDisplay p:listEnnemi){
-            if(p.getCoordinate().equal(coordinate))
+            if(p.getCoordinate().equal(coordinate) && p.isAlive())
             {
                 return p.getPersonnage();
             }
@@ -235,13 +231,13 @@ public class AffichePerso {
 
     public static PersonnageDisplay getPersonnageDisplayAt(Coordinate coordinate){
         for(PersonnageDisplay p: listPersonnage){
-            if(p.getCoordinate().equal(coordinate))
+            if(p.getCoordinate().equal(coordinate) && p.isAlive())
             {
                 return p;
             }
         }
         for(PersonnageDisplay p:listEnnemi){
-            if(p.getCoordinate().equal(coordinate))
+            if(p.getCoordinate().equal(coordinate) && p.isAlive())
             {
                 return p;
             }
