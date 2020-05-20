@@ -141,9 +141,7 @@ public class Stat {
                 caracteristique.setPortee(2);
                 break;
             }
-            case "Vide" : {
-                caracteristique.setStr(0);
-            }
+
         }
     }
 }

@@ -63,8 +63,7 @@ public class Personnage {
 
     }
     public void die(){
-        caracteristique.setStr(0);
-        caracteristique.setWep1("Vide");
+
     }
 
     public boolean isMage(){
