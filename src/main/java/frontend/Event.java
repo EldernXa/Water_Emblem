@@ -31,6 +31,7 @@ import java.util.HashMap;
 
 public class Event {
     static private PersonnageDisplay personnageSelected = null;
+    static private PersonnageDisplay ennemiSelected = null;
 
     static void clickOnMap(GridPane perso, AffichePerso affichePerso, GridPane grilleMvt, GridPane grilleAttack,
                            VBox information, Button move, Button attack, Button stay){
@@ -42,22 +43,11 @@ public class Event {
                 int y = (int) Math.floor(event.getY()/AffichageGraphique.size);
                 if(personnageSelected == null)
                 {
+                    information.getChildren().clear();
+                    stay.setText("Rien faire");
                     personnageSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
                     if(personnageSelected!=null){
-                        HBox photoNom = new HBox();
-                        ImageView imgView = new ImageView(personnageSelected.getImageView().getImage());
-                        imgView.setFitWidth(AffichageGraphique.size);
-                        imgView.setFitHeight(AffichageGraphique.size);
-                        photoNom.getChildren().addAll(imgView, new Label(personnageSelected.getPersonnage().getCaracteristique().getName()));
-                        HBox pv = new HBox();
-                        ProgressBar progressBar = new ProgressBar();
-                        progressBar.setProgress((float)personnageSelected.getPersonnage().getCaracteristique().getHp()/personnageSelected.getPersonnage().getCaracteristique().getMaxHp());
-                        progressBar.setStyle("-fx-accent: BLUE;");
-                        Label pvLab = new Label(String.valueOf(personnageSelected.getPersonnage().getCaracteristique().getHp()) + "/" + personnageSelected.getPersonnage().getCaracteristique().getMaxHp());
-                        pvLab.setFont(new Font("Arial",10));
-                        pv.getChildren().add(progressBar);
-                        information.setVisible(true);
-                        information.getChildren().addAll(photoNom, pv, pvLab);
+                        addInformation(information, personnageSelected);
                     }
                     if(personnageSelected!=null && !AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected))
                     {
@@ -84,11 +74,12 @@ public class Event {
                                             @Override
                                             public void handle(ActionEvent event) {
                                                 move.setVisible(false);
-                                                information.getChildren().clear();
                                                 affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt);
                                                 personnageSelected.setBooleanMove(true);
                                                 grilleMvt.getChildren().clear();
                                                 grilleAttack.getChildren().clear();
+                                                if(personnageSelected.getBooleanAttack())
+                                                    stay.fire();
                                                 stay.setText("Fin");
                                             }
                                         });
@@ -100,31 +91,28 @@ public class Event {
                                         {
                                             if(coordinate.equal(new Coordinate(x, y)))
                                             {
-                                                HBox photoNom = new HBox();
-                                                ImageView imgView = new ImageView(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)).getImageView().getImage());
-                                                imgView.setFitWidth(AffichageGraphique.size);
-                                                imgView.setFitHeight(AffichageGraphique.size);
-                                                photoNom.getChildren().addAll(imgView, new Label(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)).getPersonnage().getCaracteristique().getName()));
-                                                HBox pv = new HBox();
-                                                ProgressBar progressBar = new ProgressBar();
-                                                progressBar.setProgress((float)AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)).getPersonnage().getCaracteristique().getHp()/AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)).getPersonnage().getCaracteristique().getMaxHp());
-                                                progressBar.setStyle("-fx-accent: RED;");
-                                                Label pvLab = new Label(String.valueOf(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)).getPersonnage().getCaracteristique().getHp()) + "/" + AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)).getPersonnage().getCaracteristique().getMaxHp());
-                                                pvLab.setFont(new Font("Red",10));
-                                                pv.getChildren().add(progressBar);
-                                                information.setVisible(true);
-                                                information.getChildren().addAll(photoNom, pv, pvLab);
+                                                ennemiSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
+                                                information.getChildren().clear();
+                                                addInformation(information, personnageSelected);
+                                                addInformation(information, ennemiSelected);
                                                 attack.setVisible(true);
 
                                                 attack.setOnAction(new EventHandler<ActionEvent>(){
                                                     @Override
                                                     public void handle(ActionEvent event){
                                                         attack.setVisible(false);
-                                                        information.getChildren().clear();
-                                                        personnageSelected.getPersonnage().attack(new Coordinate(x, y));
+                                                        personnageSelected.getPersonnage().attack(ennemiSelected.getCoordinate());
                                                         personnageSelected.setBooleanAttack(true);
                                                         grilleMvt.getChildren().clear();
                                                         grilleAttack.getChildren().clear();
+                                                        information.getChildren().clear();
+                                                        if(!ennemiSelected.isAlive())
+                                                            ennemiSelected=null;
+                                                        addInformation(information, personnageSelected);
+                                                        if(ennemiSelected!=null)
+                                                            addInformation(information, ennemiSelected);
+                                                        if(personnageSelected.getBooleanMove())
+                                                            stay.fire();
                                                         stay.setText("Fin");
                                                     }
                                                 });
@@ -144,17 +132,6 @@ public class Event {
                                 grilleMvt.getChildren().clear();
                                 grilleAttack.getChildren().clear();
                             }
-                        }
-                    }
-                    else {
-                        if(!personnageSelected.getBooleanAttack() && !personnageSelected.getBooleanMove()) {
-                            move.setVisible(false);
-                            attack.setVisible(false);
-                            stay.setVisible(false);
-                            information.getChildren().clear();
-                            personnageSelected = null;
-                            grilleMvt.getChildren().clear();
-                            grilleAttack.getChildren().clear();
                         }
                     }
                 }
@@ -185,8 +162,6 @@ public class Event {
         stay.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
-                information.setVisible(false);
-                information.getChildren().clear();
                 stay.setVisible(false);
                 move.setVisible(false);
                 attack.setVisible(false);
@@ -198,5 +173,20 @@ public class Event {
                 personnageSelected =null;
             }
         });
+    }
+
+    private static void addInformation(VBox information, PersonnageDisplay personnage){
+        HBox photoNom = new HBox();
+        ImageView imgView = new ImageView(personnage.getImageView().getImage());
+        imgView.setFitHeight(AffichageGraphique.size);
+        imgView.setFitWidth(AffichageGraphique.size);
+        photoNom.getChildren().addAll(imgView, new Label(personnage.getPersonnage().getCaracteristique().getName()));
+        HBox pv = new HBox();
+        ProgressBar progressBar = new ProgressBar();
+        progressBar.setProgress((float)personnage.getPersonnage().getCaracteristique().getHp()/personnage.getPersonnage().getCaracteristique().getMaxHp());
+        Label pvLab = new Label(personnage.getPersonnage().getCaracteristique().getHp() + "/" + personnage.getPersonnage().getCaracteristique().getMaxHp());
+        pv.getChildren().add(progressBar);
+        information.setVisible(true);
+        information.getChildren().addAll(photoNom, pv, pvLab);
     }
 }

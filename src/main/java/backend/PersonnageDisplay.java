@@ -1,5 +1,6 @@
 package backend;
 
+import frontend.AffichePerso;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -105,8 +106,8 @@ public class PersonnageDisplay {
         }
     }
 
-    boolean isAlive(){
-        return isAlive = perso.getCaracteristique().getHp() <= 0 ;
+    public boolean isAlive(){
+        return isAlive = perso.getCaracteristique().getHp() > 0 ;
     }
 
     public ImageView getImageView(){
@@ -115,6 +116,18 @@ public class PersonnageDisplay {
 
     void setDeath(){
         isAlive = false;
+    }
+
+    public void attack(Coordinate coordinate){
+        this.getPersonnage().attack(coordinate);
+        PersonnageDisplay perso = AffichePerso.getPersonnageDisplayAt(coordinate);
+        if(perso!=null)
+        {
+            if(this.getPersonnage().getCaracteristique().getHp()<=0)
+                this.setDeath();
+            if(perso.getPersonnage().getCaracteristique().getHp()<=0)
+                perso.setDeath();
+        }
     }
     public void setOrientation(int orientation){
         switch(orientation){
