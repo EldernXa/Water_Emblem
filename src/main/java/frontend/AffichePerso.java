@@ -129,6 +129,10 @@ public class AffichePerso {
         return perso;
     }
 
+    public ArrayList<Coordinate> getAttackAreaAfterMovement(Personnage name, Coordinate coordinate){
+        return dataCoordCharacters.getAttackAreaAfterMovement(name, coordinate);
+    }
+
     public void move(PersonnageDisplay persoToMove, Coordinate coordinate, GridPane perso){
         perso.getChildren().clear();
         persoToMove.setPresent(false);

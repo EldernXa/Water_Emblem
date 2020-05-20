@@ -30,8 +30,12 @@ public class Personnage {
     }
     public void attack(Coordinate coodinate){
         Personnage adversaire = AffichePerso.getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
-        int damage = Stat.damage(caracteristique, adversaire.caracteristique);
-        adversaire.attacked(damage);
+        if(adversaire!=null) {
+            int damage = Stat.damage(caracteristique, adversaire.getCaracteristique());
+            adversaire.attacked(damage);
+            damage = Stat.damage(adversaire.getCaracteristique(), caracteristique);
+            this.attacked(damage);
+        }
     }
 
     public void attack(Personnage adversaire){

@@ -27,7 +27,7 @@ public class Etat {
         heuristique = h;
         valHeuristique = heuristique.calculerHeuristique(this);
     }
-    public ArrayList<Etat> getToutPossibilité(boolean gentilJoue){
+    public ArrayList<Etat> getToutPossibilite(boolean gentilJoue){
         return deplacerMechant();
     }
 

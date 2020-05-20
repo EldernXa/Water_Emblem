@@ -19,11 +19,13 @@ public class PersonnageDisplay {
     private Personnage perso;
     private int num;
     private boolean present;
-    private boolean change;
+    private boolean booleanAttack;
+    private boolean booleanMove;
 
     public PersonnageDisplay(String nom, int x, int y){
         present = true;
-        change = false;
+        booleanAttack =false;
+        booleanMove = false;
         this.perso = new Personnage(nom);
         inputStream = new ArrayList[6];
         imageView = new ArrayList[6];
@@ -38,19 +40,28 @@ public class PersonnageDisplay {
         initPicture();
     }
 
+    public void setBooleanMove(boolean value){
+        this.booleanMove = value;
+    }
+
+    public void setBooleanAttack(boolean value){
+        this.booleanAttack = value;
+    }
+
+    public boolean getBooleanMove(){
+        return booleanMove;
+    }
+
+    public boolean getBooleanAttack(){
+        return booleanAttack;
+    }
+
     public boolean isPresent(){
         return present;
     }
 
     public void setPresent(boolean present){
         this.present = present;
-    }
-
-    public boolean getChange(){
-        return change;
-    }
-    public void change(){
-        change = !change;
     }
 
     public int getOrientation(){
