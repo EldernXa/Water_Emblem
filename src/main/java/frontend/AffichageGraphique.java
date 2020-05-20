@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Box;
 
+import java.beans.Expression;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class AffichageGraphique {
             ImageView attackImage = new ImageView(attackImg);
             Image attackImgHov = new Image(new FileInputStream("src/main/resources/icoButtons/attaquer_hover.png"));
             ImageView attackImageHov = new ImageView(attackImgHov);
-            attack.graphicProperty().bind(Bindings.when(move.hoverProperty()).then(attackImageHov).otherwise(attackImage));
+            attack.graphicProperty().bind(Bindings.when(attack.hoverProperty()).then(attackImageHov).otherwise(attackImage));
         }catch(Exception e){
             System.out.println(e);
         }
