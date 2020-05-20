@@ -154,6 +154,7 @@ public class PersonnageDisplay {
             }
     }
 
+
     public void nextPosition(){
         if(num==inputStream[orientation].size()-1) {
             num = 0;
