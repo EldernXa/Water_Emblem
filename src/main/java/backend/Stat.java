@@ -14,10 +14,11 @@ public class Stat {
         if(attacker.getWep1().compareTo("Magie") == 0){
             att += attacker.getMag();
             att += weaponTriangle(attacker.getWep1(), defender.getWep1());
+
         }
         else {
             att += attacker.getStr();
-            att += weaponTriangle(attacker.getWep1(), defender.getWep1());
+
         }
 
         if(defender.getWep1().compareTo("Magie") == 0){
@@ -34,8 +35,9 @@ public class Stat {
             crit = 3;
         }
         int damage = (att - def) * crit ;
+
         if(attacker.getSpd() - defender.getSpd() >= 4){
-            damage = damage * 2;
+            damage = (int) (damage * 1.4);
         }
         return damage;
     }
@@ -48,12 +50,21 @@ public class Stat {
 
     private static boolean rate(int rate){
         Random r = new Random();
-        int x = r.nextInt(100) + 1;
+        int x = r.nextInt(7) + 1;
+
         return x <= rate;
+
     }
     private static int accuracy(Carac attacker, Carac defender){
         int accu = (attacker.getSkl() *2) + (attacker.getLck() / 2) + weaponTriangle(attacker.getWep1(), defender.getWep1()) * 15;
         int avoid = defender.getMov() * 2 + defender.getLck();
+
+
+        if ((accu -avoid) == 0){
+            Random r = new Random();
+            return r.nextInt(15) + 1;
+
+        }
         return accu - avoid;
     }
 
@@ -126,6 +137,7 @@ public class Stat {
                 caracteristique.setPortee(2);
                 break;
             }
+
         }
     }
 }

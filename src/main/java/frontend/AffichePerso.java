@@ -28,13 +28,14 @@ public class AffichePerso {
     public static List<PersonnageDisplay> listEnnemi;
     private GridPane perso;
     private DataCoordCharacters dataCoordCharacters;
-    static ImageView imgView;
     private Timeline t;
+    ImageView imgView;
 
     public AffichePerso(String dataCoordinate){
         dataCoordCharacters = new DataCoordCharacters(dataCoordinate);
         listPersonnage = new ArrayList<>();
         listEnnemi = new ArrayList<>();
+        imgView = null;
 
         for(int i=0;i <dataCoordCharacters.getGentilCharactersList().size(); i++)
         {
@@ -75,9 +76,6 @@ public class AffichePerso {
         initListPersonnage(listPersonnage, perso);
         initListPersonnage(listEnnemi, perso);
 
-        imgView = new ImageView(listPersonnage.get(0).getImageView().getImage());
-        imgView.setFitHeight(AffichageGraphique.size);
-        imgView.setFitWidth(AffichageGraphique.size);
         AffichageGraphique.group.setVgap(50);
         AffichageGraphique.group.setHgap(50);
 
@@ -92,10 +90,18 @@ public class AffichePerso {
                 (ActionEvent event) -> {
                     perso.getChildren().clear();
                     for(PersonnageDisplay p: listPersonnage){
+                        p.getImageView().setTranslateX(0);
+                        p.getImageView().setTranslateY(0);
                         p.nextPosition();
+                        p.getImageView().setTranslateX(0);
+                        p.getImageView().setTranslateY(0);
                     }
                     for(PersonnageDisplay p:listEnnemi){
+                        p.getImageView().setTranslateX(0);
+                        p.getImageView().setTranslateY(0);
                         p.nextPosition();
+                        p.getImageView().setTranslateX(0);
+                        p.getImageView().setTranslateY(0);
                     }
                     initListPersonnage(listPersonnage, perso);
                     initListPersonnage(listEnnemi, perso);
@@ -148,18 +154,25 @@ public class AffichePerso {
         timeline.getKeyFrames().add(new KeyFrame(
                 Duration.millis(200),
                 (ActionEvent event)->{
-                    if(ttX.getNode().getTranslateX()<0 && ttX.getNode().getTranslateX()!=ttX.getToX())
+                    persoToMove.getImageView().setTranslateY(0);
+                    persoToMove.getImageView().setTranslateX(0);
+                    if(ttX.getNode().getTranslateX()<0 && ttX.getNode().getTranslateX()!=ttX.getToX() &&
+                        persoToMove.getOrientation()!=5)
                         persoToMove.setOrientation(5);
-                    else if(ttX.getNode().getTranslateX()>0 && ttX.getNode().getTranslateX()!=ttX.getToX())
+                    else if(ttX.getNode().getTranslateX()>0 && ttX.getNode().getTranslateX()!=ttX.getToX()&&
+                        persoToMove.getOrientation()!=4)
                         persoToMove.setOrientation(4);
-                    else if(ttY.getNode().getTranslateY()<0 && ttY.getNode().getTranslateY()!=ttY.getToY())
+                    else if(ttY.getNode().getTranslateY()<0 && ttY.getNode().getTranslateY()!=ttY.getToY()&&
+                        persoToMove.getOrientation()!=1)
                         persoToMove.setOrientation(1);
-                    else if(ttY.getNode().getTranslateY()>0 && ttY.getNode().getTranslateY()!=ttY.getToY())
+                    else if(ttY.getNode().getTranslateY()>0 && ttY.getNode().getTranslateY()!=ttY.getToY()&&
+                        persoToMove.getOrientation()!=3)
                         persoToMove.setOrientation(3);
-
+                    persoToMove.getImageView().setTranslateX(0);
+                    persoToMove.getImageView().setTranslateY(0);
                     persoToMove.nextPosition();
                     AffichageGraphique.group.getChildren().clear();
-                    ImageView imgView = new ImageView(persoToMove.getImageView().getImage());
+                    imgView = new ImageView(persoToMove.getImageView().getImage());
                     imgView.setFitHeight(AffichageGraphique.size);
                     imgView.setFitWidth(AffichageGraphique.size);
                     AffichageGraphique.group.add(imgView, persoToMove.getCoordinate().getX(),
@@ -168,15 +181,17 @@ public class AffichePerso {
                     imgView.setTranslateY(ttY.getNode().getTranslateY());
                     if(ttX.getNode().getTranslateX()== ttX.getToX() &&
                     ttY.getNode().getTranslateY() == ttY.getToY()){
+                        persoToMove.getImageView().setTranslateX(0);
+                        persoToMove.getImageView().setTranslateY(0);
                         AffichageGraphique.group.getChildren().clear();
                         timeline.stop();
                         seq.stop();
                         timeline.getKeyFrames().clear();
+                        persoToMove.setOrientation(0);
                         persoToMove.setCoordinate(coordinate);
                         for(Coordinate c: getAttackAreaAfterMovement(persoToMove.getPersonnage(), persoToMove.getCoordinate()))
                             Event.addRectangle(grilleMvt, c, Color.rgb(255, 0, 0, 0.3));
                         persoToMove.setPresent(true);
-                        persoToMove.setOrientation(0);
                     }
                 }
         ));
