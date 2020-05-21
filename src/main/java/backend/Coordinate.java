@@ -19,6 +19,10 @@ public class Coordinate {
         return true;
     }
 
+    public Coordinate cloner(){
+        return new Coordinate(x,y);
+    }
+
     public void affPos(){
         System.out.println(" x : "+ x + ", y : " + y);
     }
