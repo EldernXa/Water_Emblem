@@ -113,7 +113,8 @@ public class AffichageGraphique {
                         move, attack, stay, afficheMap);
                 root.getChildren().addAll(map, grilleMvt, grilleAttack, group, perso);
                 window.getChildren().add(panel);
-                afficheMap.effectField();
+                afficheMap.effectField(AffichePerso.listPersonnage);
+                afficheMap.effectField(AffichePerso.listEnnemi);
             }
         });
 

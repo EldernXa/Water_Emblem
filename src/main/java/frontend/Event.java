@@ -136,7 +136,7 @@ public class Event {
                 personnageSelected =null;
                 if(AffichePerso.endTurn())
                 {
-                    afficheMap.effectField();
+                    afficheMap.effectField(AffichePerso.listPersonnage);
                     if(AffichePerso.isWin())
                         System.out.println("Win");
                     if(AffichePerso.isLost())

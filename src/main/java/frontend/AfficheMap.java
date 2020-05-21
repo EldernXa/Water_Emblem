@@ -7,6 +7,7 @@ import backend.data.DataMap;
 import javafx.scene.layout.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AfficheMap {
 
@@ -34,14 +35,15 @@ public class AfficheMap {
         }
     }
 
-    public void effectField(){
+    public void effectField(List<PersonnageDisplay> list){
         for(ArrayList<Coordinate>array: dataMap.getcoordinates()){
             for(Coordinate coordinate: array)
             {
                 PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(new Coordinate(coordinate.getX(), coordinate.getY()));
                 if(p!=null)
                 {
-                    coordinate.getField().affect(p.getPersonnage());
+                    if(AffichePerso.contains(list, p))
+                        coordinate.getField().affect(p.getPersonnage());
                 }
             }
         }
