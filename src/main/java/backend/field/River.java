@@ -12,8 +12,9 @@ public class River extends Field {
     }
 
     public void affect(Personnage personnage){
-        //Carac caracPerso = personnage.getCaracteristique();
-
+        Carac caracPerso = personnage.getCaracteristique();
+        System.out.println(caracPerso.getMov());
+        caracPerso.setMov((int) (caracPerso.getMov() * 0.80));
 
     }
 
