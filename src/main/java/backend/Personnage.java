@@ -55,6 +55,7 @@ public class Personnage {
         }
     }
 
+
     public void attacked(int damage) {
         System.out.println(caracteristique.getName() + " bouclier");
         int hp;
@@ -64,7 +65,6 @@ public class Personnage {
         else {
              hp = caracteristique.getHp() + damage;
         }
-
 
         if (hp <= 0) {
             hp = 0;
@@ -77,6 +77,23 @@ public class Personnage {
     public void die(){
 
     }
+    public void heal(Personnage persoHeal){
+
+    }
+    public void healed(int hpHeal){
+        int hp;
+
+        if((caracteristique.getHp() + hpHeal) > caracteristique.getMaxHp()){
+            hp = caracteristique.getMaxHp();
+        }
+        else {
+         hp = caracteristique.getHp() + hpHeal;
+        }
+
+        caracteristique.setHp(hp);
+
+    }
+
 
     public boolean isMage(){
         return caracteristique.getWep1().compareTo("Magie") == 0;

@@ -14,6 +14,7 @@ public class River extends Field {
     public void affect(Personnage personnage){
         //Carac caracPerso = personnage.getCaracteristique();
 
+
     }
 
     public void disaffect(Personnage personnage){

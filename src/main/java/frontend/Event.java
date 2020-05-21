@@ -48,7 +48,7 @@ public class Event {
                     personnageSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
                     stay.setVisible(true);
                     if(personnageSelected!=null){
-                        addInformation(information, personnageSelected);
+                        addInformation(information, personnageSelected,"Green");
                     }
                     if(personnageSelected!=null && !AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected) &&
                         !personnageSelected.getEndTurn())
@@ -71,7 +71,20 @@ public class Event {
                             for (Coordinate c : listMvt) {
                                 if (c.equal(new Coordinate(x, y))) {
                                     if (AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)) == null && !personnageSelected.getBooleanMove()) {
-                                        buttonMove(x, y, move, affichePerso, perso, grilleMvt, afficheMap, grilleAttack, stay);
+                                        move.setVisible(true);
+                                        move.setOnAction(new EventHandler<ActionEvent>() {
+                                            @Override
+                                            public void handle(ActionEvent event) {
+                                                move.setVisible(false);
+                                                affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt, afficheMap);
+                                                personnageSelected.setBooleanMove(true);
+                                                grilleMvt.getChildren().clear();
+                                                grilleAttack.getChildren().clear();
+                                                if(personnageSelected.getBooleanAttack())
+                                                    stay.fire();
+                                                stay.setText("Fin");
+                                            }
+                                        });
                                     }
                                     if(!personnageSelected.getBooleanAttack()&&
                                         AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
@@ -79,7 +92,38 @@ public class Event {
                                         for(Coordinate coordinate:affichePerso.getAttackAreaAfterMovement(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
                                         {
                                             if(coordinate.equal(new Coordinate(x, y)))
-                                                buttonAttack(x, y, information, attack, grilleMvt, grilleAttack, stay, affichePerso);
+                                            {
+                                                ennemiSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
+                                                information.getChildren().clear();
+                                                addInformation(information, personnageSelected,"Green");
+                                                addInformation(information, ennemiSelected,"Red");
+                                                attack.setVisible(true);
+
+                                                attack.setOnAction(new EventHandler<ActionEvent>(){
+                                                    @Override
+                                                    public void handle(ActionEvent event){
+                                                        attack.setVisible(false);
+                                                        personnageSelected.getPersonnage().attack(ennemiSelected.getCoordinate());
+                                                        personnageSelected.setBooleanAttack(true);
+                                                        grilleMvt.getChildren().clear();
+                                                        grilleAttack.getChildren().clear();
+                                                        information.getChildren().clear();
+                                                        if(!ennemiSelected.isAlive())
+                                                            ennemiSelected=null;
+                                                        addInformation(information, personnageSelected,"Green");
+                                                        if(ennemiSelected!=null)
+                                                            addInformation(information, ennemiSelected,"Red");
+                                                        if(personnageSelected.getBooleanMove())
+                                                            stay.fire();
+                                                        else{
+                                                            for(Coordinate c: affichePerso.getCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
+                                                                addRectangle(grilleMvt, c, Color.rgb(0, 0, 255, 0.3));
+                                                            grilleMvt.setVisible(true);
+                                                        }
+                                                        stay.setText("Fin");
+                                                    }
+                                                });
+                                            }
                                         }
                                     }
                                 }
@@ -147,7 +191,7 @@ public class Event {
         });
     }
 
-    private static void addInformation(VBox information, PersonnageDisplay personnage){
+    private static void addInformation(VBox information, PersonnageDisplay personnage,String couleur){
         HBox photoNom = new HBox();
         ImageView imgView = new ImageView(personnage.getImageView().getImage());
         imgView.setFitHeight(AffichageGraphique.size);
@@ -156,68 +200,11 @@ public class Event {
         HBox pv = new HBox();
         ProgressBar progressBar = new ProgressBar();
         progressBar.setProgress((float)personnage.getPersonnage().getCaracteristique().getHp()/personnage.getPersonnage().getCaracteristique().getMaxHp());
+        progressBar.setStyle("-fx-accent: " + couleur  + ";");
         Label pvLab = new Label(personnage.getPersonnage().getCaracteristique().getHp() + "/" + personnage.getPersonnage().getCaracteristique().getMaxHp());
+        pvLab.setFont(new Font(couleur,10));
         pv.getChildren().add(progressBar);
         information.setVisible(true);
         information.getChildren().addAll(photoNom, pv, pvLab);
-    }
-
-    private static void buttonAttack(int x, int y, VBox information, Button attack,
-                              GridPane grilleMvt, GridPane grilleAttack,
-                              Button stay, AffichePerso affichePerso){
-        ennemiSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
-        information.getChildren().clear();
-        addInformation(information, personnageSelected);
-        addInformation(information, ennemiSelected);
-        attack.setVisible(true);
-
-        attack.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event){
-                attack.setVisible(false);
-                personnageSelected.getPersonnage().attack(ennemiSelected.getCoordinate());
-                personnageSelected.setBooleanAttack(true);
-                grilleMvt.getChildren().clear();
-                grilleAttack.getChildren().clear();
-                information.getChildren().clear();
-                if(!personnageSelected.isAlive())
-                    personnageSelected = null;
-                if(!ennemiSelected.isAlive())
-                    ennemiSelected=null;
-                if(personnageSelected != null)
-                    addInformation(information, personnageSelected);
-                if(ennemiSelected!=null)
-                    addInformation(information, ennemiSelected);
-                if(personnageSelected!=null) {
-                    if (personnageSelected.getBooleanMove())
-                        stay.fire();
-                    else {
-                        for (Coordinate c : affichePerso.getCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
-                            addRectangle(grilleMvt, c, Color.rgb(0, 0, 255, 0.3));
-                        grilleMvt.setVisible(true);
-                    }
-                }
-                stay.setText("Fin");
-            }
-        });
-    }
-
-    public static void buttonMove(int x, int y, Button move, AffichePerso affichePerso,
-                                  GridPane perso, GridPane grilleMvt, AfficheMap afficheMap,
-                                  GridPane grilleAttack, Button stay){
-        move.setVisible(true);
-        move.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event){
-                move.setVisible(false);
-                affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt, afficheMap);
-                personnageSelected.setBooleanMove(true);
-                grilleMvt.getChildren().clear();
-                grilleAttack.getChildren().clear();
-                if(personnageSelected.getBooleanAttack())
-                    stay.fire();
-                stay.setText("Fin");
-            }
-        });
     }
 }
