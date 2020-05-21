@@ -46,7 +46,7 @@ public class Event {
                     initPersonnageSelected(information, x, y, stay,
                             affichePerso, grilleMvt, grilleAttack,
                             move, attack);
-                    if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)){
+                    if(personnageSelected!=null && !AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)){
                         stay.setText("Rien faire");
                         stay.setVisible(true);
                     }
