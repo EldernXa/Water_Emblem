@@ -30,11 +30,11 @@ public class PersonnageDisplay {
         booleanMove = false;
         endTurn = false;
         this.perso = new Personnage(nom);
-        inputStream = new ArrayList[6];
-        imageView = new ArrayList[6];
+        inputStream = new ArrayList[7];
+        imageView = new ArrayList[7];
         num = 0;
         orientation = 0;
-        for(int i=0; i<6;i++)
+        for(int i=0; i<7;i++)
         {
             inputStream[i] = new ArrayList<>();
             imageView[i] = new ArrayList<>();
@@ -92,7 +92,7 @@ public class PersonnageDisplay {
                 file = new File("./src/main/resources/spritesPersos/Sprite" + perso.getCaracteristique().getType());
             }
             for(File f: Objects.requireNonNull(file.listFiles())){
-                if(f.getName().contains("Arret"))
+                if(f.getName().contains("Arret") && !f.getName().contains("Nb"))
                     inputStream[0].add(new FileInputStream(f.getAbsoluteFile()));
                 else if(f.getName().contains("Arri")){
                     inputStream[1].add(new FileInputStream(f.getAbsoluteFile()));
@@ -104,7 +104,8 @@ public class PersonnageDisplay {
                     inputStream[4].add(new FileInputStream(f.getAbsoluteFile()));
                 }else if(f.getName().contains("Gauche")){
                     inputStream[5].add(new FileInputStream(f.getAbsoluteFile()));
-                }
+                }else if(f.getName().contains("ArretNb"))
+                    inputStream[6].add(new FileInputStream(f.getAbsoluteFile()));
             }
             for(int i=0; i<inputStream.length; i++)
                 for(int in=0; in<inputStream[i].size(); in++)
@@ -140,26 +141,7 @@ public class PersonnageDisplay {
         }
     }
     public void setOrientation(int orientation){
-        switch(orientation){
-            case 0:
-                this.orientation = 0;
-                break;
-            case 1:
-                this.orientation = 1;
-                break;
-            case 2:
-                this.orientation = 2;
-                break;
-            case 3:
-                this.orientation = 3;
-                break;
-            case 4:
-                this.orientation = 4;
-                break;
-            case 5:
-                this.orientation=5;
-                break;
-        }
+        this.orientation = orientation;
         num = 0;
     }
     void move(Coordinate coordinate){
