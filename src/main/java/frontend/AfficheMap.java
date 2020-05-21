@@ -41,7 +41,6 @@ public class AfficheMap {
                 PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(new Coordinate(coordinate.getX(), coordinate.getY()));
                 if(p!=null)
                 {
-                    System.out.println(coordinate.getField().getClass());
                     coordinate.getField().affect(p.getPersonnage());
                 }
             }

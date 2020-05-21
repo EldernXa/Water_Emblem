@@ -263,4 +263,20 @@ public class AffichePerso {
         return null;
     }
 
+    public static boolean isWin(){
+        for(PersonnageDisplay p : listEnnemi){
+            if(p.isAlive())
+                return false;
+        }
+        return true;
+    }
+
+    public static boolean isLost(){
+        for(PersonnageDisplay p : listPersonnage){
+            if(p.isAlive())
+                return false;
+        }
+        return true;
+    }
+
 }

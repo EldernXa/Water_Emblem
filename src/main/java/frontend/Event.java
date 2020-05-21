@@ -175,12 +175,16 @@ public class Event {
                 AffichageGraphique.group.getChildren().clear();
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
-                personnageSelected.setEndTurn(true);
+                if(personnageSelected!= null)
+                    personnageSelected.setEndTurn(true);
                 personnageSelected =null;
                 if(AffichePerso.endTurn())
                 {
-                    System.out.println("------------");
                     afficheMap.effectField();
+                    if(AffichePerso.isWin())
+                        System.out.println("Win");
+                    if(AffichePerso.isLost())
+                        System.out.println("Lost");
                     AffichePerso.newTurn();
                 }
             }
