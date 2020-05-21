@@ -3,21 +3,24 @@ package backend.field;
 import backend.Carac;
 import backend.Personnage;
 import backend.field.Field;
-import javafx.scene.paint.Color;
 
-public class Volcano extends Field {
 
-    public Volcano(){
-        super("volcano");
+public abstract class Volcano extends Field {
+
+    public Volcano(String fieldName){
+        super(fieldName);
     }
 
     public void affect(Personnage personnage){
         Carac caracPerso = personnage.getCaracteristique();
 
-        System.out.println("maxhp " + caracPerso.getMaxHp());
-        caracPerso.setHp((int) (caracPerso.getHp() *0.80));
+
+        caracPerso.setHp((int) (caracPerso.getHp() - caracPerso.getMaxHp() * 0.50));
     }
 
     public void disaffect(Personnage personnage){
+        Carac caracPerso = personnage.getCaracteristique();
+        //caracPerso.setMov(1);
+        personnage.getCaracteristique().setMov(1);
     }
 }

@@ -73,7 +73,7 @@ public class DataMap {
                 for (int b = 0; b < coordinates.size(); b++) {
 
                     System.out.println(coordinates.get(a).get(b).getField());
-                    System.out.println(coordinates.get(a).get(b).getX() +" "+ coordinates.get(a).get(b).getY());
+                    System.out.println(coordinates.get(a).get(b).getX() + " " + coordinates.get(a).get(b).getY());
                 }
                 System.out.println();
             }
@@ -104,7 +104,7 @@ public class DataMap {
             case "F":
                 return new Forest();
             case "V":
-                return new Volcano();
+                return new Volcan9();
             case "R":
                 return new River();
             case "-":
@@ -117,8 +117,46 @@ public class DataMap {
                 return new CornicheM2();
             case "]":
                 return new CornicheF();
+            case "H":
+                return new CornicheM();
+            case "$":
+                return new CornicheB();
+            case "P":
+                return new Pilier();
             case "s":
                 return new Sol();
+            case "1":
+                return new Volcan1();
+            case "2":
+                return new Volcan2();
+            case "3":
+                return new Volcan3();
+            case "4":
+                return new Volcan4();
+            case "5":
+                return new Volcan5();
+            case "6":
+                return new Volcan6();
+            case "7":
+                return new Volcan7();
+            case "&":
+                return new Gravier1();
+            case "g":
+                return new Gravier2();
+            case "'":
+                return new Gravier3();
+            case "(":
+                return new Gravier4();
+            case "h":
+                return new Gravier5();
+            case "_":
+                return new Gravier6();
+            case "v":
+                return new Gravier7();
+            case "<":
+                return new Gravier8();
+            case ">":
+                return new Gravier9();
             default:
                 return new Plaine();
         }
