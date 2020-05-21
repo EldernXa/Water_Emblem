@@ -22,14 +22,20 @@ public class MainIA {
         LM.add(persoM);
         LM.add(persoM1);
 
-        Etat e = new Etat(LM, LG, new Forest(), new HeuristiqueBasique(), "Map");
+        Etat e = new Etat(LM, LG, new HeuristiqueBasique(), "Map");
         /*DataCoordCharacters dataCoordCharacters = new DataCoordCharacters("Map");
         for(Coordinate c : dataCoordCharacters.getMovementArea(persoG, persoG.getPos())){
             c.affPos();
         }*/
-        e.affEtat();
         Etat etat = Algo_Minimax.startMini(e,3, true);
+        e.affEtat();
         etat.affEtat();
+        Action a = etat.getActionPrecedent();
+        a.getPosDepart().affPos();
+        a.getPosArrive().affPos();
+        a.getPosAttaquant().affPos();
+        a.getPosDefenceur().affPos();
+        System.out.println(a.getDamage());
         //etat.getListMechant().get(0).setPos(new Coordinate(7,7));
         //etat.affEtat();
         //e.affEtat();
