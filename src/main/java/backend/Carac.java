@@ -17,6 +17,7 @@ public class Carac {
     private int lck;
     private int res;
     private int mov;
+    private int maxMov;
     private int portee = 1;
     private String wep1;
     private String wep2;
@@ -53,7 +54,7 @@ public class Carac {
         lck = Integer.parseInt(list.get(i++));
         def = Integer.parseInt(list.get(i++));
         res = Integer.parseInt(list.get(i++));
-        mov = Integer.parseInt(list.get(i++));
+        maxMov = mov = Integer.parseInt(list.get(i++));
         if(list.size() == i){
             return;
         }
@@ -82,6 +83,7 @@ public class Carac {
         lck = c.lck;
         res = c.res;
         mov = c.mov;
+        maxMov = c.maxMov;
         wep1 = c.wep1;
         wep2 = c.wep2;
         wep3 = c.wep3;
@@ -209,6 +211,14 @@ public class Carac {
 
     public void setPortee(int portee) {
         this.portee = portee;
+    }
+
+    public int getMaxMov() {
+        return maxMov;
+    }
+
+    public void setMaxMov(int maxMov) {
+        this.maxMov = maxMov;
     }
 
     public int getSpd() {
