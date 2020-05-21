@@ -179,6 +179,7 @@ public class Event {
                 attack.setVisible(false);
                 personnageSelected.getPersonnage().attack(ennemiSelected.getCoordinate());
                 personnageSelected.setBooleanAttack(true);
+                personnageSelected.setEndTurn(true);
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
                 information.getChildren().clear();
@@ -190,15 +191,7 @@ public class Event {
                     addInformation(information, personnageSelected,"Green");
                 if(ennemiSelected!=null)
                     addInformation(information, ennemiSelected,"Red");
-                if(personnageSelected!=null) {
-                    if (personnageSelected.getBooleanMove())
-                        stay.fire();
-                    else {
-                        for (Coordinate c : affichePerso.getCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
-                            addRectangle(grilleMvt, c, Color.rgb(0, 0, 255, 0.3));
-                        grilleMvt.setVisible(true);
-                    }
-                }
+                stay.fire();
                 stay.setText("Fin");
             }
         });
