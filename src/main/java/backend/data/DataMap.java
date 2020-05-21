@@ -13,9 +13,9 @@ import java.util.stream.Stream;
 
 public class DataMap {
 
-   private String path;
-   private ArrayList<ArrayList<Coordinate>> coordinates;
-   private ArrayList<Integer> mapLimits;
+    private String path;
+    private ArrayList<ArrayList<Coordinate>> coordinates;
+    private ArrayList<Integer> mapLimits;
 
     public DataMap(String map) {
         mapLimits = new ArrayList<>();
@@ -55,9 +55,9 @@ public class DataMap {
                     for (int j = 0; j < ary.length; j++) {
 
 
-                        Coordinate test = new Coordinate(i-1,j);
+                        Coordinate test = new Coordinate(j, i - 1);
                         test.setField(getField(ary[j]));
-    
+
 
                         yCoordinates.add(test);
                     }
@@ -66,16 +66,19 @@ public class DataMap {
 
             }
 
+
             this.coordinates = xCoordinates;
 
+            for (int a = 0; a < coordinates.size(); a++) {
+                for (int b = 0; b < coordinates.size(); b++) {
 
+                    System.out.println(coordinates.get(a).get(b).getField());
+                    System.out.println(coordinates.get(a).get(b).getX() +" "+ coordinates.get(a).get(b).getY());
+                }
+                System.out.println();
+            }
             mapLimits.add(coordinates.size());
             mapLimits.add(coordinates.get(0).size());
-
-
-
-        
-
 
 
         } catch (IOException e) {
@@ -84,11 +87,11 @@ public class DataMap {
 
     }
 
-    public ArrayList<ArrayList<Coordinate>> getcoordinates(){
+    public ArrayList<ArrayList<Coordinate>> getcoordinates() {
         return coordinates;
     }
 
-    public Coordinate getThisCoordinate(int x, int y){
+    public Coordinate getThisCoordinate(int x, int y) {
 
         return coordinates.get(x).get(y);
     }
@@ -96,7 +99,7 @@ public class DataMap {
 
     private Field getField(String field) {
 
-        switch (field ) {
+        switch (field) {
 
             case "F":
                 return new Forest();
@@ -106,12 +109,24 @@ public class DataMap {
                 return new River();
             case "-":
                 return new Plaine();
+            case "[":
+                return new CornicheD();
+            case "=":
+                return new CornicheM1();
+            case "~":
+                return new CornicheM2();
+            case "]":
+                return new CornicheF();
+            case "s":
+                return new Sol();
+            default:
+                return new Plaine();
         }
 
-        return null;
+
     }
 
-    public ArrayList<Integer> getMapLimits(){
+    public ArrayList<Integer> getMapLimits() {
         return mapLimits;
     }
 

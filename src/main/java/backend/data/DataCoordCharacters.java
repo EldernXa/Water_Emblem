@@ -159,8 +159,8 @@ public class DataCoordCharacters {
         int mov = name.getCaracteristique().getMov();
         ArrayList<Coordinate> coordMovArraylist = new ArrayList<>();
 
-        int x = coordinate.getX();
-        int y = coordinate.getY();
+        int y = coordinate.getX();
+        int x = coordinate.getY();
 
 
         for(int i = 0; i < dataMap.getMapLimits().get(0) ; i++) {
