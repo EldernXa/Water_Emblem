@@ -11,13 +11,12 @@ public class Volcano extends Field {
         super("volcano");
     }
 
-    void affect(Personnage personnage){
-        /*Carac caracPerso = personnage.getCaracteristique();
+    public void affect(Personnage personnage){
+        Carac caracPerso = personnage.getCaracteristique();
         int burn = (int) (caracPerso.getMaxHp() * 0.95);
-        caracPerso.setHp(caracPerso.getHp() - burn);*/
+        caracPerso.setHp(caracPerso.getHp() - burn);
     }
 
-    void disaffect(Personnage personnage){
-
+    public void disaffect(Personnage personnage){
     }
 }

@@ -11,11 +11,11 @@ public class Forest extends Field {
         super("forest");
     }
 
-    void affect(Personnage personnage){
+    public void affect(Personnage personnage){
 
     }
 
-    void disaffect(Personnage personnage){
+    public void disaffect(Personnage personnage){
 
     }
 }

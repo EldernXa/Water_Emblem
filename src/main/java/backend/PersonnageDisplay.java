@@ -22,11 +22,13 @@ public class PersonnageDisplay {
     private boolean present;
     private boolean booleanAttack;
     private boolean booleanMove;
+    private boolean endTurn;
 
     public PersonnageDisplay(String nom, int x, int y){
         present = true;
         booleanAttack =false;
         booleanMove = false;
+        endTurn = false;
         this.perso = new Personnage(nom);
         inputStream = new ArrayList[6];
         imageView = new ArrayList[6];
@@ -49,12 +51,20 @@ public class PersonnageDisplay {
         this.booleanAttack = value;
     }
 
+    public void setEndTurn(boolean value){
+        this.endTurn = value;
+    }
+
     public boolean getBooleanMove(){
         return booleanMove;
     }
 
     public boolean getBooleanAttack(){
         return booleanAttack;
+    }
+
+    public boolean getEndTurn(){
+        return endTurn;
     }
 
     public boolean isPresent(){

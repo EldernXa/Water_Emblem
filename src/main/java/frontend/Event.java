@@ -34,7 +34,7 @@ public class Event {
     static private PersonnageDisplay ennemiSelected = null;
 
     static void clickOnMap(GridPane perso, AffichePerso affichePerso, GridPane grilleMvt, GridPane grilleAttack,
-                           VBox information, Button move, Button attack, Button stay){
+                           VBox information, Button move, Button attack, Button stay, AfficheMap afficheMap){
         perso.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event)
@@ -46,10 +46,12 @@ public class Event {
                     information.getChildren().clear();
                     stay.setText("Rien faire");
                     personnageSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
+                    stay.setVisible(true);
                     if(personnageSelected!=null){
                         addInformation(information, personnageSelected);
                     }
-                    if(personnageSelected!=null && !AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected))
+                    if(personnageSelected!=null && !AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected) &&
+                        !personnageSelected.getEndTurn())
                     {
                         for(Coordinate c: affichePerso.getCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
                             addRectangle(grilleMvt, c, Color.rgb(0, 0, 255, 0.3));
@@ -62,7 +64,7 @@ public class Event {
                     }
                 }
                 else{
-                    if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)) {
+                    if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected) && !personnageSelected.getEndTurn()) {
                         if (personnageSelected != AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))) {
                             ArrayList<Coordinate> listMvt = affichePerso.getCoordinate(personnageSelected.getPersonnage(),
                                     personnageSelected.getCoordinate());
@@ -74,7 +76,7 @@ public class Event {
                                             @Override
                                             public void handle(ActionEvent event) {
                                                 move.setVisible(false);
-                                                affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt);
+                                                affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt, afficheMap);
                                                 personnageSelected.setBooleanMove(true);
                                                 grilleMvt.getChildren().clear();
                                                 grilleAttack.getChildren().clear();
@@ -113,6 +115,11 @@ public class Event {
                                                             addInformation(information, ennemiSelected);
                                                         if(personnageSelected.getBooleanMove())
                                                             stay.fire();
+                                                        else{
+                                                            for(Coordinate c: affichePerso.getCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
+                                                                addRectangle(grilleMvt, c, Color.rgb(0, 0, 255, 0.3));
+                                                            grilleMvt.setVisible(true);
+                                                        }
                                                         stay.setText("Fin");
                                                     }
                                                 });
@@ -140,7 +147,7 @@ public class Event {
     }
 
     static public void addRectangle(GridPane grille, Coordinate c, Color color){
-        if(AffichePerso.getPersonnageAt(c)!=null && AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(c)))
+        if(AffichePerso.getPersonnageAt(c)!=null && AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(c))&&!personnageSelected.getBooleanAttack())
         {
             Rectangle rect = new Rectangle(AffichageGraphique.size, AffichageGraphique.size);
             rect.setFill(Color.rgb(255, 0, 0, 0.3));
@@ -157,8 +164,8 @@ public class Event {
         }
     }
 
-    public static void buttonStay(Button stay, VBox information, Button move, Button attack,
-                           GridPane grilleMvt, GridPane grilleAttack, GridPane perso){
+    public static void buttonStay(Button stay, Button move, Button attack,
+                           GridPane grilleMvt, GridPane grilleAttack, AfficheMap afficheMap){
         stay.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
@@ -168,9 +175,14 @@ public class Event {
                 AffichageGraphique.group.getChildren().clear();
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
-                personnageSelected.setBooleanAttack(false);
-                personnageSelected.setBooleanMove(false);
+                personnageSelected.setEndTurn(true);
                 personnageSelected =null;
+                if(AffichePerso.endTurn())
+                {
+                    System.out.println("------------");
+                    afficheMap.effectField();
+                    AffichePerso.newTurn();
+                }
             }
         });
     }

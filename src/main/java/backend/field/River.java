@@ -11,12 +11,12 @@ public class River extends Field {
         super("river");
     }
 
-    void affect(Personnage personnage){
+    public void affect(Personnage personnage){
         //Carac caracPerso = personnage.getCaracteristique();
 
     }
 
-    void disaffect(Personnage personnage){
+    public void disaffect(Personnage personnage){
 
     }
 }

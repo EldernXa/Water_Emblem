@@ -1,6 +1,8 @@
 package frontend;
 
 import backend.Coordinate;
+import backend.Personnage;
+import backend.PersonnageDisplay;
 import backend.data.DataMap;
 import javafx.scene.layout.*;
 
@@ -26,8 +28,31 @@ public class AfficheMap {
                 if(coordinate.getY()>y)
                     y = coordinate.getY();
                 Pane pane = coordinate.getField().getApsect();
-                map.add(pane, coordinate.getY(), coordinate.getX());
+                map.add(pane, coordinate.getX(), coordinate.getY());
                 map.setStyle("-fx-grid-lines-visible: true;");
+            }
+        }
+    }
+
+    public void effectField(){
+        for(ArrayList<Coordinate>array: dataMap.getcoordinates()){
+            for(Coordinate coordinate: array)
+            {
+                PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(new Coordinate(coordinate.getX(), coordinate.getY()));
+                if(p!=null)
+                {
+                    System.out.println(coordinate.getField().getClass());
+                    coordinate.getField().affect(p.getPersonnage());
+                }
+            }
+        }
+    }
+
+    public void disaffectField(PersonnageDisplay personnage){
+        for(ArrayList<Coordinate> array: dataMap.getcoordinates()){
+            for(Coordinate coordinate: array){
+                if(coordinate.equal(personnage.getCoordinate()))
+                    coordinate.getField().disaffect(personnage.getPersonnage());
             }
         }
     }

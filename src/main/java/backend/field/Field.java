@@ -34,8 +34,8 @@ public abstract class Field {
         return imgView;
     }
 
-    abstract void affect(Personnage personnage);
-    abstract void disaffect(Personnage personnage);
+    public abstract void affect(Personnage personnage);
+    public abstract void disaffect(Personnage personnage);
 }
 
 //package backend;

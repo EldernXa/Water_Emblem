@@ -54,6 +54,22 @@ public class AffichePerso {
         init();
     }
 
+    public static boolean endTurn(){
+        for(PersonnageDisplay p : listPersonnage){
+            if(!p.getEndTurn() && p.isAlive())
+                return false;
+        }
+        return true;
+    }
+
+    public static void newTurn(){
+        for(PersonnageDisplay p: listPersonnage){
+            p.setEndTurn(false);
+            p.setBooleanAttack(false);
+            p.setBooleanMove(false);
+        }
+    }
+
     public ArrayList<Coordinate> getCoordinate(Personnage personnage, Coordinate coordinate){
         return dataCoordCharacters.getMovementArea(personnage, coordinate);
     }
@@ -140,7 +156,7 @@ public class AffichePerso {
     }
 
     public void move(PersonnageDisplay persoToMove, Coordinate coordinate, GridPane perso,
-                     GridPane grilleMvt){
+                     GridPane grilleMvt, AfficheMap afficheMap){
         perso.getChildren().clear(); // aucun changement si je mets en commentaire
         persoToMove.setPresent(false);
 
@@ -198,11 +214,13 @@ public class AffichePerso {
                         timeline.stop();
                         seq.stop();
                         timeline.getKeyFrames().clear();
+                        afficheMap.disaffectField(persoToMove);
                         persoToMove.setCoordinate(coordinate);
                         persoToMove.setOrientation(0);
                         persoToMove.setPresent(true);
-                        for(Coordinate c: getAttackAreaAfterMovement(persoToMove.getPersonnage(), persoToMove.getCoordinate()))
-                            Event.addRectangle(grilleMvt, c, Color.rgb(255, 0, 0, 0.3));
+                        if(!persoToMove.getBooleanAttack())
+                            for(Coordinate c: getAttackAreaAfterMovement(persoToMove.getPersonnage(), persoToMove.getCoordinate()))
+                                Event.addRectangle(grilleMvt, c, Color.rgb(255, 0, 0, 0.3));
 
                     }
 

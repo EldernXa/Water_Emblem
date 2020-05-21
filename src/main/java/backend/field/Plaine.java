@@ -11,13 +11,13 @@ public class Plaine extends Field {
         super("plaine");
     }
 
-    void affect(Personnage personnage) {
+    public void affect(Personnage personnage) {
         //Carac caracPerso = personnage.getCaracteristique();
 
     }
 
 
-    void disaffect(Personnage personnage) {
+    public void disaffect(Personnage personnage) {
 
     }
 }
