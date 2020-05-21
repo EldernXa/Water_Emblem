@@ -217,7 +217,7 @@ public class DataCoordCharacters {
         }
 
 
-    return coordMovArraylist;
+        return coordMovArraylist;
 
     }
 
