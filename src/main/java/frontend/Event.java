@@ -131,12 +131,18 @@ public class Event {
                 AffichageGraphique.group.getChildren().clear();
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
-                if(personnageSelected!= null)
+                if(personnageSelected!= null) {
                     personnageSelected.setEndTurn(true);
+                    personnageSelected.setOrientation(6);
+                }
                 personnageSelected =null;
                 if(AffichePerso.endTurn())
                 {
                     afficheMap.effectField(AffichePerso.listPersonnage);
+                    for(PersonnageDisplay p: AffichePerso.listPersonnage)
+                    {
+                        p.setOrientation(0);
+                    }
                     if(AffichePerso.isWin())
                         System.out.println("Win");
                     if(AffichePerso.isLost())
@@ -179,7 +185,6 @@ public class Event {
                 attack.setVisible(false);
                 personnageSelected.getPersonnage().attack(ennemiSelected.getCoordinate());
                 personnageSelected.setBooleanAttack(true);
-                personnageSelected.setEndTurn(true);
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
                 information.getChildren().clear();
@@ -209,8 +214,6 @@ public class Event {
                 personnageSelected.setBooleanMove(true);
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
-                if(personnageSelected.getBooleanAttack())
-                    stay.fire();
                 stay.setText("Fin");
             }
         });
