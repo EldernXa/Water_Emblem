@@ -157,6 +157,8 @@ public class DataMap {
                 return new Gravier8();
             case ">":
                 return new Gravier9();
+            case "B" :
+                return new Bastion();
             default:
                 return new Plaine();
         }
