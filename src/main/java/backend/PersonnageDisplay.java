@@ -32,11 +32,11 @@ public class PersonnageDisplay {
         booleanMove = false;
         endTurn = false;
         this.perso = new Personnage(nom);
-        inputStream = new ArrayList[7];
-        imageView = new ArrayList[7];
+        inputStream = new ArrayList[6];
+        imageView = new ArrayList[6];
         num = 0;
         orientation = 0;
-        for(int i=0; i<7;i++)
+        for(int i=0; i<6;i++)
         {
             inputStream[i] = new ArrayList<>();
             imageView[i] = new ArrayList<>();
@@ -98,16 +98,14 @@ public class PersonnageDisplay {
                     inputStream[0].add(new FileInputStream(f.getAbsoluteFile()));
                 else if(f.getName().contains("Arri")){
                     inputStream[1].add(new FileInputStream(f.getAbsoluteFile()));
-                }else if(f.getName().contains("Attaque")){
-                    inputStream[2].add(new FileInputStream(f.getAbsoluteFile()));
                 }else if(f.getName().contains("Avant")){
-                    inputStream[3].add(new FileInputStream(f.getAbsoluteFile()));
+                    inputStream[2].add(new FileInputStream(f.getAbsoluteFile()));
                 }else if(f.getName().contains("Droite")){
-                    inputStream[4].add(new FileInputStream(f.getAbsoluteFile()));
+                    inputStream[3].add(new FileInputStream(f.getAbsoluteFile()));
                 }else if(f.getName().contains("Gauche")){
-                    inputStream[5].add(new FileInputStream(f.getAbsoluteFile()));
+                    inputStream[4].add(new FileInputStream(f.getAbsoluteFile()));
                 }else if(f.getName().contains("ArretNb"))
-                    inputStream[6].add(new FileInputStream(f.getAbsoluteFile()));
+                    inputStream[5].add(new FileInputStream(f.getAbsoluteFile()));
             }
             for(int i=0; i<inputStream.length; i++)
                 for(int in=0; in<inputStream[i].size(); in++)
