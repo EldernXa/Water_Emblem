@@ -32,6 +32,7 @@ import java.util.HashMap;
 public class Event {
     static private PersonnageDisplay personnageSelected = null;
     static private PersonnageDisplay ennemiSelected = null;
+    static public int numEnnemi = 0;
 
     static void clickOnMap(GridPane perso, AffichePerso affichePerso, GridPane grilleMvt, GridPane grilleAttack,
                            VBox information, Button move, Button attack, Button stay, AfficheMap afficheMap){
@@ -132,8 +133,8 @@ public class Event {
         }
     }
 
-    public static void buttonStay(Button stay, Button move, Button attack,
-                                  GridPane grilleMvt, GridPane grilleAttack, AfficheMap afficheMap){
+    public static void buttonStay(Button stay, Button move, Button attack, GridPane grilleMvt, GridPane grilleAttack,
+                                  AfficheMap afficheMap, AffichePerso affichePerso, GridPane perso){
         stay.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
@@ -159,6 +160,8 @@ public class Event {
                         System.out.println("Win");
                     if(AffichePerso.isLost())
                         System.out.println("Lost");
+                    afficheMap.effectField(AffichePerso.listEnnemi);
+                    AffichePerso.listEnnemi.get(0).action(affichePerso, perso, grilleMvt, afficheMap);
                     AffichePerso.newTurn();
                 }
             }
