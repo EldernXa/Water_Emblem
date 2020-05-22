@@ -108,7 +108,7 @@ public class AffichageGraphique {
                 map.setAlignment(Pos.TOP_LEFT);
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
-                Event.buttonStay(stay, move, attack, grilleMvt, grilleAttack, afficheMap);
+                Event.buttonStay(stay, move, attack, grilleMvt, grilleAttack, afficheMap, affichePerso, perso);
                 Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack, information,
                         move, attack, stay, afficheMap);
                 root.getChildren().addAll(map, grilleMvt, grilleAttack, group, perso);

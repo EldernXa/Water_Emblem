@@ -32,6 +32,7 @@ import java.util.HashMap;
 public class Event {
     static private PersonnageDisplay personnageSelected = null;
     static private PersonnageDisplay ennemiSelected = null;
+    static public int numEnnemi = 0;
 
     static void clickOnMap(GridPane perso, AffichePerso affichePerso, GridPane grilleMvt, GridPane grilleAttack,
                            VBox information, Button move, Button attack, Button stay, AfficheMap afficheMap){
@@ -62,9 +63,9 @@ public class Event {
                                     if (AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)) == null && !personnageSelected.getBooleanMove()) {
                                         buttonMove(x, y, move, affichePerso, perso, grilleMvt, afficheMap, grilleAttack, stay);
                                     }
-                                    else if(!personnageSelected.getBooleanAttack()&&
-                                            AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
+                                    else if(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
                                             AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
+                                        System.out.println("ttt");
                                         for(Coordinate coordinate:affichePerso.getAttackAreaAfterMovement(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
                                         {
                                             if(coordinate.equal(new Coordinate(x, y)))
@@ -132,8 +133,8 @@ public class Event {
         }
     }
 
-    public static void buttonStay(Button stay, Button move, Button attack,
-                                  GridPane grilleMvt, GridPane grilleAttack, AfficheMap afficheMap){
+    public static void buttonStay(Button stay, Button move, Button attack, GridPane grilleMvt, GridPane grilleAttack,
+                                  AfficheMap afficheMap, AffichePerso affichePerso, GridPane perso){
         stay.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
@@ -159,6 +160,15 @@ public class Event {
                         System.out.println("Win");
                     if(AffichePerso.isLost())
                         System.out.println("Lost");
+                    afficheMap.effectField(AffichePerso.listEnnemi);
+                    Event.numEnnemi = 0;
+                    while(!AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive()){
+                        if(numEnnemi<AffichePerso.listEnnemi.size()-1)
+                            numEnnemi++;
+                        else
+                            numEnnemi=0;
+                    }
+                    AffichePerso.listEnnemi.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap);
                     AffichePerso.newTurn();
                 }
             }
@@ -196,6 +206,12 @@ public class Event {
             public void handle(ActionEvent event){
                 attack.setVisible(false);
                 personnageSelected.getPersonnage().attack(ennemiSelected.getCoordinate());
+                if(personnageSelected.getPersonnage().getCaracteristique().getHp()<=0)
+                    personnageSelected.setDeath();
+                if(ennemiSelected.getPersonnage().getCaracteristique().getHp()<=0)
+                    ennemiSelected.setDeath();
+                System.out.println(personnageSelected.getPersonnage().getCaracteristique().getHp() + " - "+
+                        ennemiSelected.getPersonnage().getCaracteristique().getHp());
                 personnageSelected.setBooleanAttack(true);
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
@@ -223,7 +239,6 @@ public class Event {
             public void handle(ActionEvent event){
                 move.setVisible(false);
                 affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt, afficheMap);
-                personnageSelected.setBooleanMove(true);
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
                 stay.setText("Fin");

@@ -218,8 +218,20 @@ public class AffichePerso {
                         persoToMove.setCoordinate(coordinate);
                         persoToMove.setOrientation(0);
                         persoToMove.setPresent(true);
-                        if(!persoToMove.getBooleanAttack())
-                            for(Coordinate c: getAttackAreaAfterMovement(persoToMove.getPersonnage(), persoToMove.getCoordinate()))
+                        if(AffichePerso.contains(AffichePerso.listEnnemi, persoToMove)) {
+                            if(Event.numEnnemi<AffichePerso.listEnnemi.size()-1) {
+                                Event.numEnnemi++;
+                                while(!AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive()) {
+                                    if(Event.numEnnemi>=AffichePerso.listEnnemi.size())
+                                        Event.numEnnemi = 0;
+                                    else Event.numEnnemi++;
+                                }
+                                AffichePerso.listEnnemi.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap);
+                            }else{
+                                Event.numEnnemi=0;
+                            }
+                        }else
+                            for (Coordinate c : getAttackAreaAfterMovement(persoToMove.getPersonnage(), persoToMove.getCoordinate()))
                                 Event.addRectangle(grilleMvt, c, Color.rgb(255, 0, 0, 0.3));
 
                     }
