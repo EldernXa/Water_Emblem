@@ -17,3 +17,4 @@ Sage;20;1;8;4;4;0;5;5;6;Magie
 Moine;18;1;7;1;2;0;1;5;5;Magie
 General;21;8;0;4;3;0;13;3;5;Lance;Hache
 Paladin;23;7;1;4;7;0;8;3;8;Epee;Lance;Hache
+ChevalierFaucon;20;6;2;7;7;0;5;4;8;Lance
