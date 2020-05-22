@@ -32,14 +32,11 @@ public class Personnage {
 
         Personnage adversaire = AffichePerso.getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
         if(adversaire!=null) {
-            System.out.println(caracteristique.getName() + " attaque");
             int damage = Stat.damage(caracteristique, adversaire.getCaracteristique());
             if(caracteristique.getHp() >0) {
                 adversaire.attacked(damage);
             }
-            System.out.println(adversaire.caracteristique.getName() + " attaque");
             damage = Stat.damage(adversaire.getCaracteristique(), caracteristique);
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa  " + damage );
             if(adversaire.getCaracteristique().getHp() > 0) {
                 this.attacked(damage);
             }
@@ -47,9 +44,7 @@ public class Personnage {
     }
 
     public void attack(Personnage adversaire){
-        System.out.println(caracteristique.getName() + " attaque");
         int damage = Stat.damage(caracteristique, adversaire.caracteristique);
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa  " + damage );
         if(caracteristique.getHp() > 0) {
             adversaire.attacked(damage);
         }
@@ -57,7 +52,6 @@ public class Personnage {
 
 
     public void attacked(int damage) {
-        System.out.println(caracteristique.getName() + " bouclier");
         int hp;
         if (damage > 0) {
              hp= caracteristique.getHp() - damage;

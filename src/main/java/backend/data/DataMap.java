@@ -69,14 +69,14 @@ public class DataMap {
 
             this.coordinates = xCoordinates;
 
-            for (int a = 0; a < coordinates.size(); a++) {
+            /*for (int a = 0; a < coordinates.size(); a++) {
                 for (int b = 0; b < coordinates.size(); b++) {
 
                     System.out.println(coordinates.get(a).get(b).getField());
                     System.out.println(coordinates.get(a).get(b).getX() + " " + coordinates.get(a).get(b).getY());
                 }
                 System.out.println();
-            }
+            }*/
             mapLimits.add(coordinates.size());
             mapLimits.add(coordinates.get(0).size());
 

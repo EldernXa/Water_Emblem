@@ -65,7 +65,6 @@ public class Event {
                                     }
                                     else if(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
                                             AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
-                                        System.out.println("ttt");
                                         for(Coordinate coordinate:affichePerso.getAttackAreaAfterMovement(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
                                         {
                                             if(coordinate.equal(new Coordinate(x, y)))
@@ -162,13 +161,12 @@ public class Event {
                         System.out.println("Lost");
                     afficheMap.effectField(AffichePerso.listEnnemi);
                     Event.numEnnemi = 0;
-                    while(!AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive()){
-                        if(numEnnemi<AffichePerso.listEnnemi.size()-1)
-                            numEnnemi++;
-                        else
-                            numEnnemi=0;
+                    while(Event.numEnnemi<AffichePerso.listEnnemi.size()-1 && !AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive()) {
+                        if(Event.numEnnemi<AffichePerso.listEnnemi.size()-1)
+                            Event.numEnnemi++;
                     }
-                    AffichePerso.listEnnemi.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap);
+                    if(AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive())
+                        AffichePerso.listEnnemi.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap);
                     AffichePerso.newTurn();
                 }
             }
@@ -210,8 +208,6 @@ public class Event {
                     personnageSelected.setDeath();
                 if(ennemiSelected.getPersonnage().getCaracteristique().getHp()<=0)
                     ennemiSelected.setDeath();
-                System.out.println(personnageSelected.getPersonnage().getCaracteristique().getHp() + " - "+
-                        ennemiSelected.getPersonnage().getCaracteristique().getHp());
                 personnageSelected.setBooleanAttack(true);
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
