@@ -35,7 +35,7 @@ public class Carac {
         }
         else if(DataPerso.getUnite(name) != null){
             list =  DataPerso.getUnite(name);
-            this.name = name;
+            this.name = "mechant";
         }
 
         else {

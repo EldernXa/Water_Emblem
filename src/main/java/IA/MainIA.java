@@ -21,7 +21,7 @@ public class MainIA {
         Personnage persoM1 = new Personnage("Cavalier", new Coordinate(4,4));
         LM.add(persoM);
         LM.add(persoM1);
-
+        System.out.println("quoi                             " + persoM.getCaracteristique().getName());
         Etat e = new Etat(LM, LG, new HeuristiqueBasique(), "Map");
         /*DataCoordCharacters dataCoordCharacters = new DataCoordCharacters("Map");
         for(Coordinate c : dataCoordCharacters.getMovementArea(persoG, persoG.getPos())){
