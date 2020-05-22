@@ -71,9 +71,9 @@ public class Personnage {
     public void die(){
 
     }
-    public void heal(Personnage persoHeal){
 
-    }
+
+
     public void healed(int hpHeal){
         int hp;
 
@@ -83,7 +83,6 @@ public class Personnage {
         else {
          hp = caracteristique.getHp() + hpHeal;
         }
-
         caracteristique.setHp(hp);
 
     }
