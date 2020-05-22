@@ -14,13 +14,13 @@ public abstract class Volcano extends Field {
     public void affect(Personnage personnage){
         Carac caracPerso = personnage.getCaracteristique();
 
-
+        caracPerso.setMov(1);
         caracPerso.setHp((int) (caracPerso.getHp() - caracPerso.getMaxHp() * 0.50));
     }
 
     public void disaffect(Personnage personnage){
         Carac caracPerso = personnage.getCaracteristique();
-        //caracPerso.setMov(1);
-        personnage.getCaracteristique().setMov(1);
+
+        personnage.getCaracteristique().setMov(caracPerso.getMaxMov());
     }
 }
