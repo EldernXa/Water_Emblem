@@ -146,7 +146,7 @@ public class Event {
                 grilleAttack.getChildren().clear();
                 if(personnageSelected!= null) {
                     personnageSelected.setEndTurn(true);
-                    personnageSelected.setOrientation(6);
+                    personnageSelected.setOrientation(5);
                 }
                 personnageSelected =null;
                 if(AffichePerso.endTurn())
