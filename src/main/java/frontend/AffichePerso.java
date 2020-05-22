@@ -222,9 +222,9 @@ public class AffichePerso {
                             if(Event.numEnnemi<AffichePerso.listEnnemi.size()-1) {
                                 Event.numEnnemi++;
                                 while(!AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive()) {
-                                    if(Event.numEnnemi>=AffichePerso.listEnnemi.size())
-                                        Event.numEnnemi = 0;
-                                    else Event.numEnnemi++;
+                                    if(Event.numEnnemi<AffichePerso.listEnnemi.size()-1)
+                                        Event.numEnnemi++;
+                                    else Event.numEnnemi=0;
                                 }
                                 AffichePerso.listEnnemi.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap);
                             }else{
