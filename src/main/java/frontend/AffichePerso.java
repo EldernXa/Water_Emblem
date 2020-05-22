@@ -218,7 +218,6 @@ public class AffichePerso {
                         persoToMove.setCoordinate(coordinate);
                         persoToMove.setOrientation(0);
                         persoToMove.setPresent(true);
-                        persoToMove.setEndTurn(true);
                         if(AffichePerso.contains(AffichePerso.listEnnemi, persoToMove)) {
                             if(Event.numEnnemi<AffichePerso.listEnnemi.size()-1) {
                                 AffichePerso.listEnnemi.get(++Event.numEnnemi).action(this, perso, grilleMvt, afficheMap);

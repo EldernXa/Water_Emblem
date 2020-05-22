@@ -63,9 +63,9 @@ public class Event {
                                     if (AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)) == null && !personnageSelected.getBooleanMove()) {
                                         buttonMove(x, y, move, affichePerso, perso, grilleMvt, afficheMap, grilleAttack, stay);
                                     }
-                                    else if(!personnageSelected.getBooleanAttack()&&
-                                            AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
+                                    else if(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
                                             AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
+                                        System.out.println("ttt");
                                         for(Coordinate coordinate:affichePerso.getAttackAreaAfterMovement(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
                                         {
                                             if(coordinate.equal(new Coordinate(x, y)))
@@ -226,7 +226,6 @@ public class Event {
             public void handle(ActionEvent event){
                 move.setVisible(false);
                 affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt, afficheMap);
-                personnageSelected.setBooleanMove(true);
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
                 stay.setText("Fin");
