@@ -72,14 +72,16 @@ public class Event {
                                         }
                                     }else if(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
                                         AffichePerso.contains(AffichePerso.listPersonnage, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
+                                        if(!personnageSelected.getBooleanMove()){
                                         grilleAttack.getChildren().clear();
                                         grilleMvt.getChildren().clear();
                                         initPersonnageSelected(information, x, y,
                                                 stay, affichePerso, grilleMvt, grilleAttack,
                                                 move, attack);
-                                        if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)){
+                                        if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)) {
                                             stay.setText("Rien faire");
                                             stay.setVisible(true);
+                                        }
                                         }
                                     }
                                 }
@@ -154,6 +156,8 @@ public class Event {
                     for(PersonnageDisplay p: AffichePerso.listPersonnage)
                     {
                         p.setOrientation(0);
+                        p.setBooleanAttack(false);
+                        p.setBooleanMove(false);
                     }
                     if(AffichePerso.isWin())
                         System.out.println("Win");
@@ -234,6 +238,7 @@ public class Event {
             @Override
             public void handle(ActionEvent event){
                 move.setVisible(false);
+                personnageSelected.setBooleanMove(true);
                 affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt, afficheMap);
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
