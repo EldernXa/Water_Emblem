@@ -179,16 +179,16 @@ public class AffichePerso {
                     persoToMove.getImageView().setTranslateX(0);
                     if(ttX.getNode().getTranslateX()<0 && ttX.getNode().getTranslateX()!=ttX.getToX() &&
                             persoToMove.getOrientation()!=5)
-                        persoToMove.setOrientation(5);
+                        persoToMove.setOrientation(4);
                     else if(ttX.getNode().getTranslateX()>0 && ttX.getNode().getTranslateX()!=ttX.getToX()&&
                             persoToMove.getOrientation()!=4)
-                        persoToMove.setOrientation(4);
+                        persoToMove.setOrientation(3);
                     else if(ttY.getNode().getTranslateY()<0 && ttY.getNode().getTranslateY()!=ttY.getToY()&&
                             persoToMove.getOrientation()!=1)
                         persoToMove.setOrientation(1);
                     else if(ttY.getNode().getTranslateY()>0 && ttY.getNode().getTranslateY()!=ttY.getToY()&&
                             persoToMove.getOrientation()!=3){
-                        persoToMove.setOrientation(3);
+                        persoToMove.setOrientation(2);
                     }
 
 
@@ -222,9 +222,9 @@ public class AffichePerso {
                             if(Event.numEnnemi<AffichePerso.listEnnemi.size()-1) {
                                 Event.numEnnemi++;
                                 while(!AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive()) {
-                                    if(Event.numEnnemi>=AffichePerso.listEnnemi.size())
-                                        Event.numEnnemi = 0;
-                                    else Event.numEnnemi++;
+                                    if(Event.numEnnemi<AffichePerso.listEnnemi.size()-1)
+                                        Event.numEnnemi++;
+                                    else Event.numEnnemi=0;
                                 }
                                 AffichePerso.listEnnemi.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap);
                             }else{
