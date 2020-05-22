@@ -15,9 +15,10 @@ public class Etat {
     static Heuristique heuristique;
     private static DataCoordCharacters dataCoordCharacters;
     private Action actionPrecedent;
+    private ArrayList<Action> listActionprec;
 
-    public Etat(ArrayList<Personnage> listMechant, ArrayList<Personnage> gentils, Action actionPrecedent) {
-        this.actionPrecedent = actionPrecedent;
+    public Etat(ArrayList<Personnage> listMechant, ArrayList<Personnage> gentils, ArrayList<Action> listActionPrecedent) {
+        this.listActionprec = listActionPrecedent;
         this.listMechant = listMechant;
         this.gentils = gentils;
         valHeuristique = heuristique.calculerHeuristique(this);
@@ -29,21 +30,37 @@ public class Etat {
         this.gentils = gentils;
         heuristique = h;
         valHeuristique = heuristique.calculerHeuristique(this);
-        actionPrecedent = new Action();
+        //actionPrecedent = new Action();
+        listActionprec = new ArrayList<>();
     }
     public ArrayList<Etat> getToutPossibilite(boolean gentilJoue){
-        /*if (gentilJoue){
+        /* if (gentilJoue){
             return deplacerGentil();
         }
         else {
             return deplacerMechant();
         }*/
-        ArrayList<Etat> list;
+        ArrayList<Etat> list = new ArrayList<>();
+        ArrayList<Etat> l = new ArrayList<>();
+        list.add(this.cloner());
         if (gentilJoue){
-            list = deplacerUnCamp(gentils.get(0));
+            Etat e = this.cloner();
+            for(Personnage p : gentils){
+                for (Etat t : (ArrayList<Etat> )list.clone()){
+                    l.addAll(t.deplacerUnCamp(p.getId()));
+                }
+                list = l;
+            }
         }
         else {
-            list = deplacerUnCamp(listMechant.get(0));
+            Etat e = this;
+            for(Personnage p : listMechant){
+                for (Etat t : (ArrayList<Etat>) list.clone()){
+                    ArrayList<Etat> etats = t.cloner().deplacerUnCamp(p.getId());
+                    l.addAll(etats);
+                }
+                list = l;
+            }
         }
         //list.addAll(attaqueUnCamp(gentilJoue));
         return list;
@@ -138,11 +155,12 @@ public class Etat {
                     else {
                         etatDep.listMechant.set(listMechant.indexOf(persoAttaque), persoA);
                     }
-                    etatDep.setActionPrecedent(new Action(persoAttaque.getPos().cloner(), pos.cloner()));
+                    //etatDep.setActionPrecedent(new Action(persoAttaque.getPos().cloner(), pos.cloner()));
+                    etatDep.listActionprec.add(new Action(persoAttaque.getPos().cloner(), pos.cloner()));
+
                     listToutDeplacement.add(etatDep);
 
                     for(Coordinate coor : dataCoordCharacters.getAttackAreaAfterMovement(persoA, persoA.getPos())){
-
                         int index;
                         if(equipeGentil){
                             index = mechantAt(coor);
@@ -162,7 +180,8 @@ public class Etat {
                             else {
                                 etatDepAtt.gentils.set(index, newPersoDef);
                             }
-                            etatDepAtt.setActionPrecedent(new Action(persoAttaque.getPos().cloner(), pos.cloner(), coor.cloner(), damage ));
+                            //etatDepAtt.setActionPrecedent(new Action(persoAttaque.getPos().cloner(), pos.cloner(), coor.cloner(), damage ));
+                            etatDepAtt.listActionprec.add(new Action(persoAttaque.getPos().cloner(), pos.cloner(), coor.cloner(), damage ));
                             listToutDeplacement.add(etatDepAtt);
                         }
                     }
@@ -172,17 +191,21 @@ public class Etat {
         return listToutDeplacement;
     }
 
-    private ArrayList<Etat> deplacerUnCamp(Personnage persoAttaque){
+    private ArrayList<Etat> deplacerUnCamp(int id){
+        ArrayList<Action> actionPrec = (ArrayList<Action>) this.listActionprec.clone();
         boolean equipeGentil;
         ArrayList<Etat> listToutDeplacement = new ArrayList<>();
         ArrayList<Personnage> listAttaqe ;
         ArrayList<Personnage> listDef ;
+        Personnage persoAttaque;
 
-        if(persoAttaque.getCaracteristique().getName().compareTo("mechant") == 0){
+        if(mechantAt(id) != -1){
+            persoAttaque = listMechant.get(mechantAt(id));
             equipeGentil = false;
             listDef = gentils;
         }
         else {
+            persoAttaque = gentils.get(gentilAt(id));
             equipeGentil = true;
             listDef = listMechant;
         }
@@ -192,18 +215,18 @@ public class Etat {
                 Etat etatDep = cloner();
                 Personnage persoA = persoAttaque.cloner();
                 persoA.setPos(pos);
-                System.out.println(persoAttaque.getCaracteristique().getName());
                 if(equipeGentil){
                     etatDep.gentils.set(gentils.indexOf(persoAttaque), persoA);
                 }
                 else {
                     etatDep.listMechant.set(listMechant.indexOf(persoAttaque), persoA);
                 }
-                etatDep.setActionPrecedent(new Action(persoAttaque.getPos().cloner(), pos.cloner()));
+                //etatDep.setActionPrecedent(new Action(persoAttaque.getPos().cloner(), pos.cloner()));
+                etatDep.listActionprec.add(new Action(persoAttaque.getPos().cloner(), pos.cloner()));
+
                 listToutDeplacement.add(etatDep);
 
                 for(Coordinate coor : dataCoordCharacters.getAttackAreaAfterMovement(persoA, persoA.getPos())){
-
                     int index;
                     if(equipeGentil){
                         index = mechantAt(coor);
@@ -213,6 +236,7 @@ public class Etat {
                     }
                     if (index != -1){
                         Etat etatDepAtt = etatDep.cloner();
+                        etatDepAtt.setListActionprec((ArrayList<Action>) actionPrec.clone());
                         Personnage persoDef = listDef.get(index);
                         Personnage newPersoDef = persoDef.cloner();
                         persoA.attack(newPersoDef);
@@ -223,7 +247,9 @@ public class Etat {
                         else {
                             etatDepAtt.gentils.set(index, newPersoDef);
                         }
-                        etatDepAtt.setActionPrecedent(new Action(persoAttaque.getPos().cloner(), pos.cloner(), coor.cloner(), damage ));
+                        //etatDepAtt.setActionPrecedent(new Action(persoAttaque.getPos().cloner(), pos.cloner(), coor.cloner(), damage ));
+                        etatDepAtt.listActionprec.add(new Action(persoAttaque.getPos().cloner(), pos.cloner(), coor.cloner(), damage ));
+
                         listToutDeplacement.add(etatDepAtt);
                     }
                 }
@@ -283,7 +309,7 @@ public class Etat {
             lGentil.add(p.cloner());
         }
 
-        return new Etat(lMechant, lGentil, actionPrecedent.cloner());
+        return new Etat(lMechant, lGentil, (ArrayList<Action>) listActionprec.clone());
     }
 
     public void affEtat(){
@@ -317,6 +343,23 @@ public class Etat {
     private int gentilAt(Coordinate pos){
         for (int i = 0; i < gentils.size(); i++){
             if(gentils.get(i).getPos().equal(pos)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    private int mechantAt(int id){
+        for (int i = 0; i < listMechant.size(); i++){
+            if(listMechant.get(i).getId() == id){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int gentilAt(int id){
+        for (int i = 0; i < gentils.size(); i++){
+            if(gentils.get(i).getId() == id){
                 return i;
             }
         }
@@ -372,6 +415,14 @@ public class Etat {
 
     public void setActionPrecedent(Action actionPrecedent) {
         this.actionPrecedent = actionPrecedent;
+    }
+
+    public ArrayList<Action> getListActionprec() {
+        return listActionprec;
+    }
+
+    public void setListActionprec(ArrayList<Action> listActionprec) {
+        this.listActionprec = listActionprec;
     }
 }
 

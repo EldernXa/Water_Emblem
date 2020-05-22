@@ -27,25 +27,19 @@ public class MainIA {
         for(Coordinate c : dataCoordCharacters.getMovementArea(persoG, persoG.getPos())){
             c.affPos();
         }*/
-        Etat etat = Algo_Minimax.startMini(e,3, true);
-        Etat t = Algo_Minimax.startMini(etat,3, false);
+        Etat etat = Algo_Minimax.startMini(e,2, true);
         e.affEtat();
         etat.affEtat();
-        Action a = etat.getActionPrecedent();
-        a.getPosDepart().affPos();
-        a.getPosArrive().affPos();
-        a.getPosAttaquant().affPos();
-        a.getPosDefenceur().affPos();
-        System.out.println(a.getDamage());
+        for (Action a : etat.getListActionprec()){
+            a.getPosDepart().affPos();
+            a.getPosArrive().affPos();
+            a.getPosAttaquant().affPos();
+            a.getPosDefenceur().affPos();
+            System.out.println(a.getDamage());
+            System.out.println();
+        }
 
 
-        t.affEtat();
-        Action ab = t.getActionPrecedent();
-        ab.getPosDepart().affPos();
-        ab.getPosArrive().affPos();
-        ab.getPosAttaquant().affPos();
-        ab.getPosDefenceur().affPos();
-        System.out.println(ab.getDamage());
         //etat.getListMechant().get(0).setPos(new Coordinate(7,7));
         //etat.affEtat();
         //e.affEtat();
