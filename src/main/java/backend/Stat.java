@@ -6,9 +6,7 @@ public class Stat {
 
     public static int damage(Carac attacker, Carac defender){
         int accu = accuracy(attacker, defender);
-        System.out.println("accuracy : " + accu);
         if(!rate(accu)){
-            System.out.println("quoi");
             return 0;
         }
         int att = 0;
@@ -72,7 +70,6 @@ public class Stat {
             if(x <= 0){
                 x = 0;
             }
-            System.out.print("rand : ");
             Random r = new Random();
             return r.nextInt(15 - x) + x;
         }
