@@ -220,7 +220,13 @@ public class AffichePerso {
                         persoToMove.setPresent(true);
                         if(AffichePerso.contains(AffichePerso.listEnnemi, persoToMove)) {
                             if(Event.numEnnemi<AffichePerso.listEnnemi.size()-1) {
-                                AffichePerso.listEnnemi.get(++Event.numEnnemi).action(this, perso, grilleMvt, afficheMap);
+                                Event.numEnnemi++;
+                                while(!AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive()) {
+                                    if(Event.numEnnemi>=AffichePerso.listEnnemi.size())
+                                        Event.numEnnemi = 0;
+                                    else Event.numEnnemi++;
+                                }
+                                AffichePerso.listEnnemi.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap);
                             }else{
                                 Event.numEnnemi=0;
                             }

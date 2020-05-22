@@ -161,7 +161,14 @@ public class Event {
                     if(AffichePerso.isLost())
                         System.out.println("Lost");
                     afficheMap.effectField(AffichePerso.listEnnemi);
-                    AffichePerso.listEnnemi.get(0).action(affichePerso, perso, grilleMvt, afficheMap);
+                    Event.numEnnemi = 0;
+                    while(!AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive()){
+                        if(numEnnemi<AffichePerso.listEnnemi.size()-1)
+                            numEnnemi++;
+                        else
+                            numEnnemi=0;
+                    }
+                    AffichePerso.listEnnemi.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap);
                     AffichePerso.newTurn();
                 }
             }
@@ -199,6 +206,12 @@ public class Event {
             public void handle(ActionEvent event){
                 attack.setVisible(false);
                 personnageSelected.getPersonnage().attack(ennemiSelected.getCoordinate());
+                if(personnageSelected.getPersonnage().getCaracteristique().getHp()<=0)
+                    personnageSelected.setDeath();
+                if(ennemiSelected.getPersonnage().getCaracteristique().getHp()<=0)
+                    ennemiSelected.setDeath();
+                System.out.println(personnageSelected.getPersonnage().getCaracteristique().getHp() + " - "+
+                        ennemiSelected.getPersonnage().getCaracteristique().getHp());
                 personnageSelected.setBooleanAttack(true);
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();

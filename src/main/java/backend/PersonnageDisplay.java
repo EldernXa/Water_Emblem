@@ -127,7 +127,7 @@ public class PersonnageDisplay {
         return imageView[orientation].get(num);
     }
 
-    void setDeath(){
+    public void setDeath(){
         isAlive = false;
     }
 
