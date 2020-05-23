@@ -17,7 +17,7 @@ public class MainIA {
         LG.add(persoG);
         LG.add(persoG1);
         ArrayList<Personnage> LM = new ArrayList<>();
-        Personnage persoM = new Personnage("Chevalier", new Coordinate(4,1));
+        Personnage persoM = new Personnage("Chevalier", new Coordinate(5,0));
         Personnage persoM1 = new Personnage("Cavalier", new Coordinate(4,4));
         LM.add(persoM);
         LM.add(persoM1);
@@ -27,7 +27,7 @@ public class MainIA {
         for(Coordinate c : dataCoordCharacters.getMovementArea(persoG, persoG.getPos())){
             c.affPos();
         }*/
-        Etat etat = Algo_Minimax.startMini(e,2, true);
+        Etat etat = Algo_Minimax.startMini(e,2, false);
         e.affEtat();
         etat.affEtat();
         for (Action a : etat.getListActionprec()){
