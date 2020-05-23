@@ -9,13 +9,27 @@ public class HeuristiqueBasique implements Heuristique {
     @Override
     public int calculerHeuristique(Etat e) {
         int value = 0;
+        int som = 0;
+
         for (Personnage persoG : e.getGentils()){
            value += persoG.getCaracteristique().getHp();
         }
         for (Personnage persoM : e.getListMechant()){
-            value -= persoM.getCaracteristique().getHp();
+            som += persoM.getCaracteristique().getHp();
         }
 
-        return value;
+        if(som == 0 && value == 0){
+            return 0;
+        }
+
+        if(som == 0){
+            return 10000;
+        }
+
+        if(value == 0){
+            return -10000;
+        }
+
+        return value - som;
     }
 }

@@ -8,7 +8,7 @@ public  class Action {
     private Coordinate posAttaquant;
     private Coordinate posDefenceur;
     private int damage;
-    private Etat etat;
+
 
     public Action(Coordinate posDepart, Coordinate posArrive, Coordinate posDefenceur, int damage) {
         this.posDepart = posDepart;
