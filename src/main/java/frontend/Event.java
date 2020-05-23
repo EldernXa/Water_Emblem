@@ -166,7 +166,7 @@ public class Event {
                     if(AffichePerso.isWin() || AffichePerso.isLost()) {
                         Label result = null;
                         if (AffichePerso.isWin()) {
-                            result = new Label("Vous avez gagné le niveau");
+                            result = new Label("Vous avez gagne le niveau");
                             result.setTextFill(Color.BLUE);
                         }
                         else if (AffichePerso.isLost()) {
@@ -179,8 +179,8 @@ public class Event {
                         information.getChildren().clear();
                         information.setVisible(false);
                         stay.setOnAction(null);
-                        AffichePerso.listPersonnage = null;
-                        AffichePerso.listEnnemi = null;
+                        AffichePerso.listPersonnage.clear();
+                        AffichePerso.listEnnemi.clear();
                         console.getChildren().clear();
                         console.setVisible(false);
                         personnageSelected = null;
