@@ -1,5 +1,9 @@
 package frontend;
 
+import IA.Action;
+import IA.Algo_Minimax;
+import IA.Etat;
+import IA.HeuristiqueBasique;
 import backend.Coordinate;
 import backend.Personnage;
 import backend.PersonnageDisplay;
@@ -30,6 +34,8 @@ public class Event {
     static private PersonnageDisplay personnageSelected = null;
     static private PersonnageDisplay ennemiSelected = null;
     static public int numEnnemi = 0;
+    static public ArrayList<Action> listAction = null;
+    static public ArrayList<PersonnageDisplay> listMechantRestant = null;
 
     static void clickOnMap(GridPane perso, AffichePerso affichePerso, GridPane grilleMvt, GridPane grilleAttack,
                            VBox information, Button move, Button attack, Button stay, AfficheMap afficheMap, VBox console){
@@ -132,7 +138,7 @@ public class Event {
     public static void buttonStay(Button stay, Button move, Button attack, GridPane grilleMvt, GridPane grilleAttack,
                                   AfficheMap afficheMap, AffichePerso affichePerso, GridPane perso, VBox console,
                                   GridPane group, GridPane map, GridPane root, ChoiceBox<String> choiceMap, Button start, Label txt,
-                                  VBox information, ScrollPane scrollPane, VBox panel){
+                                  VBox information, ScrollPane scrollPane, VBox panel, String nameMap){
         stay.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
@@ -166,7 +172,7 @@ public class Event {
                     if(AffichePerso.isWin() || AffichePerso.isLost()) {
                         Label result = null;
                         if (AffichePerso.isWin()) {
-                            result = new Label("Vous avez gagné le niveau");
+                            result = new Label("Vous avez gagne le niveau");
                             result.setTextFill(Color.BLUE);
                         }
                         else if (AffichePerso.isLost()) {
@@ -179,8 +185,8 @@ public class Event {
                         information.getChildren().clear();
                         information.setVisible(false);
                         stay.setOnAction(null);
-                        AffichePerso.listPersonnage = null;
-                        AffichePerso.listEnnemi = null;
+                        AffichePerso.listPersonnage.clear();
+                        AffichePerso.listEnnemi.clear();
                         console.getChildren().clear();
                         console.setVisible(false);
                         personnageSelected = null;
@@ -202,13 +208,28 @@ public class Event {
                         Label lbl = new Label("TOUR DES ENNEMI");
                         lbl.setTextFill(Color.GREEN);
                         console.getChildren().add(lbl);
-                        Event.numEnnemi = 0;
-                        while (Event.numEnnemi < AffichePerso.listEnnemi.size() - 1 && !AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive()) {
-                            if (Event.numEnnemi < AffichePerso.listEnnemi.size() - 1)
-                                Event.numEnnemi++;
+                        ArrayList<Personnage> listGentil = new ArrayList<>();
+                        ArrayList<Personnage> listMechant = new ArrayList<>();
+                        listMechantRestant = new ArrayList<>();
+                        for(PersonnageDisplay p:AffichePerso.listPersonnage)
+                            if(p.isAlive())
+                                listGentil.add(new Personnage(p.getPersonnage().getCaracteristique().getName(),
+                                        new Coordinate(p.getCoordinate().getX(), p.getCoordinate().getY())));
+                        for(PersonnageDisplay p:AffichePerso.listEnnemi)
+                            if(p.isAlive()) {
+                                listMechant.add(new Personnage(p.getPersonnage().getCaracteristique().getName(),
+                                        new Coordinate(p.getCoordinate().getX(), p.getCoordinate().getY())));
+                                listMechantRestant.add(p);
+                            }
+                        Etat e = new Etat(listMechant, listGentil, new HeuristiqueBasique(), nameMap);
+                        Etat etat = Algo_Minimax.startMini(e, 2, false);
+                        listAction = new ArrayList<>();
+                        for(Action a : etat.getListActionprec())
+                        {
+                            listAction.add(a.cloner());
                         }
-                        if (AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive())
-                            AffichePerso.listEnnemi.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap, console);
+                        Event.numEnnemi = 0;
+                        listMechantRestant.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap, listAction.get(numEnnemi), console);
                         AffichePerso.newTurn();
                     }
                 }

@@ -16,3 +16,5 @@ Moine;0
 General;0
 Paladin;1
 ChevalierFaucon;3
+CavalierWyvern;2
+Hero;0

@@ -1,5 +1,6 @@
 package backend;
 
+import IA.Action;
 import frontend.AfficheMap;
 import frontend.AffichePerso;
 import frontend.Event;
@@ -170,68 +171,24 @@ public class PersonnageDisplay {
             }
     }
 
-    public void action(AffichePerso affichePerso, GridPane perso, GridPane grilleMvt, AfficheMap afficheMap, VBox console){
+    public void action(AffichePerso affichePerso, GridPane perso, GridPane grilleMvt, AfficheMap afficheMap,
+                       Action action, VBox console){
         if(isAlive()) {
-            ArrayList<Coordinate> attack = affichePerso.getAttackAreaAfterMovement(getPersonnage(), getCoordinate());
-            boolean booleanAttack = false;
-            for (Coordinate c : attack) {
-                PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(c);
-                if (p != null && AffichePerso.contains(AffichePerso.listPersonnage, p)) {
-                    booleanAttack = true;
-                    int hpEnnemi = getPersonnage().getCaracteristique().getHp();
-                    int hpPersonnage = p.getPersonnage().getCaracteristique().getHp();
-                    Event.printAttackAction(this, p, Color.RED, Color.BLUE, console);
-                    this.getPersonnage().attack(c);
-                    Event.printAfterAttack(p, hpPersonnage, Color.BLUE, console);
-                    Event.printCounterAttack(this, p, hpEnnemi, Color.RED, Color.BLUE, console);
-                }
+            if (!action.getPosArrive().equal(action.getPosDepart())) {
+                Event.printMoveAction(this, Color.RED, console);
+                affichePerso.move(this, action.getPosArrive(), perso, grilleMvt, afficheMap, console);
             }
-
-            if (!booleanAttack) {
-                ArrayList<Coordinate> mvt = affichePerso.getCoordinate(getPersonnage(), getCoordinate());
-                Coordinate bestCoordinate = null;
-                for (Coordinate c : mvt) {
-                    if (AffichePerso.getPersonnageDisplayAt(c) == null) {
-                        if (bestCoordinate == null)
-                            bestCoordinate = new Coordinate(c.getX(), c.getY());
-                        for (PersonnageDisplay p : AffichePerso.listPersonnage) {
-                            double newValue = Math.sqrt(Math.pow(c.getX() - p.getCoordinate().getX(), 2) + Math.pow(c.getY() - p.getCoordinate().getY(), 2));
-                            double comparaison = Math.sqrt(Math.pow(bestCoordinate.getX() - c.getX(), 2) + Math.pow(bestCoordinate.getY() - c.getY(), 2));
-                            if (newValue < comparaison)
-                                bestCoordinate = new Coordinate(c.getX(), c.getY());
-                        }
-                    }
-                }
-
-                if (bestCoordinate != null) {
-                    Event.printMoveAction(this, Color.RED, console);
-                    affichePerso.move(this, bestCoordinate, perso, grilleMvt, afficheMap, console);
-                    attack = affichePerso.getAttackAreaAfterMovement(getPersonnage(), getCoordinate());
-                    for (Coordinate c : attack) {
-                        PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(c);
-                        if (p != null && AffichePerso.contains(AffichePerso.listPersonnage, p)) {
-                            this.getPersonnage().attack(c);
-                            if (getPersonnage().getCaracteristique().getHp() <= 0)
-                                setDeath();
-                            if (p.getPersonnage().getCaracteristique().getHp() <= 0)
-                                p.setDeath();
-                        }
-                    }
-
-                }
-            }
-        }else{
-            if(Event.numEnnemi<AffichePerso.listEnnemi.size()-1)
-            {
-                Event.numEnnemi++;
-                while(Event.numEnnemi<AffichePerso.listEnnemi.size()-1 && !AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive()) {
-                    if(Event.numEnnemi<AffichePerso.listEnnemi.size()-1)
-                        Event.numEnnemi++;
-                }
-                if(AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive())
-                    AffichePerso.listEnnemi.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap, console);
+            PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(action.getPosDefenceur());
+            if (p != null) {
+                int hpEnnemi = getPersonnage().getCaracteristique().getHp();
+                int hpPersonnage = p.getPersonnage().getCaracteristique().getHp();
+                Event.printAttackAction(this, p, Color.RED, Color.BLUE, console);
+                this.getPersonnage().attack(action.getPosDefenceur());
+                Event.printAfterAttack(p, hpPersonnage, Color.BLUE, console);
+                Event.printCounterAttack(this, p, hpEnnemi, Color.RED, Color.BLUE, console);
             }
         }
+
     }
 
 
