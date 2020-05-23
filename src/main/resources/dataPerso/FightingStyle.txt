@@ -18,3 +18,4 @@ Paladin;1
 ChevalierFaucon;3
 CavalierWyvern;2
 Hero;0
+ChevalierPegase;3

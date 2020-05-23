@@ -71,13 +71,10 @@ public class Personnage {
 
         if (hp <= 0) {
             hp = 0;
-            die();
+
         }
         caracteristique.setHp(hp);
 
-
-    }
-    public void die(){
 
     }
 
