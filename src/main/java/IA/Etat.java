@@ -48,6 +48,8 @@ public class Etat {
             for(Personnage p : gentils){
                 for (Etat t : (ArrayList<Etat> )list.clone()){
                     l.addAll(t.deplacerUnCamp(p.getId()));
+                    l.addAll(t.attaqueUnCamp(p.getId()));
+                    l.add(t);
                 }
                 list = l;
             }
@@ -56,8 +58,10 @@ public class Etat {
             Etat e = this;
             for(Personnage p : listMechant){
                 for (Etat t : (ArrayList<Etat>) list.clone()){
-                    ArrayList<Etat> etats = t.cloner().deplacerUnCamp(p.getId());
-                    l.addAll(etats);
+                    //ArrayList<Etat> etats = t.cloner().deplacerUnCamp(p.getId());
+                    l.addAll(t.deplacerUnCamp(p.getId()));
+                    l.addAll(t.attaqueUnCamp(p.getId()));
+                    l.add(t);
                 }
                 list = l;
             }
@@ -256,6 +260,52 @@ public class Etat {
             }
         }
         return listToutDeplacement;
+    }
+    private ArrayList<Etat> attaqueUnCamp(int id){
+        ArrayList<Etat> listToutAttaque = new ArrayList<>();
+        ArrayList<Action> actionPrec = (ArrayList<Action>) this.listActionprec.clone();
+        boolean estGentil;
+        ArrayList<Personnage> listAttaqe ;
+        ArrayList<Personnage> listDef ;
+        Personnage personnageAttaque ;
+        if(mechantAt(id) != -1){
+            personnageAttaque = listMechant.get(mechantAt(id));
+            estGentil = false;
+            listDef = gentils;
+        }
+        else {
+            personnageAttaque = gentils.get(gentilAt(id));
+            estGentil = true;
+            listDef = listMechant;
+        }
+
+        for(Coordinate pos : dataCoordCharacters.getAttackArea(personnageAttaque, personnageAttaque.getPos())){
+            int index;
+            if(estGentil){
+                index = mechantAt(pos);
+            }
+            else {
+                index = gentilAt(pos);
+            }
+            if(index != -1){
+                Etat etatAttaque = this.cloner();
+                etatAttaque.setListActionprec((ArrayList<Action>) actionPrec.clone());
+                Personnage p = listDef.get(index);
+                Personnage newPersoDef = p.cloner();
+                personnageAttaque.attack(newPersoDef);
+                int damage = p.getCaracteristique().getHp() - newPersoDef.getCaracteristique().getHp();
+                if(estGentil){
+                    etatAttaque.listMechant.set(index, newPersoDef);
+                }
+                else {
+                    etatAttaque.gentils.set(index, newPersoDef);
+                }
+                //etatAttaque.setActionPrecedent(new Action(personnageAttaque.getPos(), pos,damage));
+                etatAttaque.listActionprec.add(new Action(personnageAttaque.getPos().cloner(), pos.cloner(),damage));
+                listToutAttaque.add(etatAttaque);
+            }
+        }
+        return listToutAttaque;
     }
 
     private ArrayList<Etat> attaqueUnCamp(boolean estGentil){
