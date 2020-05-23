@@ -13,7 +13,7 @@ public abstract class Volcano extends Field {
 
     public void affect(Personnage personnage) {
         Carac caracPerso = personnage.getCaracteristique();
-        if (!caracPerso.getDeplacement().equals("2") && !caracPerso.getDeplacement().equals("3")) {
+        if (caracPerso.getDeplacement() != 2  && caracPerso.getDeplacement() != 3) {
             caracPerso.setMov(1);
             caracPerso.setHp((int) (caracPerso.getHp() - caracPerso.getMaxHp() * 0.50));
         }
