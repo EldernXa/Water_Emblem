@@ -10,10 +10,12 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
 
 import java.beans.Expression;
@@ -35,6 +37,8 @@ public class AffichageGraphique {
     private HBox window;
     private VBox information;
     private VBox button;
+    private ScrollPane scrollPane;
+    private VBox console;
     public static GridPane group;
 
     public Pane init() {
@@ -97,9 +101,16 @@ public class AffichageGraphique {
                 information = new VBox();
                 information.setMaxHeight(150);
                 information.setMinHeight(150);
+                console = new VBox();
+                scrollPane = new ScrollPane();
+                scrollPane.setContent(console);
+                scrollPane.setMinSize(500, 500);
+                console.setStyle("-fx-background-color: BLACK;");
+                console.setVisible(true);
+                console.setMinSize(scrollPane.getMinWidth(), scrollPane.getMinHeight());
                 button = new VBox();
                 button.getChildren().addAll(move, attack, stay);
-                panel.getChildren().addAll(information, button);
+                panel.getChildren().addAll(information, button, scrollPane);
                 grilleMvt = initGridPane();
                 grilleAttack = initGridPane();
                 map = afficheMap.getMap();
@@ -108,9 +119,9 @@ public class AffichageGraphique {
                 map.setAlignment(Pos.TOP_LEFT);
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
-                Event.buttonStay(stay, move, attack, grilleMvt, grilleAttack, afficheMap, affichePerso, perso);
+                Event.buttonStay(stay, move, attack, grilleMvt, grilleAttack, afficheMap, affichePerso, perso, console);
                 Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack, information,
-                        move, attack, stay, afficheMap);
+                        move, attack, stay, afficheMap, console);
                 root.getChildren().addAll(map, grilleMvt, grilleAttack, group, perso);
                 window.getChildren().add(panel);
                 afficheMap.effectField(AffichePerso.listPersonnage);

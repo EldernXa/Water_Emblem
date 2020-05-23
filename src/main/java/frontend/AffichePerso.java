@@ -156,7 +156,7 @@ public class AffichePerso {
     }
 
     public void move(PersonnageDisplay persoToMove, Coordinate coordinate, GridPane perso,
-                     GridPane grilleMvt, AfficheMap afficheMap){
+                     GridPane grilleMvt, AfficheMap afficheMap, VBox console){
         perso.getChildren().clear(); // aucun changement si je mets en commentaire
         persoToMove.setPresent(false);
 
@@ -226,7 +226,7 @@ public class AffichePerso {
                                         Event.numEnnemi++;
                                 }
                                 if(AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive())
-                                    AffichePerso.listEnnemi.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap);
+                                    AffichePerso.listEnnemi.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap, console);
                             }else{
                                 Event.numEnnemi=0;
                             }

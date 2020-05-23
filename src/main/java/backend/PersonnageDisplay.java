@@ -3,9 +3,13 @@ package backend;
 import frontend.AfficheMap;
 import frontend.AffichePerso;
 import frontend.Event;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -160,7 +164,7 @@ public class PersonnageDisplay {
             }
     }
 
-    public void action(AffichePerso affichePerso, GridPane perso, GridPane grilleMvt, AfficheMap afficheMap){
+    public void action(AffichePerso affichePerso, GridPane perso, GridPane grilleMvt, AfficheMap afficheMap, VBox console){
         if(isAlive()) {
             ArrayList<Coordinate> attack = affichePerso.getAttackAreaAfterMovement(getPersonnage(), getCoordinate());
             boolean booleanAttack = false;
@@ -168,7 +172,66 @@ public class PersonnageDisplay {
                 PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(c);
                 if (p != null && AffichePerso.contains(AffichePerso.listPersonnage, p)) {
                     booleanAttack = true;
+                    int hpEnnemi = getPersonnage().getCaracteristique().getHp();
+                    int hpPersonnage = p.getPersonnage().getCaracteristique().getHp();
+                    Label lbl1 = new Label("-> ");
+                    lbl1.setTextFill(Color.WHITE);
+                    Label lbl2 = new Label(getPersonnage().getCaracteristique().getName());
+                    lbl2.setTextFill(Color.RED);
+                    Label lbl3 = new Label(" attaque ");
+                    lbl3.setTextFill(Color.WHITE);
+                    Label lbl4 = new Label(p.getPersonnage().getCaracteristique().getName());
+                    lbl4.setTextFill(Color.RED);
+                    HBox hbox = new HBox();
+                    hbox.getChildren().addAll(lbl1, lbl2, lbl3, lbl4);
+                    console.getChildren().add(hbox);
                     this.getPersonnage().attack(c);
+
+                    lbl1 = new Label("-> ");
+                    lbl1.setTextFill(Color.WHITE);
+                    lbl2 = new Label(p.getPersonnage().getCaracteristique().getName());
+                    lbl2.setTextFill(Color.BLUE);
+                    if(hpEnnemi==p.getPersonnage().getCaracteristique().getHp())
+                    {
+                        lbl3 = new Label(" n'a subit aucun dégâts");
+                    }else if(!p.isAlive()){
+                        lbl3 = new Label("est mort");
+                    }
+                    else{
+                        lbl3 = new Label(" a subit " + (hpPersonnage-p.getPersonnage().getCaracteristique().getHp()) + " dégâts");
+                    }
+                    lbl3.setTextFill(Color.WHITE);
+                    hbox = new HBox();
+                    hbox.getChildren().addAll(lbl1, lbl2, lbl3);
+                    console.getChildren().add(hbox);
+
+
+                    lbl1 = new Label("-> ");
+                    lbl1.setTextFill(Color.WHITE);
+                    lbl2 = new Label(p.getPersonnage().getCaracteristique().getName());
+                    lbl2.setTextFill(Color.BLUE);
+                    lbl3 = new Label(" contre attaque");
+                    lbl3.setTextFill(Color.WHITE);
+                    hbox = new HBox();
+                    hbox.getChildren().addAll(lbl1, lbl2, lbl3);
+                    console.getChildren().add(hbox);
+
+                    lbl1 = new Label("-> ");
+                    lbl1.setTextFill(Color.WHITE);
+                    lbl2 = new Label(getPersonnage().getCaracteristique().getName());
+                    lbl2.setTextFill(Color.RED);
+                    if(hpPersonnage==getPersonnage().getCaracteristique().getHp())
+                    {
+                        lbl3 = new Label(" n'a subit aucun dégâts");
+                    }else if(!isAlive()){
+                        lbl3 = new Label(" est mort");
+                    }else{
+                        lbl3 = new Label(" a subit " + (hpPersonnage-getPersonnage().getCaracteristique().getHp()) + " dégâts");
+                    }
+                    lbl3.setTextFill(Color.WHITE);
+                    hbox = new HBox();
+                    hbox.getChildren().addAll(lbl1, lbl2, lbl3);
+                    console.getChildren().add(hbox);
                 }
             }
 
@@ -189,7 +252,16 @@ public class PersonnageDisplay {
                 }
 
                 if (bestCoordinate != null) {
-                    affichePerso.move(this, bestCoordinate, perso, grilleMvt, afficheMap);
+                    Label lbl1 = new Label("-> ");
+                    lbl1.setTextFill(Color.WHITE);
+                    Label lbl2 = new Label(getPersonnage().getCaracteristique().getName());
+                    lbl2.setTextFill(Color.BLUE);
+                    Label lbl3 = new Label(" se déplace");
+                    lbl3.setTextFill(Color.WHITE);
+                    HBox hbox = new HBox();
+                    hbox.getChildren().addAll(lbl1, lbl2, lbl3);
+                    console.getChildren().add(hbox);
+                    affichePerso.move(this, bestCoordinate, perso, grilleMvt, afficheMap, console);
                     attack = affichePerso.getAttackAreaAfterMovement(getPersonnage(), getCoordinate());
                     for (Coordinate c : attack) {
                         PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(c);
@@ -213,7 +285,7 @@ public class PersonnageDisplay {
                         Event.numEnnemi++;
                 }
                 if(AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive())
-                    AffichePerso.listEnnemi.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap);
+                    AffichePerso.listEnnemi.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap, console);
             }
         }
     }
