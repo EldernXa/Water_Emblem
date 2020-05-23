@@ -178,16 +178,16 @@ public class AffichePerso {
                     persoToMove.getImageView().setTranslateY(0);
                     persoToMove.getImageView().setTranslateX(0);
                     if(ttX.getNode().getTranslateX()<0 && ttX.getNode().getTranslateX()!=ttX.getToX() &&
-                            persoToMove.getOrientation()!=5)
+                            persoToMove.getOrientation()!=4)
                         persoToMove.setOrientation(4);
                     else if(ttX.getNode().getTranslateX()>0 && ttX.getNode().getTranslateX()!=ttX.getToX()&&
-                            persoToMove.getOrientation()!=4)
+                            persoToMove.getOrientation()!=3)
                         persoToMove.setOrientation(3);
                     else if(ttY.getNode().getTranslateY()<0 && ttY.getNode().getTranslateY()!=ttY.getToY()&&
                             persoToMove.getOrientation()!=1)
                         persoToMove.setOrientation(1);
                     else if(ttY.getNode().getTranslateY()>0 && ttY.getNode().getTranslateY()!=ttY.getToY()&&
-                            persoToMove.getOrientation()!=3){
+                            persoToMove.getOrientation()!=2){
                         persoToMove.setOrientation(2);
                     }
 
