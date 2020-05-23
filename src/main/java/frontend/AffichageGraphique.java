@@ -103,8 +103,11 @@ public class AffichageGraphique {
                 information.setMinHeight(150);
                 console = new VBox();
                 scrollPane = new ScrollPane();
+                console.heightProperty().addListener(observable->scrollPane.setVvalue(1D));
                 scrollPane.setContent(console);
                 scrollPane.setMinSize(500, 500);
+                scrollPane.setMaxSize(500, 500);
+                scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
                 console.setStyle("-fx-background-color: BLACK;");
                 console.setVisible(true);
                 console.setMinSize(scrollPane.getMinWidth(), scrollPane.getMinHeight());
