@@ -221,14 +221,9 @@ public class AffichePerso {
                         persoToMove.setOrientation(0);
                         persoToMove.setPresent(true);
                         if(AffichePerso.contains(AffichePerso.listEnnemi, persoToMove)) {
-                            if(Event.numEnnemi<AffichePerso.listEnnemi.size()-1) {
+                            if(Event.numEnnemi<Event.listAction.size()-1) {
                                 Event.numEnnemi++;
-                                while(Event.numEnnemi<AffichePerso.listEnnemi.size()-1 && !AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive()) {
-                                    if(Event.numEnnemi<AffichePerso.listEnnemi.size()-1)
-                                        Event.numEnnemi++;
-                                }
-                                if(AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive())
-                                    AffichePerso.listEnnemi.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap, console);
+                                Event.listMechantRestant.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap, Event.listAction.get(Event.numEnnemi), console);
                             }else{
                                 Event.numEnnemi=0;
                             }
