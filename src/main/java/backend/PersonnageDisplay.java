@@ -30,8 +30,10 @@ public class PersonnageDisplay {
     private boolean booleanAttack;
     private boolean booleanMove;
     private boolean endTurn;
+    private boolean isBad;
 
-    public PersonnageDisplay(String nom, int x, int y){
+    public PersonnageDisplay(String nom, int x, int y, boolean isBad){
+        this.isBad = isBad;
         present = true;
         booleanAttack =false;
         booleanMove = false;
@@ -48,6 +50,10 @@ public class PersonnageDisplay {
         }
         coordinate = new Coordinate(x, y);
         initPicture();
+    }
+
+    public boolean isBad(){
+        return isBad;
     }
 
     public void setBooleanMove(boolean value){

@@ -42,13 +42,13 @@ public class AffichePerso {
         {
             int x = Integer.parseInt(dataCoordCharacters.getGentilCoord().get(i).get(0));
             int y = Integer.parseInt(dataCoordCharacters.getGentilCoord().get(i).get(1));
-            listPersonnage.add(new PersonnageDisplay(dataCoordCharacters.getGentilCharactersList().get(i), x, y));
+            listPersonnage.add(new PersonnageDisplay(dataCoordCharacters.getGentilCharactersList().get(i), x, y, false));
         }
         for(int i=0; i<dataCoordCharacters.getMechantCharactersList().size();i++)
         {
             int x=Integer.parseInt(dataCoordCharacters.getMechantCoord().get(i).get(0));
             int y=Integer.parseInt(dataCoordCharacters.getMechantCoord().get(i).get(1));
-            listEnnemi.add(new PersonnageDisplay(dataCoordCharacters.getMechantCharactersList().get(i), x, y));
+            listEnnemi.add(new PersonnageDisplay(dataCoordCharacters.getMechantCharactersList().get(i), x, y, true));
 
         }
         init();
@@ -119,7 +119,8 @@ public class AffichePerso {
     public static boolean contains(List<PersonnageDisplay> list, PersonnageDisplay personnage){
         for(PersonnageDisplay p : list)
         {
-            if(p.getPersonnage().getCaracteristique().getName().compareTo(personnage.getPersonnage().getCaracteristique().getName())==0)
+            if(p.getPersonnage().getCaracteristique().getName().compareTo(personnage.getPersonnage().getCaracteristique().getName())==0&&
+                p.isBad()==personnage.isBad())
                 return true;
         }
         return false;
