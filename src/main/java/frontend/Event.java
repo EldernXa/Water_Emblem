@@ -9,10 +9,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -135,7 +132,9 @@ public class Event {
     }
 
     public static void buttonStay(Button stay, Button move, Button attack, GridPane grilleMvt, GridPane grilleAttack,
-                                  AfficheMap afficheMap, AffichePerso affichePerso, GridPane perso, VBox console){
+                                  AfficheMap afficheMap, AffichePerso affichePerso, GridPane perso, VBox console,
+                                  GridPane group, GridPane map, GridPane root, ChoiceBox<String> choiceMap, Button start, Label txt,
+                                  VBox information, ScrollPane scrollPane, VBox panel){
         stay.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
@@ -166,22 +165,54 @@ public class Event {
                         p.setBooleanAttack(false);
                         p.setBooleanMove(false);
                     }
-                    if(AffichePerso.isWin())
-                        System.out.println("Win");
-                    if(AffichePerso.isLost())
-                        System.out.println("Lost");
-                    afficheMap.effectField(AffichePerso.listEnnemi);
-                    Label lbl = new Label("TOUR DES ENNEMI");
-                    lbl.setTextFill(Color.GREEN);
-                    console.getChildren().add(lbl);
-                    Event.numEnnemi = 0;
-                    while(Event.numEnnemi<AffichePerso.listEnnemi.size()-1 && !AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive()) {
-                        if(Event.numEnnemi<AffichePerso.listEnnemi.size()-1)
-                            Event.numEnnemi++;
+                    if(AffichePerso.isWin() || AffichePerso.isLost()) {
+                        Label result = null;
+                        if (AffichePerso.isWin()) {
+                            result = new Label("Vous avez gagné le niveau");
+                            result.setTextFill(Color.BLUE);
+                        }
+                        else if (AffichePerso.isLost()) {
+                            result = new Label("Vous avez perdu le dernier niveau");
+                            result.setTextFill(Color.RED);
+                        }
+                        if(result!=null) {
+                            result.setStyle("-fx-font-size: 25;");
+                        }
+                        information.getChildren().clear();
+                        information.setVisible(false);
+                        stay.setOnAction(null);
+                        AffichePerso.listPersonnage = null;
+                        AffichePerso.listEnnemi = null;
+                        console.getChildren().clear();
+                        console.setVisible(false);
+                        personnageSelected = null;
+                        ennemiSelected = null;
+                        perso.getChildren().clear();
+                        group.getChildren().clear();
+                        map.getChildren().clear();
+                        root.getChildren().clear();
+                        scrollPane.setContent(null);
+                        panel.getChildren().clear();
+                        root.setVgap(20);
+                        root.setHgap(20);
+                        root.add(txt, 0, 0);
+                        root.add(choiceMap, 0, 1);
+                        root.add(start, 1, 1);
+                        root.add(result, 0, 2);
+                    }else {
+                        afficheMap.effectField(AffichePerso.listEnnemi);
+                        Label lbl = new Label("TOUR DES ENNEMI");
+                        lbl.setTextFill(Color.GREEN);
+                        console.getChildren().add(lbl);
+                        Event.numEnnemi = 0;
+                        while (Event.numEnnemi < AffichePerso.listEnnemi.size() - 1 && !AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive()) {
+                            if (Event.numEnnemi < AffichePerso.listEnnemi.size() - 1)
+                                Event.numEnnemi++;
+                        }
+                        if (AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive())
+                            AffichePerso.listEnnemi.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap, console);
+                        AffichePerso.newTurn();
                     }
-                    if(AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive())
-                        AffichePerso.listEnnemi.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap, console);
-                    AffichePerso.newTurn();
                 }
             }
         });

@@ -122,7 +122,8 @@ public class AffichageGraphique {
                 map.setAlignment(Pos.TOP_LEFT);
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
-                Event.buttonStay(stay, move, attack, grilleMvt, grilleAttack, afficheMap, affichePerso, perso, console);
+                Event.buttonStay(stay, move, attack, grilleMvt, grilleAttack, afficheMap, affichePerso, perso, console,
+                        group, map, root, choiceMap, start, txt, information, scrollPane, panel);
                 Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack, information,
                         move, attack, stay, afficheMap, console);
                 root.getChildren().addAll(map, grilleMvt, grilleAttack, group, perso);
@@ -135,7 +136,6 @@ public class AffichageGraphique {
         root.add(txt, 0, 0);
         root.add(choiceMap, 0, 1);
         root.add(start, 1, 1);
-        //root.getChildren().addAll(txt, choiceMap);
         return window;
     }
 

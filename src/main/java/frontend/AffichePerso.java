@@ -29,7 +29,7 @@ public class AffichePerso {
     public static List<PersonnageDisplay> listEnnemi;
     private GridPane perso;
     private DataCoordCharacters dataCoordCharacters;
-    private Timeline t;
+    private static Timeline t;
     ImageView imgView;
 
     public AffichePerso(String dataCoordinate){
@@ -281,6 +281,7 @@ public class AffichePerso {
             if(p.isAlive())
                 return false;
         }
+        t.stop();
         return true;
     }
 
@@ -289,6 +290,7 @@ public class AffichePerso {
             if(p.isAlive())
                 return false;
         }
+        t.stop();
         return true;
     }
 
