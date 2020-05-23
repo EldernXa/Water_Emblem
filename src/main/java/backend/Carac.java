@@ -41,8 +41,17 @@ public class Carac {
     private String wep1;
     private String wep2;
     private String wep3;
+    private String deplacement;
     // Prenom / nomUnite / HP / STR / MAG / Skl / Spd /Lck / Def / Res / Mov / Arme1 / Arme2 / Arme3
     //nom / type /HP / STR / MAG / Skl / Spd /Lck / Def / Res / Mov / Arme1 / Arme2 / Arme3
+
+    public String getDeplacement() {
+        return deplacement;
+    }
+
+    public void setDeplacement(String deplacement) {
+        this.deplacement = deplacement;
+    }
 
     public Carac(String name){
         int i = 0;
@@ -108,6 +117,8 @@ public class Carac {
         wep1 = c.wep1;
         wep2 = c.wep2;
         wep3 = c.wep3;
+        deplacement = c.deplacement;
+
     }
 
     public Carac cloner(){

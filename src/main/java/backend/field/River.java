@@ -13,12 +13,13 @@ public class River extends Field {
 
     public void affect(Personnage personnage){
         Carac caracPerso = personnage.getCaracteristique();
-        move = caracPerso.getMov();
-        caracPerso.setMov((int) (caracPerso.getMov() * 0.5));
-        if(caracPerso.getMov() == 0 ){
-            caracPerso.setMov(1);
+        if (!caracPerso.getDeplacement().equals("2") && !caracPerso.getDeplacement().equals("3")) {
+            caracPerso.setMov((int) (caracPerso.getMov() * 0.5));
+            if (caracPerso.getMov() == 0) {
+                caracPerso.setMov(1);
+            }
         }
-        System.out.println(" move : " + move + " " + caracPerso.getName());
+
 
     }
 
