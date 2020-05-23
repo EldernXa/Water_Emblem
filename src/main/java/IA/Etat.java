@@ -431,6 +431,18 @@ public class Etat {
     }
 
     public boolean estFinal(){
+        int value = 0;
+        int val = 0;
+        for(Personnage p : gentils){
+            value += p.getCaracteristique().getHp();
+        }
+
+        for(Personnage p : listMechant){
+            val += p.getCaracteristique().getHp();
+        }
+        if(value == 0 || val == 0){
+            return true;
+        }
         return false;
     }
 

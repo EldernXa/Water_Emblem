@@ -22,12 +22,12 @@ public class MainIA {
         LM.add(persoM);
         LM.add(persoM1);
         System.out.println("quoi                             " + persoM.getCaracteristique().getName());
-        Etat e = new Etat(LM, LG, new HeuristiqueBasique(), "Map");
+        Etat e = new Etat(LM, LG, new HeuristiqueAmeliorer(), "Map");
         /*DataCoordCharacters dataCoordCharacters = new DataCoordCharacters("Map");
         for(Coordinate c : dataCoordCharacters.getMovementArea(persoG, persoG.getPos())){
             c.affPos();
         }*/
-        Etat etat = Algo_Minimax.startMini(e,2, false);
+        Etat etat = Algo_Minimax.startMini(e,3, false);
         e.affEtat();
         etat.affEtat();
         for (Action a : etat.getListActionprec()){
