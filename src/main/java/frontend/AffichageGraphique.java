@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.PersonnageDisplay;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,10 +11,12 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
 
 import java.beans.Expression;
@@ -35,6 +38,8 @@ public class AffichageGraphique {
     private HBox window;
     private VBox information;
     private VBox button;
+    private ScrollPane scrollPane;
+    private VBox console;
     public static GridPane group;
 
     public Pane init() {
@@ -61,10 +66,20 @@ public class AffichageGraphique {
             System.out.println(e);
         }
 
-        Button stay = new Button("Rien faire");
+        Button stay = new Button("Attendre");
+        Button endTurn = new Button("Terminer le tour");
         move.setVisible(false);
         attack.setVisible(false);
         stay.setVisible(false);
+        endTurn.setVisible(false);
+        endTurn.setOnAction(new EventHandler<ActionEvent>(){
+           @Override
+           public void handle(ActionEvent evnt){
+               for(PersonnageDisplay p: AffichePerso.listPersonnage)
+                   p.setEndTurn(true);
+               stay.fire();
+           }
+        });
         window = new HBox();
         window.setSpacing(50);
         GridPane root = new GridPane();
@@ -97,9 +112,20 @@ public class AffichageGraphique {
                 information = new VBox();
                 information.setMaxHeight(150);
                 information.setMinHeight(150);
+                console = new VBox();
+                scrollPane = new ScrollPane();
+                console.heightProperty().addListener(observable->scrollPane.setVvalue(1D));
+                scrollPane.setContent(console);
+                scrollPane.setMinSize(500, 500);
+                scrollPane.setMaxSize(500, 500);
+                scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+                console.setStyle("-fx-background-color: BLACK;");
+                console.setVisible(true);
+                console.setMinSize(scrollPane.getMinWidth(), scrollPane.getMinHeight());
                 button = new VBox();
-                button.getChildren().addAll(move, attack, stay);
-                panel.getChildren().addAll(information, button);
+                endTurn.setVisible(true);
+                button.getChildren().addAll(move, attack, stay, endTurn);
+                panel.getChildren().addAll(information, button, scrollPane);
                 grilleMvt = initGridPane();
                 grilleAttack = initGridPane();
                 map = afficheMap.getMap();
@@ -108,9 +134,10 @@ public class AffichageGraphique {
                 map.setAlignment(Pos.TOP_LEFT);
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
-                Event.buttonStay(stay, move, attack, grilleMvt, grilleAttack, afficheMap, affichePerso, perso);
+                Event.buttonStay(stay, move, attack, grilleMvt, grilleAttack, afficheMap, affichePerso, perso, console,
+                        group, map, root, choiceMap, start, txt, information, scrollPane, panel);
                 Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack, information,
-                        move, attack, stay, afficheMap);
+                        move, attack, stay, afficheMap, console);
                 root.getChildren().addAll(map, grilleMvt, grilleAttack, group, perso);
                 window.getChildren().add(panel);
                 afficheMap.effectField(AffichePerso.listPersonnage);
@@ -121,7 +148,6 @@ public class AffichageGraphique {
         root.add(txt, 0, 0);
         root.add(choiceMap, 0, 1);
         root.add(start, 1, 1);
-        //root.getChildren().addAll(txt, choiceMap);
         return window;
     }
 

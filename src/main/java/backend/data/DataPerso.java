@@ -324,4 +324,14 @@ public class DataPerso {
 
     }
 
+
+    static public int getFightingType(String personnage){
+
+       String  pathType = "src/main/resources/dataPerso/FightingStyle.txt";
+
+       int tamp = Integer.parseInt(getArrayListInfo(pathType,personnage).get(1));
+
+        return tamp;
+    }
+
 }

@@ -14,13 +14,11 @@ public class Stat {
         if(attacker.getWep1().compareTo("Magie") == 0){
             att += attacker.getMag();
             att += weaponTriangle(attacker.getWep1(), defender.getWep1());
-
         }
         else {
             att += attacker.getStr();
 
         }
-
         if(defender.getWep1().compareTo("Magie") == 0){
             def += defender.getRes();
         }
@@ -37,7 +35,7 @@ public class Stat {
         int damage = (att - def) * crit ;
 
         if(attacker.getSpd() - defender.getSpd() >= 4){
-            damage = (int) (damage * 1.4);
+            damage = (damage * 2);
         }
         if(damage < 0 ){
             return 0;
@@ -57,7 +55,6 @@ public class Stat {
         }
         Random r = new Random();
         int x = r.nextInt(100) + 1;
-
         return x <= rate;
 
     }

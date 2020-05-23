@@ -43,6 +43,15 @@ public class Personnage {
         }
     }
 
+    public void attackHorsPortee(Coordinate coordinate){
+        Personnage adversaire = AffichePerso.getPersonnageAt(coordinate);
+        if(adversaire != null){
+            int damage = Stat.damage(caracteristique, adversaire.getCaracteristique());
+            if(caracteristique.getHp()>0)
+                adversaire.attacked(damage);
+        }
+    }
+
     public void attack(Personnage adversaire){
         int damage = Stat.damage(caracteristique, adversaire.caracteristique);
         if(caracteristique.getHp() > 0) {
@@ -71,9 +80,9 @@ public class Personnage {
     public void die(){
 
     }
-    public void heal(Personnage persoHeal){
 
-    }
+
+
     public void healed(int hpHeal){
         int hp;
 
@@ -83,7 +92,6 @@ public class Personnage {
         else {
          hp = caracteristique.getHp() + hpHeal;
         }
-
         caracteristique.setHp(hp);
 
     }

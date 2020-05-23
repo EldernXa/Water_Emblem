@@ -3,9 +3,13 @@ package backend;
 import frontend.AfficheMap;
 import frontend.AffichePerso;
 import frontend.Event;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,8 +30,10 @@ public class PersonnageDisplay {
     private boolean booleanAttack;
     private boolean booleanMove;
     private boolean endTurn;
+    private boolean isBad;
 
-    public PersonnageDisplay(String nom, int x, int y){
+    public PersonnageDisplay(String nom, int x, int y, boolean isBad){
+        this.isBad = isBad;
         present = true;
         booleanAttack =false;
         booleanMove = false;
@@ -44,6 +50,10 @@ public class PersonnageDisplay {
         }
         coordinate = new Coordinate(x, y);
         initPicture();
+    }
+
+    public boolean isBad(){
+        return isBad;
     }
 
     public void setBooleanMove(boolean value){
@@ -160,7 +170,7 @@ public class PersonnageDisplay {
             }
     }
 
-    public void action(AffichePerso affichePerso, GridPane perso, GridPane grilleMvt, AfficheMap afficheMap){
+    public void action(AffichePerso affichePerso, GridPane perso, GridPane grilleMvt, AfficheMap afficheMap, VBox console){
         if(isAlive()) {
             ArrayList<Coordinate> attack = affichePerso.getAttackAreaAfterMovement(getPersonnage(), getCoordinate());
             boolean booleanAttack = false;
@@ -168,7 +178,12 @@ public class PersonnageDisplay {
                 PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(c);
                 if (p != null && AffichePerso.contains(AffichePerso.listPersonnage, p)) {
                     booleanAttack = true;
+                    int hpEnnemi = getPersonnage().getCaracteristique().getHp();
+                    int hpPersonnage = p.getPersonnage().getCaracteristique().getHp();
+                    Event.printAttackAction(this, p, Color.RED, Color.BLUE, console);
                     this.getPersonnage().attack(c);
+                    Event.printAfterAttack(p, hpPersonnage, Color.BLUE, console);
+                    Event.printCounterAttack(this, p, hpEnnemi, Color.RED, Color.BLUE, console);
                 }
             }
 
@@ -189,7 +204,8 @@ public class PersonnageDisplay {
                 }
 
                 if (bestCoordinate != null) {
-                    affichePerso.move(this, bestCoordinate, perso, grilleMvt, afficheMap);
+                    Event.printMoveAction(this, Color.RED, console);
+                    affichePerso.move(this, bestCoordinate, perso, grilleMvt, afficheMap, console);
                     attack = affichePerso.getAttackAreaAfterMovement(getPersonnage(), getCoordinate());
                     for (Coordinate c : attack) {
                         PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(c);
@@ -213,7 +229,7 @@ public class PersonnageDisplay {
                         Event.numEnnemi++;
                 }
                 if(AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive())
-                    AffichePerso.listEnnemi.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap);
+                    AffichePerso.listEnnemi.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap, console);
             }
         }
     }

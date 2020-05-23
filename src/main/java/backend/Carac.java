@@ -12,9 +12,28 @@ public class Carac {
     private int str;
     private int def;
     private int spd;
+    private int maxSpd;
+
+    public int getMaxSpd() {
+        return maxSpd;
+    }
+
+    public void setMaxSpd(int maxSpd) {
+        this.maxSpd = maxSpd;
+    }
+
+    public int getMaxLck() {
+        return maxLck;
+    }
+
+    public void setMaxLck(int maxLck) {
+        this.maxLck = maxLck;
+    }
+
     private int mag;
     private int skl;
     private int lck;
+    private int maxLck;
     private int res;
     private int mov;
     private int maxMov;
@@ -22,8 +41,11 @@ public class Carac {
     private String wep1;
     private String wep2;
     private String wep3;
+    private int deplacement;
     // Prenom / nomUnite / HP / STR / MAG / Skl / Spd /Lck / Def / Res / Mov / Arme1 / Arme2 / Arme3
     //nom / type /HP / STR / MAG / Skl / Spd /Lck / Def / Res / Mov / Arme1 / Arme2 / Arme3
+
+
 
     public Carac(String name){
         int i = 0;
@@ -46,15 +68,17 @@ public class Carac {
 
         this.type = list.get(i++);
 
+
         maxHp = hp = Integer.parseInt(list.get(i++));
         str = Integer.parseInt(list.get(i++));
         mag = Integer.parseInt(list.get(i++));
         skl = Integer.parseInt(list.get(i++));
-        spd = Integer.parseInt(list.get(i++));
-        lck = Integer.parseInt(list.get(i++));
+        maxSpd = spd = Integer.parseInt(list.get(i++));
+        maxLck = lck = Integer.parseInt(list.get(i++));
         def = Integer.parseInt(list.get(i++));
         res = Integer.parseInt(list.get(i++));
         maxMov = mov = Integer.parseInt(list.get(i++));
+        deplacement = DataPerso.getFightingType(type);
         if(list.size() == i){
             return;
         }
@@ -68,6 +92,9 @@ public class Carac {
         }
         wep3 = list.get(i);
 
+
+
+
     }
 
     private Carac(Carac c){
@@ -78,15 +105,19 @@ public class Carac {
         str = c.str;
         def = c.def;
         spd = c.spd;
+        maxSpd = c.maxSpd;
         mag = c.mag;
         skl = c.skl;
         lck = c.lck;
+        maxLck = c.maxLck;
         res = c.res;
         mov = c.mov;
         maxMov = c.maxMov;
         wep1 = c.wep1;
         wep2 = c.wep2;
         wep3 = c.wep3;
+        deplacement = c.deplacement;
+
     }
 
     public Carac cloner(){
@@ -228,4 +259,11 @@ public class Carac {
     public void setSpd(int spd) {
         this.spd = spd;
     }
+    public int getDeplacement() {
+
+        return deplacement;
+
+    }
+
+
 }

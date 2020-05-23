@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -29,7 +30,7 @@ public class AffichePerso {
     public static List<PersonnageDisplay> listEnnemi;
     private GridPane perso;
     private DataCoordCharacters dataCoordCharacters;
-    private Timeline t;
+    private static Timeline t;
     ImageView imgView;
 
     public AffichePerso(String dataCoordinate){
@@ -42,13 +43,13 @@ public class AffichePerso {
         {
             int x = Integer.parseInt(dataCoordCharacters.getGentilCoord().get(i).get(0));
             int y = Integer.parseInt(dataCoordCharacters.getGentilCoord().get(i).get(1));
-            listPersonnage.add(new PersonnageDisplay(dataCoordCharacters.getGentilCharactersList().get(i), x, y));
+            listPersonnage.add(new PersonnageDisplay(dataCoordCharacters.getGentilCharactersList().get(i), x, y, false));
         }
         for(int i=0; i<dataCoordCharacters.getMechantCharactersList().size();i++)
         {
             int x=Integer.parseInt(dataCoordCharacters.getMechantCoord().get(i).get(0));
             int y=Integer.parseInt(dataCoordCharacters.getMechantCoord().get(i).get(1));
-            listEnnemi.add(new PersonnageDisplay(dataCoordCharacters.getMechantCharactersList().get(i), x, y));
+            listEnnemi.add(new PersonnageDisplay(dataCoordCharacters.getMechantCharactersList().get(i), x, y, true));
 
         }
         init();
@@ -119,7 +120,8 @@ public class AffichePerso {
     public static boolean contains(List<PersonnageDisplay> list, PersonnageDisplay personnage){
         for(PersonnageDisplay p : list)
         {
-            if(p.getPersonnage().getCaracteristique().getName().compareTo(personnage.getPersonnage().getCaracteristique().getName())==0)
+            if(p.getPersonnage().getCaracteristique().getName().compareTo(personnage.getPersonnage().getCaracteristique().getName())==0&&
+                p.isBad()==personnage.isBad())
                 return true;
         }
         return false;
@@ -156,7 +158,7 @@ public class AffichePerso {
     }
 
     public void move(PersonnageDisplay persoToMove, Coordinate coordinate, GridPane perso,
-                     GridPane grilleMvt, AfficheMap afficheMap){
+                     GridPane grilleMvt, AfficheMap afficheMap, VBox console){
         perso.getChildren().clear(); // aucun changement si je mets en commentaire
         persoToMove.setPresent(false);
 
@@ -178,16 +180,16 @@ public class AffichePerso {
                     persoToMove.getImageView().setTranslateY(0);
                     persoToMove.getImageView().setTranslateX(0);
                     if(ttX.getNode().getTranslateX()<0 && ttX.getNode().getTranslateX()!=ttX.getToX() &&
-                            persoToMove.getOrientation()!=5)
+                            persoToMove.getOrientation()!=4)
                         persoToMove.setOrientation(4);
                     else if(ttX.getNode().getTranslateX()>0 && ttX.getNode().getTranslateX()!=ttX.getToX()&&
-                            persoToMove.getOrientation()!=4)
+                            persoToMove.getOrientation()!=3)
                         persoToMove.setOrientation(3);
                     else if(ttY.getNode().getTranslateY()<0 && ttY.getNode().getTranslateY()!=ttY.getToY()&&
                             persoToMove.getOrientation()!=1)
                         persoToMove.setOrientation(1);
                     else if(ttY.getNode().getTranslateY()>0 && ttY.getNode().getTranslateY()!=ttY.getToY()&&
-                            persoToMove.getOrientation()!=3){
+                            persoToMove.getOrientation()!=2){
                         persoToMove.setOrientation(2);
                     }
 
@@ -226,7 +228,7 @@ public class AffichePerso {
                                         Event.numEnnemi++;
                                 }
                                 if(AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive())
-                                    AffichePerso.listEnnemi.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap);
+                                    AffichePerso.listEnnemi.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap, console);
                             }else{
                                 Event.numEnnemi=0;
                             }
@@ -280,6 +282,7 @@ public class AffichePerso {
             if(p.isAlive())
                 return false;
         }
+        t.stop();
         return true;
     }
 
@@ -288,6 +291,7 @@ public class AffichePerso {
             if(p.isAlive())
                 return false;
         }
+        t.stop();
         return true;
     }
 
