@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.PersonnageDisplay;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -65,10 +66,20 @@ public class AffichageGraphique {
             System.out.println(e);
         }
 
-        Button stay = new Button("Rien faire");
+        Button stay = new Button("Attendre");
+        Button endTurn = new Button("Terminer le tour");
         move.setVisible(false);
         attack.setVisible(false);
         stay.setVisible(false);
+        endTurn.setVisible(false);
+        endTurn.setOnAction(new EventHandler<ActionEvent>(){
+           @Override
+           public void handle(ActionEvent evnt){
+               for(PersonnageDisplay p: AffichePerso.listPersonnage)
+                   p.setEndTurn(true);
+               stay.fire();
+           }
+        });
         window = new HBox();
         window.setSpacing(50);
         GridPane root = new GridPane();
@@ -112,7 +123,8 @@ public class AffichageGraphique {
                 console.setVisible(true);
                 console.setMinSize(scrollPane.getMinWidth(), scrollPane.getMinHeight());
                 button = new VBox();
-                button.getChildren().addAll(move, attack, stay);
+                endTurn.setVisible(true);
+                button.getChildren().addAll(move, attack, stay, endTurn);
                 panel.getChildren().addAll(information, button, scrollPane);
                 grilleMvt = initGridPane();
                 grilleAttack = initGridPane();

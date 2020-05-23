@@ -45,7 +45,6 @@ public class Event {
                             affichePerso, grilleMvt, grilleAttack,
                             move, attack);
                     if(personnageSelected!=null && !AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)){
-                        stay.setText("Rien faire");
                         stay.setVisible(true);
                     }
 
@@ -76,7 +75,6 @@ public class Event {
                                                 stay, affichePerso, grilleMvt, grilleAttack,
                                                 move, attack);
                                         if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)) {
-                                            stay.setText("Rien faire");
                                             stay.setVisible(true);
                                         }
                                         }
