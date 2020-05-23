@@ -78,6 +78,7 @@ public class Carac {
         def = Integer.parseInt(list.get(i++));
         res = Integer.parseInt(list.get(i++));
         maxMov = mov = Integer.parseInt(list.get(i++));
+        deplacement = DataPerso.getFightingType(type);
         if(list.size() == i){
             return;
         }
@@ -91,7 +92,7 @@ public class Carac {
         }
         wep3 = list.get(i);
 
-        deplacement = DataPerso.getFightingType(name);
+
 
 
     }
@@ -259,6 +260,7 @@ public class Carac {
         this.spd = spd;
     }
     public int getDeplacement() {
+
         return deplacement;
 
     }
