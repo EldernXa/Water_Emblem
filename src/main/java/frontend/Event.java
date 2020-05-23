@@ -181,8 +181,6 @@ public class Event {
                     }
                     if(AffichePerso.listEnnemi.get(Event.numEnnemi).isAlive())
                         AffichePerso.listEnnemi.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap, console);
-                    lbl = new Label("TOUR DU JOUEUR");
-                    lbl.setTextFill(Color.PURPLE);
                     AffichePerso.newTurn();
                 }
             }
@@ -219,90 +217,22 @@ public class Event {
             @Override
             public void handle(ActionEvent event){
                 attack.setVisible(false);
-                Label lbl1 = new Label("-> ");
-                lbl1.setTextFill(Color.WHITE);
-                Label lbl2 = new Label(personnageSelected.getPersonnage().getCaracteristique().getName());
-                lbl2.setTextFill(Color.BLUE);
-                Label lbl3 = new Label(" attaque ");
-                lbl3.setTextFill(Color.WHITE);
-                Label lbl4 = new Label(ennemiSelected.getPersonnage().getCaracteristique().getName());
-                lbl4.setTextFill(Color.RED);
-                HBox hbox1 = new HBox();
-                hbox1.getChildren().addAll(lbl1, lbl2, lbl3, lbl4);
-                console.getChildren().add(hbox1);
+                printAttackAction(personnageSelected, ennemiSelected, Color.BLUE, Color.RED, console);
                 int hpPersonnage = personnageSelected.getPersonnage().getCaracteristique().getHp();
                 int hpEnnemi = ennemiSelected.getPersonnage().getCaracteristique().getHp();
                 for(Coordinate c:affichePerso.getAttackAreaAfterMovement(ennemiSelected.getPersonnage(), ennemiSelected.getCoordinate())){
                     if(c.equal(personnageSelected.getCoordinate())) {
                         personnageSelected.getPersonnage().attack(ennemiSelected.getCoordinate());
                         personnageSelected.setBooleanAttack(true);
-                        lbl1 = new Label("-> ");
-                        lbl1.setTextFill(Color.WHITE);
-                        lbl2 = new Label(ennemiSelected.getPersonnage().getCaracteristique().getName());
-                        lbl2.setTextFill(Color.RED);
-                        if(hpEnnemi==ennemiSelected.getPersonnage().getCaracteristique().getHp())
-                        {
-                            lbl3 = new Label(" n'a subit aucun dégâts");
-                        }else if(!ennemiSelected.isAlive()){
-                            lbl3 = new Label("est mort");
-                        }
-                        else{
-                            lbl3 = new Label(" a subit " + (hpEnnemi-ennemiSelected.getPersonnage().getCaracteristique().getHp()) + " dégâts");
-                        }
-                        lbl3.setTextFill(Color.WHITE);
-                        hbox1 = new HBox();
-                        hbox1.getChildren().addAll(lbl1, lbl2, lbl3);
-                        console.getChildren().add(hbox1);
+                        printAfterAttack(ennemiSelected, hpEnnemi, Color.RED, console);
 
-
-                        lbl1 = new Label("-> ");
-                        lbl1.setTextFill(Color.WHITE);
-                        lbl2 = new Label(ennemiSelected.getPersonnage().getCaracteristique().getName());
-                        lbl2.setTextFill(Color.RED);
-                        lbl3 = new Label(" contre attaque");
-                        lbl3.setTextFill(Color.WHITE);
-                        hbox1 = new HBox();
-                        hbox1.getChildren().addAll(lbl1, lbl2, lbl3);
-                        console.getChildren().add(hbox1);
-
-                        lbl1 = new Label("-> ");
-                        lbl1.setTextFill(Color.WHITE);
-                        lbl2 = new Label(personnageSelected.getPersonnage().getCaracteristique().getName());
-                        lbl2.setTextFill(Color.BLUE);
-                        if(hpPersonnage==personnageSelected.getPersonnage().getCaracteristique().getHp())
-                        {
-                            lbl3 = new Label(" n'a subit aucun dégâts");
-                        }else if(!personnageSelected.isAlive()){
-                            lbl3 = new Label(" est mort");
-                        }else{
-                            lbl3 = new Label(" a subit " + (hpPersonnage-personnageSelected.getPersonnage().getCaracteristique().getHp()) + " dégâts");
-                        }
-                        lbl3.setTextFill(Color.WHITE);
-                        hbox1 = new HBox();
-                        hbox1.getChildren().addAll(lbl1, lbl2, lbl3);
-                        console.getChildren().add(hbox1);
+                        printCounterAttack(personnageSelected, ennemiSelected, hpPersonnage, Color.BLUE, Color.RED, console);
                     }
                 }
                 if(!personnageSelected.getBooleanAttack()){
                     personnageSelected.getPersonnage().attackHorsPortee(ennemiSelected.getCoordinate());
                     personnageSelected.setBooleanAttack(true);
-                    lbl1 = new Label("-> ");
-                    lbl1.setTextFill(Color.WHITE);
-                    lbl2 = new Label(ennemiSelected.getPersonnage().getCaracteristique().getName());
-                    lbl2.setTextFill(Color.RED);
-                    if(hpEnnemi==ennemiSelected.getPersonnage().getCaracteristique().getHp())
-                    {
-                        lbl3 = new Label(" n'a subit aucun dégâts");
-                    }else if(!ennemiSelected.isAlive()){
-                        lbl3 = new Label("est mort");
-                    }
-                    else{
-                        lbl3 = new Label(" a subit " + (hpEnnemi-ennemiSelected.getPersonnage().getCaracteristique().getHp()) + " dégâts");
-                    }
-                    lbl3.setTextFill(Color.WHITE);
-                    hbox1 = new HBox();
-                    hbox1.getChildren().addAll(lbl1, lbl2, lbl3);
-                    console.getChildren().add(hbox1);
+                    printAfterAttack(ennemiSelected, hpEnnemi, Color.RED, console);
                 }
                 if(personnageSelected.getPersonnage().getCaracteristique().getHp()<=0)
                     personnageSelected.setDeath();
@@ -335,15 +265,7 @@ public class Event {
             public void handle(ActionEvent event){
                 move.setVisible(false);
                 personnageSelected.setBooleanMove(true);
-                Label lbl1 = new Label("-> ");
-                lbl1.setTextFill(Color.WHITE);
-                Label lbl2 = new Label(personnageSelected.getPersonnage().getCaracteristique().getName());
-                lbl2.setTextFill(Color.BLUE);
-                Label lbl3 = new Label(" se déplace");
-                lbl3.setTextFill(Color.WHITE);
-                HBox hbox = new HBox();
-                hbox.getChildren().addAll(lbl1, lbl2, lbl3);
-                console.getChildren().add(hbox);
+                printMoveAction(personnageSelected, Color.BLUE, console);
                 affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt, afficheMap, console);
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
@@ -371,5 +293,77 @@ public class Event {
             attack.setVisible(false);
             stay.setVisible(false);
         }
+    }
+
+    public static void printMoveAction(PersonnageDisplay personnage, Color color, VBox console){
+        Label lbl1 = new Label("-> ");
+        lbl1.setTextFill(Color.WHITE);
+        Label lbl2 = new Label(personnage.getPersonnage().getCaracteristique().getName());
+        lbl2.setTextFill(color);
+        Label lbl3 = new Label(" se déplace");
+        lbl3.setTextFill(Color.WHITE);
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(lbl1, lbl2, lbl3);
+        console.getChildren().add(hbox);
+    }
+
+    public static void printAttackAction(PersonnageDisplay personnage, PersonnageDisplay ennemi, Color colorPerso, Color colorEnnemi, VBox console){
+        Label lbl1 = new Label("-> ");
+        lbl1.setTextFill(Color.WHITE);
+        Label lbl2 = new Label(personnage.getPersonnage().getCaracteristique().getName());
+        lbl2.setTextFill(colorPerso);
+        Label lbl3 = new Label(" attaque ");
+        lbl3.setTextFill(Color.WHITE);
+        Label lbl4 = new Label(ennemi.getPersonnage().getCaracteristique().getName());
+        lbl4.setTextFill(colorEnnemi);
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(lbl1, lbl2, lbl3, lbl4);
+        console.getChildren().add(hbox);
+    }
+
+    public static void printAfterAttack(PersonnageDisplay ennemi, int hpEnnemi, Color color, VBox console){
+        Label lbl1 = new Label("-> ");
+        lbl1.setTextFill(Color.WHITE);
+        Label lbl2 = new Label(ennemi.getPersonnage().getCaracteristique().getName());
+        lbl2.setTextFill(color);
+        Label lbl3;
+        if(hpEnnemi==ennemi.getPersonnage().getCaracteristique().getHp())
+        {
+            lbl3 = new Label(" n'a subit aucun dégâts");
+        }else if(!ennemi.isAlive())
+            lbl3 = new Label(" est mort");
+        else
+            lbl3 = new Label(" a subit " + (hpEnnemi-ennemi.getPersonnage().getCaracteristique().getHp() + " dégâts"));
+        lbl3.setTextFill(Color.WHITE);
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(lbl1, lbl2, lbl3);
+        console.getChildren().add(hbox);
+    }
+
+    public static void printCounterAttack(PersonnageDisplay personnage, PersonnageDisplay ennemi, int hpPersonnage, Color colorPerso, Color colorEnnemi, VBox console){
+        Label lbl1 = new Label("-> ");
+        lbl1.setTextFill(Color.WHITE);
+        Label lbl2 = new Label(ennemi.getPersonnage().getCaracteristique().getName());
+        lbl2.setTextFill(colorEnnemi);
+        Label lbl3 = new Label(" contre attaque");
+        lbl3.setTextFill(Color.WHITE);
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(lbl1, lbl2, lbl3);
+        console.getChildren().add(hbox);
+
+        lbl1 = new Label("-> ");
+        lbl1.setTextFill(Color.WHITE);
+        lbl2 = new Label(personnage.getPersonnage().getCaracteristique().getName());
+        lbl2.setTextFill(colorPerso);
+        if(hpPersonnage==personnage.getPersonnage().getCaracteristique().getHp())
+            lbl3 = new Label(" n'a subit aucun dégâts");
+        else if(!personnage.isAlive())
+            lbl3 = new Label(" est mort");
+        else
+            lbl3 = new Label(" a subit " + (hpPersonnage-personnage.getPersonnage().getCaracteristique().getHp()) + " dégâts");
+        lbl3.setTextFill(Color.WHITE);
+        hbox = new HBox();
+        hbox.getChildren().addAll(lbl1, lbl2, lbl3);
+        console.getChildren().add(hbox);
     }
 }
