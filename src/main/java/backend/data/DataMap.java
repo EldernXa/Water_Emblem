@@ -159,6 +159,89 @@ public class DataMap {
                 return new Gravier9();
             case "B" :
                 return new Bastion();
+            case "," :
+                return new Barriere1();
+            case ";" :
+                return new Barriere2();
+            case ":" :
+                return new Barriere3();
+            case "j" :
+                return new BordD1();
+            case "*" :
+                return new BordD2();
+            case "^" :
+                return new BordD3();
+            case ")" :
+                return new BordD4();
+            case "L" :
+                return new BordD5();
+            case "O" :
+                return new BordD6();
+            case "I" :
+                return new BordD7();
+            case "a" :
+                return new BordG1();
+            case "N" :
+                return new BordG2();
+            case "M" :
+                return new BordG3();
+            case "?" :
+                return new BordG4();
+            case "." :
+                return new BordG5();
+            case "A" :
+                return new BordG6();
+            case "Z" :
+                return new BordG7();
+            case "E" :
+                return new Bord1();
+            case "q":
+                return new Eau1();
+            case "%" :
+                return new Eau2(); // 15
+            case "f" :
+                return new Eau3();
+            case "d" :
+                return new Eau4();
+            case "¨" :
+                return new Eau5();
+            case "+" :
+                return new Eau6();
+            case "X" :
+                return new Eau7();
+            case "p" :
+                return new Escalier1();
+            case "C" :
+                return new Escalier2();
+            case "{" :
+                return new Escalier3();
+            case "9" :
+                return new Mur1();
+            case "w" :
+                return new Mur2();
+            case "W" :
+                return new Sol1();
+            case "x" :
+                return new Sol2();
+            case "c" :
+                return new Sol3();
+            case "n" :
+                return new Sol4();
+            case "b" :
+                return new Sol5();
+            case "!" :
+                return new Sol6();
+            case "#" :
+                return new Trappe();
+            case "l" :
+                return new Porte1();
+            case "Q" :
+                return new Porte2();
+            case "S" : 
+                return new Ponton1();
+            case "D" : 
+                return new Ponton2();
+
             default:
                 return new Plaine();
         }
