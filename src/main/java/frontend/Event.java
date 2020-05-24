@@ -63,7 +63,7 @@ public class Event {
                             for (Coordinate c : listMvt) {
                                 if (c.equal(new Coordinate(x, y))) {
                                     if (AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)) == null && !personnageSelected.getBooleanMove()) {
-                                        buttonMove(x, y, move, affichePerso, perso, grilleMvt, afficheMap, grilleAttack, stay, console, endTurn);
+                                        buttonMove(x, y, move, attack, affichePerso, perso, grilleMvt, afficheMap, grilleAttack, stay, console, endTurn);
                                     }
                                     else if(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
                                             AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
@@ -301,10 +301,11 @@ public class Event {
         });
     }
 
-    public static void buttonMove(int x, int y, Button move, AffichePerso affichePerso,
+    public static void buttonMove(int x, int y, Button move, Button attack, AffichePerso affichePerso,
                                   GridPane perso, GridPane grilleMvt, AfficheMap afficheMap,
                                   GridPane grilleAttack, Button stay, VBox console, Button endTurn){
         move.setVisible(true);
+        attack.setVisible(false);
         move.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
