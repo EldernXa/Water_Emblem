@@ -38,7 +38,8 @@ public class Event {
     static public ArrayList<PersonnageDisplay> listMechantRestant = null;
 
     static void clickOnMap(GridPane perso, AffichePerso affichePerso, GridPane grilleMvt, GridPane grilleAttack,
-                           VBox information, Button move, Button attack, Button stay, AfficheMap afficheMap, VBox console, Button endTurn){
+                           VBox information, Button move, Button attack, Button stay, AfficheMap afficheMap, VBox console,
+                           Button endTurn, Button carac){
         perso.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event)
@@ -49,9 +50,12 @@ public class Event {
                 {
                     initPersonnageSelected(information, x, y, stay,
                             affichePerso, grilleMvt, grilleAttack,
-                            move, attack, afficheMap);
-                    if(personnageSelected!=null && !AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)){
-                        stay.setVisible(true);
+                            move, attack, afficheMap, carac);
+                    if(personnageSelected!=null) {
+                        carac.setVisible(true);
+                        if (!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)) {
+                            stay.setVisible(true);
+                        }
                     }
 
                 }
@@ -79,7 +83,7 @@ public class Event {
                                         grilleMvt.getChildren().clear();
                                         initPersonnageSelected(information, x, y,
                                                 stay, affichePerso, grilleMvt, grilleAttack,
-                                                move, attack, afficheMap);
+                                                move, attack, afficheMap, carac);
                                         if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)) {
                                             stay.setVisible(true);
                                         }
@@ -93,6 +97,7 @@ public class Event {
                                 move.setVisible(false);
                                 attack.setVisible(false);
                                 stay.setVisible(false);
+                                carac.setVisible(false);
                                 information.getChildren().clear();
                                 personnageSelected = null;
                                 grilleMvt.getChildren().clear();
@@ -105,9 +110,8 @@ public class Event {
                         {
                             initPersonnageSelected(information, x, y,
                                     stay, affichePerso, grilleMvt,
-                                    grilleAttack, move, attack, afficheMap);
+                                    grilleAttack, move, attack, afficheMap, carac);
                             if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)){
-                                stay.setText("Rien faire");
                                 stay.setVisible(true);
                             }
                         }
@@ -138,13 +142,14 @@ public class Event {
     public static void buttonStay(Button stay, Button move, Button attack, Button endTurn, GridPane grilleMvt, GridPane grilleAttack,
                                   AfficheMap afficheMap, AffichePerso affichePerso, GridPane perso, VBox console,
                                   GridPane group, GridPane map, GridPane root, ChoiceBox<String> choiceMap, Button start, Label txt,
-                                  VBox information, ScrollPane scrollPane, VBox panel, String nameMap){
+                                  VBox information, ScrollPane scrollPane, VBox panel, String nameMap, Button carac){
         stay.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
                 stay.setVisible(false);
                 move.setVisible(false);
                 attack.setVisible(false);
+                carac.setVisible(false);
                 AffichageGraphique.group.getChildren().clear();
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
@@ -359,7 +364,7 @@ public class Event {
     private static void initPersonnageSelected(VBox information, int x, int y,
                                                Button stay, AffichePerso affichePerso,
                                                GridPane grilleMvt, GridPane grilleAttack,
-                                               Button move, Button attack, AfficheMap afficheMap){
+                                               Button move, Button attack, AfficheMap afficheMap, Button carac){
         information.getChildren().clear();
         personnageSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
         if(personnageSelected != null){
@@ -376,6 +381,7 @@ public class Event {
             move.setVisible(false);
             attack.setVisible(false);
             stay.setVisible(false);
+            carac.setVisible(false);
         }
     }
 
@@ -449,5 +455,48 @@ public class Event {
         hbox = new HBox();
         hbox.getChildren().addAll(lbl1, lbl2, lbl3);
         console.getChildren().add(hbox);
+    }
+
+    public static void buttonCarac(Button carac, VBox console){
+        carac.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                if(personnageSelected!=null)
+                {
+                    Label lbl1 = new Label("-------------------------------------");
+                    lbl1.setTextFill(Color.YELLOW);
+                    Label lbl2 = new Label(personnageSelected.getPersonnage().getCaracteristique().getName());
+                    lbl2.setTextFill(Color.BLUE);
+                    Label lbl3 = new Label("-------------------------------------");
+                    lbl3.setTextFill(Color.YELLOW);
+                    HBox hbox = new HBox();
+                    hbox.getChildren().addAll(lbl1, lbl2, lbl3);
+                    console.getChildren().add(hbox);
+                    lbl1 = new Label("HP : " + personnageSelected.getPersonnage().getCaracteristique().getHp());
+                    lbl1.setTextFill(Color.WHITE);
+                    lbl2 = new Label("Def : " + personnageSelected.getPersonnage().getCaracteristique().getDef());
+                    lbl2.setTextFill(Color.WHITE);
+                    lbl3 = new Label("Str : " + personnageSelected.getPersonnage().getCaracteristique().getStr());
+                    lbl3.setTextFill(Color.WHITE);
+                    console.getChildren().addAll(lbl1, lbl2, lbl3);
+                    lbl1 = new Label("Magie : " + personnageSelected.getPersonnage().getCaracteristique().getMag());
+                    lbl1.setTextFill(Color.WHITE);
+                    lbl2 = new Label("Res : " + personnageSelected.getPersonnage().getCaracteristique().getRes());
+                    lbl2.setTextFill(Color.WHITE);
+                    lbl3 = new Label("Lck : " + personnageSelected.getPersonnage().getCaracteristique().getLck());
+                    lbl3.setTextFill(Color.WHITE);
+                    console.getChildren().addAll(lbl1, lbl2, lbl3);
+                    lbl1 = new Label("-------------------------------------");
+                    lbl1.setTextFill(Color.YELLOW);
+                    lbl2 = new Label(personnageSelected.getPersonnage().getCaracteristique().getName());
+                    lbl2.setTextFill(Color.BLUE);
+                    lbl3 = new Label("-------------------------------------");
+                    lbl3.setTextFill(Color.YELLOW);
+                    hbox = new HBox();
+                    hbox.getChildren().addAll(lbl1, lbl2, lbl3);
+                    console.getChildren().add(hbox);
+                }
+            }
+        });
     }
 }

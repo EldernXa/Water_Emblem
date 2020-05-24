@@ -68,6 +68,8 @@ public class AffichageGraphique {
 
         Button stay = new Button("Attendre");
         Button endTurn = new Button("Terminer le tour");
+        Button carac = new Button("Caracteristique");
+        carac.setVisible(false);
         move.setVisible(false);
         attack.setVisible(false);
         stay.setVisible(false);
@@ -126,7 +128,7 @@ public class AffichageGraphique {
                 console.setMinSize(scrollPane.getMinWidth(), scrollPane.getMinHeight());
                 button = new VBox();
                 endTurn.setVisible(true);
-                button.getChildren().addAll(move, attack, stay, endTurn);
+                button.getChildren().addAll(carac, move, attack, stay, endTurn);
                 panel.getChildren().addAll(information, button, scrollPane);
                 grilleMvt = initGridPane();
                 grilleAttack = initGridPane();
@@ -137,9 +139,10 @@ public class AffichageGraphique {
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
                 Event.buttonStay(stay, move, attack, endTurn, grilleMvt, grilleAttack, afficheMap, affichePerso, perso, console,
-                        group, map, root, choiceMap, start, txt, information, scrollPane, panel, choiceMap.getValue());
+                        group, map, root, choiceMap, start, txt, information, scrollPane, panel, choiceMap.getValue(), carac);
                 Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack, information,
-                        move, attack, stay, afficheMap, console, endTurn);
+                        move, attack, stay, afficheMap, console, endTurn, carac);
+                Event.buttonCarac(carac, console);
                 root.getChildren().addAll(map, grilleMvt, grilleAttack, group, perso);
                 window.getChildren().add(panel);
                 afficheMap.effectField(AffichePerso.listPersonnage);
