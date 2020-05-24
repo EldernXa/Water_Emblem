@@ -217,7 +217,7 @@ public class Event {
                             }
                         endTurn.setVisible(false);
                         Etat e = new Etat(listMechant, listGentil, new HeuristiqueBasique(), nameMap);
-                        Etat etat = Algo_Minimax.startMini(e, 1, false);
+                        Etat etat = Algo_Minimax.startMini(e, 2, false);
                         listAction = new ArrayList<>();
                         for(Action a : etat.getListActionprec())
                         {
@@ -226,6 +226,7 @@ public class Event {
                         Event.numEnnemi = 0;
                         if(listMechantRestant.size()!=0)
                             listMechantRestant.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap, listAction.get(numEnnemi), console, endTurn);
+                        AffichePerso.newTurn();
                     }
                 }
             }
