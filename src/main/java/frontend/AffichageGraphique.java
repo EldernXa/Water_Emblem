@@ -114,13 +114,14 @@ public class AffichageGraphique {
                 afficheMap = new AfficheMap(choiceMap.getValue());
                 panel = new VBox();
                 HBox informationAndCombat = new HBox();
+                VBox glancing = new VBox();
                 VBox combat = new VBox();
                 combat.setMaxHeight(200);
                 combat.setMaxHeight(200);
                 information = new VBox();
                 information.setMaxHeight(200);
                 information.setMinHeight(200);
-                informationAndCombat.getChildren().addAll(information, combat);
+                informationAndCombat.getChildren().addAll(information, combat, glancing);
                 console = new VBox();
                 scrollPane = new ScrollPane();
                 console.heightProperty().addListener(observable->scrollPane.setVvalue(1D));

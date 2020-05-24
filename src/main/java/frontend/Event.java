@@ -84,6 +84,7 @@ public class Event {
                                             ennemiSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
                                             information.getChildren().clear();
                                             combat.getChildren().clear();
+                                            attack.setVisible(false);
                                             addInformation(information, personnageSelected, "Green", 0);
                                             addInformation(information, ennemiSelected, "Red", 0);
                                             addInformation(combat, personnageSelected, "Green", Stat.damage(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
@@ -109,6 +110,7 @@ public class Event {
                                 PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(c);
                                 if(c.equal(new Coordinate(x, y)) && p!=null &&
                                     AffichePerso.contains(AffichePerso.listEnnemi, p)){
+                                    attack.setVisible(false);
                                     information.getChildren().clear();
                                     combat.getChildren().clear();
                                     addInformation(information, personnageSelected, "Green", 0);
