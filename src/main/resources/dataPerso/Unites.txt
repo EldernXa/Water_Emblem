@@ -21,3 +21,4 @@ ChevalierFaucon;20;6;2;7;7;0;5;4;8;Lance
 CavalierWyvern;20;7;0;3;5;0;8;0;7;Lance
 Hero;22;6;2;9;10;0;8;2;6;Epee
 ChevalierPegase;20;7;3;9;9;2;6;3;9;Lance
+Troubadour;15;4;7;3;4;3;5;3;7;Magie
