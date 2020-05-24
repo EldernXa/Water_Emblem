@@ -63,7 +63,7 @@ public class Stat {
         return x <= rate;
 
     }
-    private static int accuracy(Carac attacker, Carac defender){
+    public static int accuracy(Carac attacker, Carac defender){
         int accu = ((attacker.getSkl() *3) + (attacker.getLck()) + weaponTriangle(attacker.getWep1(), defender.getWep1()) * 15) *3;
         int avoid = defender.getSpd() + defender.getLck();
 

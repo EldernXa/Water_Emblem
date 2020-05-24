@@ -146,9 +146,9 @@ public class AffichageGraphique {
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
                 Event.buttonStay(stay, move, attack, endTurn, grilleMvt, grilleAttack, afficheMap, affichePerso, perso, console,
-                        group, map, root, choiceMap, start, txt, information, scrollPane, panel, choiceMap.getValue(), carac, combat);
+                        group, map, root, choiceMap, start, txt, information, scrollPane, panel, choiceMap.getValue(), carac, combat, glancing);
                 Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack, information,
-                        move, attack, stay, afficheMap, console, endTurn, carac, combat);
+                        move, attack, stay, afficheMap, console, endTurn, carac, combat, glancing);
                 Event.buttonCarac(carac, console);
                 root.getChildren().addAll(map, grilleMvt, grilleAttack, group, perso);
                 window.getChildren().add(panel);

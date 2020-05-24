@@ -40,7 +40,7 @@ public class Event {
 
     static void clickOnMap(GridPane perso, AffichePerso affichePerso, GridPane grilleMvt, GridPane grilleAttack,
                            VBox information, Button move, Button attack, Button stay, AfficheMap afficheMap, VBox console,
-                           Button endTurn, Button carac, VBox combat){
+                           Button endTurn, Button carac, VBox combat, VBox glancing){
         perso.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event)
@@ -51,7 +51,7 @@ public class Event {
                 {
                     initPersonnageSelected(information, x, y, stay,
                             affichePerso, grilleMvt, grilleAttack,
-                            move, attack, afficheMap, carac, combat);
+                            move, attack, afficheMap, carac, combat, glancing);
                     if(personnageSelected!=null) {
                         carac.setVisible(true);
                         if (!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)) {
@@ -76,7 +76,7 @@ public class Event {
                                         for(Coordinate coordinate:affichePerso.getAttackAreaAfterMovement(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
                                         {
                                             if(coordinate.equal(new Coordinate(x, y))) {
-                                                buttonAttack(x, y, information, attack, grilleMvt, grilleAttack, stay, affichePerso, console, combat);
+                                                buttonAttack(x, y, information, attack, grilleMvt, grilleAttack, stay, affichePerso, console, combat, glancing);
                                                 verif = true;
                                             }
                                         }
@@ -89,6 +89,11 @@ public class Event {
                                             addInformation(information, ennemiSelected, "Red", 0);
                                             addInformation(combat, personnageSelected, "Green", Stat.damage(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
                                             addInformation(combat, ennemiSelected, "Red", Stat.damage(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
+                                            Label lbl1 = new Label("Chance de toucher : " + Stat.accuracy(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
+                                            Label lbl2 = new Label("Chance de toucher : " + Stat.accuracy(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
+                                            glancing.getChildren().clear();
+                                            glancing.getChildren().addAll(lbl1, lbl2);
+                                            glancing.setSpacing(combat.getMaxHeight()/2);
                                         }
                                     }else if(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
                                         AffichePerso.contains(AffichePerso.listPersonnage, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
@@ -97,7 +102,7 @@ public class Event {
                                         grilleMvt.getChildren().clear();
                                         initPersonnageSelected(information, x, y,
                                                 stay, affichePerso, grilleMvt, grilleAttack,
-                                                move, attack, afficheMap, carac, combat);
+                                                move, attack, afficheMap, carac, combat, glancing);
                                         if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)) {
                                             stay.setVisible(true);
                                         }
@@ -117,6 +122,11 @@ public class Event {
                                     addInformation(information, ennemiSelected, "Red", 0);
                                     addInformation(combat, personnageSelected, "Green", Stat.damage(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
                                     addInformation(combat, ennemiSelected, "Red", Stat.damage(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
+                                    Label lbl1 = new Label("Chance de toucher : " + Stat.accuracy(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
+                                    Label lbl2 = new Label("Chance de toucher : " + Stat.accuracy(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
+                                    glancing.getChildren().clear();
+                                    glancing.getChildren().addAll(lbl1, lbl2);
+                                    glancing.setSpacing(combat.getMaxHeight()/2);
                                 }
                             }
                         }
@@ -126,6 +136,7 @@ public class Event {
                                 attack.setVisible(false);
                                 stay.setVisible(false);
                                 carac.setVisible(false);
+                                glancing.getChildren().clear();
                                 information.getChildren().clear();
                                 combat.getChildren().clear();
                                 personnageSelected = null;
@@ -139,7 +150,7 @@ public class Event {
                         {
                             initPersonnageSelected(information, x, y,
                                     stay, affichePerso, grilleMvt,
-                                    grilleAttack, move, attack, afficheMap, carac, combat);
+                                    grilleAttack, move, attack, afficheMap, carac, combat, glancing);
                             if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)){
                                 stay.setVisible(true);
                             }
@@ -171,7 +182,7 @@ public class Event {
     public static void buttonStay(Button stay, Button move, Button attack, Button endTurn, GridPane grilleMvt, GridPane grilleAttack,
                                   AfficheMap afficheMap, AffichePerso affichePerso, GridPane perso, VBox console,
                                   GridPane group, GridPane map, GridPane root, ChoiceBox<String> choiceMap, Button start, Label txt,
-                                  VBox information, ScrollPane scrollPane, VBox panel, String nameMap, Button carac, VBox combat){
+                                  VBox information, ScrollPane scrollPane, VBox panel, String nameMap, Button carac, VBox combat, VBox glancing){
         stay.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
@@ -179,6 +190,7 @@ public class Event {
                 move.setVisible(false);
                 attack.setVisible(false);
                 carac.setVisible(false);
+                glancing.getChildren().clear();
                 combat.getChildren().clear();
                 AffichageGraphique.group.getChildren().clear();
                 grilleMvt.getChildren().clear();
@@ -327,7 +339,7 @@ public class Event {
 
     private static void buttonAttack(int x, int y, VBox information, Button attack,
                                      GridPane grilleMvt, GridPane grilleAttack,
-                                     Button stay, AffichePerso affichePerso, VBox console, VBox combat){
+                                     Button stay, AffichePerso affichePerso, VBox console, VBox combat, VBox glancing){
         ennemiSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
         information.getChildren().clear();
         addInformation(information, personnageSelected,"Green", 0);
@@ -336,6 +348,11 @@ public class Event {
         attack.setVisible(true);
         addInformation(combat, personnageSelected, "Green", Stat.damage(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
         addInformation(combat, ennemiSelected, "Red", Stat.damage(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
+        Label lbl1 = new Label("Chance de toucher : " + Stat.accuracy(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
+        Label lbl2 = new Label("Chance de toucher : " + Stat.accuracy(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
+        glancing.getChildren().clear();
+        glancing.getChildren().addAll(lbl1, lbl2);
+        glancing.setSpacing(combat.getMaxHeight()/2);
         attack.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
@@ -402,9 +419,11 @@ public class Event {
     private static void initPersonnageSelected(VBox information, int x, int y,
                                                Button stay, AffichePerso affichePerso,
                                                GridPane grilleMvt, GridPane grilleAttack,
-                                               Button move, Button attack, AfficheMap afficheMap, Button carac, VBox combat){
+                                               Button move, Button attack, AfficheMap afficheMap,
+                                               Button carac, VBox combat, VBox glancing){
         information.getChildren().clear();
         combat.getChildren().clear();
+        glancing.getChildren().clear();
         personnageSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
         if(personnageSelected != null){
             addInformation(information, personnageSelected, "Green", 0);
