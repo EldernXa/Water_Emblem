@@ -217,7 +217,7 @@ public class Event {
                             }
                         endTurn.setVisible(false);
                         Etat e = new Etat(listMechant, listGentil, new HeuristiqueBasique(), nameMap);
-                        Etat etat = Algo_Minimax.startMini(e, 2, false);
+                        Etat etat = Algo_Minimax.startMini(e, 1, false);
                         listAction = new ArrayList<>();
                         for(Action a : etat.getListActionprec())
                         {
