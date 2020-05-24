@@ -197,14 +197,10 @@ public class DataMap {
                 return new Bord1();
             case "q":
                 return new Eau1();
-            case "%" :
-                return new Eau2(); // 15
             case "f" :
                 return new Eau3();
             case "d" :
                 return new Eau4();
-            case "¨" :
-                return new Eau5();
             case "+" :
                 return new Eau6();
             case "X" :
@@ -223,8 +219,6 @@ public class DataMap {
                 return new Sol1();
             case "x" :
                 return new Sol2();
-            case "c" :
-                return new Sol3();
             case "n" :
                 return new Sol4();
             case "b" :
