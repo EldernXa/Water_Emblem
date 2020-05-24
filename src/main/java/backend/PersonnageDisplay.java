@@ -176,6 +176,7 @@ public class PersonnageDisplay {
                        Action action, VBox console, Button endTurn){
         if(isAlive()) {
             if (!action.getPosArrive().equal(action.getPosDepart())) {
+                this.setBooleanMove(true);
                 Event.printMoveAction(this, Color.RED, console);
                 affichePerso.move(this, action.getPosArrive(), perso, grilleMvt, afficheMap, console, endTurn);
             }
@@ -187,6 +188,16 @@ public class PersonnageDisplay {
                 this.getPersonnage().attack(action.getPosDefenceur());
                 Event.printAfterAttack(p, hpPersonnage, Color.BLUE, console);
                 Event.printCounterAttack(this, p, hpEnnemi, Color.RED, Color.BLUE, console);
+                if(!this.getBooleanMove())
+                {
+                    if(Event.numEnnemi<Event.listMechantRestant.size()-1)
+                    {
+                        Event.listMechantRestant.get(++Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap,
+                                Event.listAction.get(Event.numEnnemi), console, endTurn);
+                    }else{
+                        Event.numEnnemi=0;
+                    }
+                }
             }
         }
 

@@ -70,6 +70,13 @@ public class AffichePerso {
             p.setBooleanAttack(false);
             p.setBooleanMove(false);
         }
+
+        for(PersonnageDisplay p: listEnnemi){
+            p.setOrientation(0);
+            p.setEndTurn(false);
+            p.setBooleanAttack(false);
+            p.setBooleanMove(false);
+        }
     }
 
     public ArrayList<Coordinate> getCoordinate(Personnage personnage, Coordinate coordinate){
@@ -226,6 +233,7 @@ public class AffichePerso {
                                 Event.numEnnemi++;
                                 Event.listMechantRestant.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap, Event.listAction.get(Event.numEnnemi), console, endTurn);
                             }else{
+                                AffichePerso.newTurn();
                                 endTurn.setVisible(true);
                                 Event.numEnnemi=0;
                             }

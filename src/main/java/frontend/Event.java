@@ -217,7 +217,7 @@ public class Event {
                             }
                         endTurn.setVisible(false);
                         Etat e = new Etat(listMechant, listGentil, new HeuristiqueBasique(), nameMap);
-                        Etat etat = Algo_Minimax.startMini(e, 1, false);
+                        Etat etat = Algo_Minimax.startMini(e, 2, false);
                         listAction = new ArrayList<>();
                         for(Action a : etat.getListActionprec())
                         {
@@ -226,7 +226,42 @@ public class Event {
                         Event.numEnnemi = 0;
                         if(listMechantRestant.size()!=0)
                             listMechantRestant.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap, listAction.get(numEnnemi), console, endTurn);
-                        AffichePerso.newTurn();
+                        //AffichePerso.newTurn();
+                        if(AffichePerso.isWin() || AffichePerso.isLost()) {
+                            Label result = null;
+                            if (AffichePerso.isWin()) {
+                                result = new Label("Vous avez gagne le niveau");
+                                result.setTextFill(Color.BLUE);
+                            }
+                            else if (AffichePerso.isLost()) {
+                                result = new Label("Vous avez perdu le dernier niveau");
+                                result.setTextFill(Color.RED);
+                            }
+                            if(result!=null) {
+                                result.setStyle("-fx-font-size: 25;");
+                            }
+                            information.getChildren().clear();
+                            information.setVisible(false);
+                            stay.setOnAction(null);
+                            AffichePerso.listPersonnage.clear();
+                            AffichePerso.listEnnemi.clear();
+                            console.getChildren().clear();
+                            console.setVisible(false);
+                            personnageSelected = null;
+                            ennemiSelected = null;
+                            perso.getChildren().clear();
+                            group.getChildren().clear();
+                            map.getChildren().clear();
+                            root.getChildren().clear();
+                            scrollPane.setContent(null);
+                            panel.getChildren().clear();
+                            root.setVgap(20);
+                            root.setHgap(20);
+                            root.add(txt, 0, 0);
+                            root.add(choiceMap, 0, 1);
+                            root.add(start, 1, 1);
+                            root.add(result, 0, 2);
+                        }
                     }
                 }
             }
