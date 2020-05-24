@@ -113,9 +113,14 @@ public class AffichageGraphique {
                 group.setAlignment(Pos.TOP_LEFT);
                 afficheMap = new AfficheMap(choiceMap.getValue());
                 panel = new VBox();
+                HBox informationAndCombat = new HBox();
+                VBox combat = new VBox();
+                combat.setMaxHeight(200);
+                combat.setMaxHeight(200);
                 information = new VBox();
-                information.setMaxHeight(150);
-                information.setMinHeight(150);
+                information.setMaxHeight(200);
+                information.setMinHeight(200);
+                informationAndCombat.getChildren().addAll(information, combat);
                 console = new VBox();
                 scrollPane = new ScrollPane();
                 console.heightProperty().addListener(observable->scrollPane.setVvalue(1D));
@@ -128,8 +133,9 @@ public class AffichageGraphique {
                 console.setMinSize(scrollPane.getMinWidth(), scrollPane.getMinHeight());
                 button = new VBox();
                 endTurn.setVisible(true);
+                button.setSpacing(10);
                 button.getChildren().addAll(carac, move, attack, stay, endTurn);
-                panel.getChildren().addAll(information, button, scrollPane);
+                panel.getChildren().addAll(informationAndCombat, button, scrollPane);
                 grilleMvt = initGridPane();
                 grilleAttack = initGridPane();
                 map = afficheMap.getMap();
@@ -139,9 +145,9 @@ public class AffichageGraphique {
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
                 Event.buttonStay(stay, move, attack, endTurn, grilleMvt, grilleAttack, afficheMap, affichePerso, perso, console,
-                        group, map, root, choiceMap, start, txt, information, scrollPane, panel, choiceMap.getValue(), carac);
+                        group, map, root, choiceMap, start, txt, information, scrollPane, panel, choiceMap.getValue(), carac, combat);
                 Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack, information,
-                        move, attack, stay, afficheMap, console, endTurn, carac);
+                        move, attack, stay, afficheMap, console, endTurn, carac, combat);
                 Event.buttonCarac(carac, console);
                 root.getChildren().addAll(map, grilleMvt, grilleAttack, group, perso);
                 window.getChildren().add(panel);

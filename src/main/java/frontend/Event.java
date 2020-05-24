@@ -7,6 +7,7 @@ import IA.HeuristiqueBasique;
 import backend.Coordinate;
 import backend.Personnage;
 import backend.PersonnageDisplay;
+import backend.Stat;
 import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,7 +40,7 @@ public class Event {
 
     static void clickOnMap(GridPane perso, AffichePerso affichePerso, GridPane grilleMvt, GridPane grilleAttack,
                            VBox information, Button move, Button attack, Button stay, AfficheMap afficheMap, VBox console,
-                           Button endTurn, Button carac){
+                           Button endTurn, Button carac, VBox combat){
         perso.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event)
@@ -50,7 +51,7 @@ public class Event {
                 {
                     initPersonnageSelected(information, x, y, stay,
                             affichePerso, grilleMvt, grilleAttack,
-                            move, attack, afficheMap, carac);
+                            move, attack, afficheMap, carac, combat);
                     if(personnageSelected!=null) {
                         carac.setVisible(true);
                         if (!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)) {
@@ -73,8 +74,9 @@ public class Event {
                                             AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
                                         for(Coordinate coordinate:affichePerso.getAttackAreaAfterMovement(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
                                         {
-                                            if(coordinate.equal(new Coordinate(x, y)))
-                                                buttonAttack(x, y, information, attack, grilleMvt, grilleAttack, stay, affichePerso, console);
+                                            if(coordinate.equal(new Coordinate(x, y))) {
+                                                buttonAttack(x, y, information, attack, grilleMvt, grilleAttack, stay, affichePerso, console, combat);
+                                            }
                                         }
                                     }else if(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
                                         AffichePerso.contains(AffichePerso.listPersonnage, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
@@ -83,7 +85,7 @@ public class Event {
                                         grilleMvt.getChildren().clear();
                                         initPersonnageSelected(information, x, y,
                                                 stay, affichePerso, grilleMvt, grilleAttack,
-                                                move, attack, afficheMap, carac);
+                                                move, attack, afficheMap, carac, combat);
                                         if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)) {
                                             stay.setVisible(true);
                                         }
@@ -99,6 +101,7 @@ public class Event {
                                 stay.setVisible(false);
                                 carac.setVisible(false);
                                 information.getChildren().clear();
+                                combat.getChildren().clear();
                                 personnageSelected = null;
                                 grilleMvt.getChildren().clear();
                                 grilleAttack.getChildren().clear();
@@ -110,7 +113,7 @@ public class Event {
                         {
                             initPersonnageSelected(information, x, y,
                                     stay, affichePerso, grilleMvt,
-                                    grilleAttack, move, attack, afficheMap, carac);
+                                    grilleAttack, move, attack, afficheMap, carac, combat);
                             if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)){
                                 stay.setVisible(true);
                             }
@@ -142,7 +145,7 @@ public class Event {
     public static void buttonStay(Button stay, Button move, Button attack, Button endTurn, GridPane grilleMvt, GridPane grilleAttack,
                                   AfficheMap afficheMap, AffichePerso affichePerso, GridPane perso, VBox console,
                                   GridPane group, GridPane map, GridPane root, ChoiceBox<String> choiceMap, Button start, Label txt,
-                                  VBox information, ScrollPane scrollPane, VBox panel, String nameMap, Button carac){
+                                  VBox information, ScrollPane scrollPane, VBox panel, String nameMap, Button carac, VBox combat){
         stay.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
@@ -150,6 +153,7 @@ public class Event {
                 move.setVisible(false);
                 attack.setVisible(false);
                 carac.setVisible(false);
+                combat.getChildren().clear();
                 AffichageGraphique.group.getChildren().clear();
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
@@ -273,7 +277,7 @@ public class Event {
         });
     }
 
-    private static void addInformation(VBox information, PersonnageDisplay personnage,String couleur){
+    private static void addInformation(VBox information, PersonnageDisplay personnage,String couleur, int damage){
         HBox photoNom = new HBox();
         ImageView imgView = new ImageView(personnage.getImageView().getImage());
         imgView.setFitHeight(AffichageGraphique.size);
@@ -281,9 +285,14 @@ public class Event {
         photoNom.getChildren().addAll(imgView, new Label(personnage.getPersonnage().getCaracteristique().getName()));
         HBox pv = new HBox();
         ProgressBar progressBar = new ProgressBar();
-        progressBar.setProgress((float)personnage.getPersonnage().getCaracteristique().getHp()/personnage.getPersonnage().getCaracteristique().getMaxHp());
+        float valueBar = (float)(personnage.getPersonnage().getCaracteristique().getHp()-damage)/personnage.getPersonnage().getCaracteristique().getMaxHp();
+        int valueHp = personnage.getPersonnage().getCaracteristique().getHp()-damage;
+        if(valueHp<=0) {
+            valueBar = 0; valueHp = 0;
+        }
+        progressBar.setProgress(valueBar);
         progressBar.setStyle("-fx-accent: " + couleur  + ";");
-        Label pvLab = new Label(personnage.getPersonnage().getCaracteristique().getHp() + "/" + personnage.getPersonnage().getCaracteristique().getMaxHp());
+        Label pvLab = new Label((int)valueHp + "/" + personnage.getPersonnage().getCaracteristique().getMaxHp());
         pvLab.setFont(new Font(couleur,10));
         pv.getChildren().add(progressBar);
         information.setVisible(true);
@@ -292,17 +301,20 @@ public class Event {
 
     private static void buttonAttack(int x, int y, VBox information, Button attack,
                                      GridPane grilleMvt, GridPane grilleAttack,
-                                     Button stay, AffichePerso affichePerso, VBox console){
+                                     Button stay, AffichePerso affichePerso, VBox console, VBox combat){
         ennemiSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
         information.getChildren().clear();
-        addInformation(information, personnageSelected,"Green");
-        addInformation(information, ennemiSelected,"Red");
+        addInformation(information, personnageSelected,"Green", 0);
+        addInformation(information, ennemiSelected,"Red", 0);
+        combat.getChildren().clear();
         attack.setVisible(true);
-
+        addInformation(combat, personnageSelected, "Green", Stat.damage(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
+        addInformation(combat, ennemiSelected, "Red", Stat.damage(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
         attack.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
                 attack.setVisible(false);
+                combat.getChildren().clear();
                 printAttackAction(personnageSelected, ennemiSelected, Color.web("0x209396"), Color.web("0xAA3436"), console);
                 int hpPersonnage = personnageSelected.getPersonnage().getCaracteristique().getHp();
                 int hpEnnemi = ennemiSelected.getPersonnage().getCaracteristique().getHp();
@@ -333,9 +345,9 @@ public class Event {
                 if(!ennemiSelected.isAlive())
                     ennemiSelected=null;
                 if(personnageSelected != null)
-                    addInformation(information, personnageSelected,"Green");
+                    addInformation(information, personnageSelected,"Green", 0);
                 if(ennemiSelected!=null)
-                    addInformation(information, ennemiSelected,"Red");
+                    addInformation(information, ennemiSelected,"Red", 0);
                 stay.fire();
                 stay.setText("Fin");
             }
@@ -364,11 +376,12 @@ public class Event {
     private static void initPersonnageSelected(VBox information, int x, int y,
                                                Button stay, AffichePerso affichePerso,
                                                GridPane grilleMvt, GridPane grilleAttack,
-                                               Button move, Button attack, AfficheMap afficheMap, Button carac){
+                                               Button move, Button attack, AfficheMap afficheMap, Button carac, VBox combat){
         information.getChildren().clear();
+        combat.getChildren().clear();
         personnageSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
         if(personnageSelected != null){
-            addInformation(information, personnageSelected, "Green");
+            addInformation(information, personnageSelected, "Green", 0);
         }
         if(personnageSelected!=null && !AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)&&
             !personnageSelected.getEndTurn()){
