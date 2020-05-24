@@ -4,58 +4,47 @@ import java.util.Random;
 
 public class Stat {
 
-    public static int damage(Carac attacker, Carac defender){
-        int accu = accuracy(attacker, defender);
-        if(!rate(accu)){
-            return 0;
-        }
+    public static int damage(Carac attacker, Carac defender) {
+
         int att = 0;
         int def = 0;
-        if(attacker.getWep1().compareTo("Magie") == 0){
+        if (attacker.getWep1().compareTo("Magie") == 0) {
             att += attacker.getMag();
             att += weaponTriangle(attacker.getWep1(), defender.getWep1());
-        }
-        else {
+        } else {
             att += attacker.getStr();
 
         }
-        if(defender.getWep1().compareTo("Magie") == 0){
+        if (defender.getWep1().compareTo("Magie") == 0) {
             def += defender.getRes();
-        }
-        else {
+        } else {
             def += defender.getDef();
         }
-        int crit = critical(attacker, defender);
-        if(!rate(crit)){
-            crit = 1;
-        }
-        else {
-            crit = 3;
-        }
-        int damage = (att - def) * crit ;
 
-        if(attacker.getSpd() - defender.getSpd() >= 4){
-            damage = (damage * 2);
+        int adv = defender.getDeplacement();
+        if (attacker.getType().equals("Sniper") && (adv == 2 || adv == 3)) {
+            att = att * 2;
         }
-        if(damage < 0 ){
+
+        int damage = (att - def);
+
+
+        if (damage < 0) {
             return 0;
         }
-        int adv = defender.getDeplacement();
 
-        if(attacker.getType().equals("Sniper") && (adv == 2 || adv == 3)) {
-            return  damage * 2;
-        }
+
         return damage;
     }
 
-    private static int critical(Carac attacker, Carac defender){
+    private static int critical(Carac attacker, Carac defender) {
         int crRate = attacker.getSkl() / 2;
         int crEvade = defender.getLck();
         return crRate - crEvade;
     }
 
-    private static boolean rate(int rate){
-        if(rate >= 100){
+    private static boolean rate(int rate) {
+        if (rate >= 100) {
             return true;
         }
         Random r = new Random();
@@ -63,91 +52,151 @@ public class Stat {
         return x <= rate;
 
     }
-    public static int accuracy(Carac attacker, Carac defender){
-        int accu = ((attacker.getSkl() *3) + (attacker.getLck()) + weaponTriangle(attacker.getWep1(), defender.getWep1()) * 15) *3;
+
+    public static int accuracy(Carac attacker, Carac defender) {
+        //System.out.println("skl " + attacker.getSkl() +" lck " + attacker.getLck());
+        int accu = (((attacker.getSkl()) + (attacker.getLck())) * 9 + weaponTriangle(attacker.getWep1(), defender.getWep1()) * 7);
         int avoid = defender.getSpd() + defender.getLck();
 
+        System.out.println("accu " + accu);
+        System.out.println("avoid " + avoid);
+        System.out.println();
         int x = accu - avoid;
-        if ((x) <= 15){
-            if(x <= 0){
+
+        if ((x) <= 15) {
+            if (x <= 0) {
                 x = 0;
             }
             Random r = new Random();
             return r.nextInt(15 - x) + x;
         }
+
         return x;
     }
 
 
     //Epee;Lance;Hache
-    public static int weaponTriangle(String wepAttack, String wepDefence){
-        if(wepAttack.compareTo(wepDefence) == 0 || wepAttack.compareTo("Magie") == 0 ||wepDefence.compareTo("Magie") == 0 ){
+    public static int weaponTriangle(String wepAttack, String wepDefence) {
+        if (wepAttack.compareTo(wepDefence) == 0 || wepAttack.compareTo("Magie") == 0 || wepDefence.compareTo("Magie") == 0) {
             return 0;
-        }
+        } else if (wepAttack.compareTo("Epee") == 0) {
 
-        else if(wepAttack.compareTo("Epee") == 0){
-
-            if(wepDefence.compareTo("Hache") == 0){
+            if (wepDefence.compareTo("Hache") == 0) {
                 return 1;
-            }
-            else{
+            } else {
                 return -1;
             }
-        }
+        } else if (wepAttack.compareTo("Hache") == 0) {
 
-        else if(wepAttack.compareTo("Hache") == 0){
-
-            if(wepDefence.compareTo("Lance") == 0){
+            if (wepDefence.compareTo("Lance") == 0) {
                 return 1;
-            }
-            else{
+            } else {
                 return -1;
             }
-        }
+        } else if (wepAttack.compareTo("Lance") == 0) {
 
-        else if(wepAttack.compareTo("Lance") == 0){
-
-            if(wepDefence.compareTo("Epee") == 0){
+            if (wepDefence.compareTo("Epee") == 0) {
                 return 1;
-            }
-            else{
+            } else {
                 return -1;
             }
         }
         return 0; //nomalement inutile
     }
 
-    public static void calculerStats(Personnage perso){
+    public static void calculerStats(Personnage perso) {
         Carac caracteristique = perso.getCaracteristique();
         String arme1 = caracteristique.getWep1();
 
         int str = caracteristique.getStr();
-        switch (arme1){
-            case "Epee":{
+        int spd = caracteristique.getSpd();
+        int skl = caracteristique.getSkl();
+        int mag = caracteristique.getMag();
+        int lck = caracteristique.getLck();
+        switch (arme1) {
+            case "Epee": {
 
                 caracteristique.setStr(str + 4);
+                caracteristique.setSpd(spd + 2);
                 break;
             }
             case "Lance": {
                 caracteristique.setStr(str + 3);
+                caracteristique.setLck(lck + 2);
 
                 break;
             }
             case "Hache": {
 
-                caracteristique.setStr(str + 2);
+                caracteristique.setStr(str + 6);
                 break;
             }
-            case "Arc" : {
+            case "Arc": {
                 caracteristique.setStr(str + 2);
+                caracteristique.setSkl(skl + 3);
                 caracteristique.setPortee(2);
                 break;
             }
-            case "Magie" : {
+            case "Magie": {
+                caracteristique.setMag(mag + 4);
                 caracteristique.setPortee(2);
                 break;
             }
 
         }
+    }
+
+    public static int damageAfterCalc(Carac attacker, Carac defender) {
+//        System.out.println(attacker.getName() +" attaque "+ defender.getName());
+        int accu = accuracy(attacker, defender);
+//        System.out.println("accuracy :" + accu);
+//        System.out.println();
+        if (!rate(accu)) {
+            return 0;
+        }
+        int att = 0;
+        int def = 0;
+        if (attacker.getWep1().compareTo("Magie") == 0) {
+            att += attacker.getMag();
+            att += weaponTriangle(attacker.getWep1(), defender.getWep1());
+        } else {
+            att += attacker.getStr();
+
+        }
+        if (defender.getWep1().compareTo("Magie") == 0) {
+            def += defender.getRes();
+        } else {
+            def += defender.getDef();
+        }
+        int crit = critical(attacker, defender);
+        if (!rate(crit)) {
+            crit = 1;
+        } else {
+            crit = 3;
+        }
+        int adv = defender.getDeplacement();
+        if (attacker.getType().equals("Sniper") && (adv == 2 || adv == 3)) {
+            att = att * 2;
+        }
+
+        System.out.println("att " + att + " def " + def);
+        int damage = (att - def) * crit;
+
+        if (attacker.getSpd() - defender.getSpd() >= 4) {
+
+            if (rate(accu)) {
+                if (rate(critical(attacker, defender))) {
+                    damage = (damage + (damage * 3));
+                } else {
+                    damage = damage * 2;
+                }
+            }
+        }
+        if (damage < 0) {
+            return 0;
+        }
+
+
+        return damage;
     }
 }
