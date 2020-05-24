@@ -8,7 +8,7 @@ import backend.field.Field;
 public abstract class Volcano extends Field {
 
     public Volcano(String fieldName){
-        super(fieldName);
+        super(fieldName, true);
     }
 
     public void affect(Personnage personnage) {

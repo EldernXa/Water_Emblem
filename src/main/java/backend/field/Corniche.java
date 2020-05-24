@@ -9,7 +9,7 @@ import backend.field.Field;
 public abstract class Corniche extends Field {
 
     public Corniche(String nameField){
-        super(nameField);
+        super(nameField, true);
     }
 
     public void affect(Personnage personnage){

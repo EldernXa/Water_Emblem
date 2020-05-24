@@ -5,7 +5,7 @@ import backend.Personnage;
 
 public abstract class Gravier extends Field {
     public Gravier(String nomImg) {
-        super(nomImg);
+        super(nomImg, true);
     }
 
 

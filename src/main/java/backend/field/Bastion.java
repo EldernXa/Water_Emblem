@@ -7,7 +7,7 @@ public class Bastion extends Field{
 
 
         public Bastion(){
-            super("bastion");
+            super("bastion", true);
         }
 
         public void affect(Personnage personnage){
