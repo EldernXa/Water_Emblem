@@ -40,6 +40,11 @@ public class Stat {
         if(damage < 0 ){
             return 0;
         }
+        int adv = defender.getDeplacement();
+
+        if(attacker.getType().equals("Sniper") && (adv == 2 || adv == 3)) {
+            return  damage * 2;
+        }
         return damage;
     }
 
