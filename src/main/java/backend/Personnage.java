@@ -32,11 +32,11 @@ public class Personnage {
 
         Personnage adversaire = AffichePerso.getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
         if(adversaire!=null) {
-            int damage = Stat.damage(caracteristique, adversaire.getCaracteristique());
+            int damage = Stat.damageAfterCalc(caracteristique, adversaire.getCaracteristique());
             if(caracteristique.getHp() > 0) {
                 adversaire.attacked(damage);
             }
-            damage = Stat.damage(adversaire.getCaracteristique(), caracteristique);
+            damage = Stat.damageAfterCalc(adversaire.getCaracteristique(), caracteristique);
             if(adversaire.getCaracteristique().getHp() > 0) {
                 this.attacked(damage);
             }
@@ -46,14 +46,14 @@ public class Personnage {
     public void attackHorsPortee(Coordinate coordinate){
         Personnage adversaire = AffichePerso.getPersonnageAt(coordinate);
         if(adversaire != null){
-            int damage = Stat.damage(caracteristique, adversaire.getCaracteristique());
+            int damage = Stat.damageAfterCalc(caracteristique, adversaire.getCaracteristique());
             if(caracteristique.getHp()>0)
                 adversaire.attacked(damage);
         }
     }
 
     public void attack(Personnage adversaire){
-        int damage = Stat.damage(caracteristique, adversaire.caracteristique);
+        int damage = Stat.damageAfterCalc(caracteristique, adversaire.caracteristique);
         if(caracteristique.getHp() > 0) {
             adversaire.attacked(damage);
         }
