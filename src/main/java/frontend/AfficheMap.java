@@ -4,6 +4,7 @@ import backend.Coordinate;
 import backend.Personnage;
 import backend.PersonnageDisplay;
 import backend.data.DataMap;
+import backend.field.Field;
 import javafx.scene.layout.*;
 
 import java.util.ArrayList;
@@ -47,6 +48,17 @@ public class AfficheMap {
                 }
             }
         }
+    }
+
+    public Field getFieldCoordinate(Coordinate coordinate){
+        for(ArrayList<Coordinate> array: dataMap.getcoordinates())
+        {
+            for(Coordinate co : array){
+                if(coordinate.equal(co))
+                    return co.getField();
+            }
+        }
+        return null;
     }
 
     public void disaffectField(PersonnageDisplay personnage){
