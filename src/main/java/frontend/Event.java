@@ -157,7 +157,7 @@ public class Event {
                     Label lbl1 = new Label("-> fin de tour pour ");
                     lbl1.setTextFill(Color.WHITE);
                     Label lbl2 = new Label(personnageSelected.getPersonnage().getCaracteristique().getName());
-                    lbl2.setTextFill(Color.BLUE);
+                    lbl2.setTextFill(Color.web("0x209396"));
                     HBox hbox = new HBox();
                     hbox.getChildren().addAll(lbl1, lbl2);
                     console.getChildren().add(hbox);
@@ -303,22 +303,22 @@ public class Event {
             @Override
             public void handle(ActionEvent event){
                 attack.setVisible(false);
-                printAttackAction(personnageSelected, ennemiSelected, Color.BLUE, Color.RED, console);
+                printAttackAction(personnageSelected, ennemiSelected, Color.web("0x209396"), Color.web("0xAA3436"), console);
                 int hpPersonnage = personnageSelected.getPersonnage().getCaracteristique().getHp();
                 int hpEnnemi = ennemiSelected.getPersonnage().getCaracteristique().getHp();
                 for(Coordinate c:affichePerso.getAttackAreaAfterMovement(ennemiSelected.getPersonnage(), ennemiSelected.getCoordinate())){
                     if(c.equal(personnageSelected.getCoordinate())) {
                         personnageSelected.getPersonnage().attack(ennemiSelected.getCoordinate());
                         personnageSelected.setBooleanAttack(true);
-                        printAfterAttack(ennemiSelected, hpEnnemi, Color.RED, console);
+                        printAfterAttack(ennemiSelected, hpEnnemi, Color.web("0xAA3436"), console);
 
-                        printCounterAttack(personnageSelected, ennemiSelected, hpPersonnage, Color.BLUE, Color.RED, console);
+                        printCounterAttack(personnageSelected, ennemiSelected, hpPersonnage, Color.web("0x209396"), Color.web("0xAA3436"), console);
                     }
                 }
                 if(!personnageSelected.getBooleanAttack()){
                     personnageSelected.getPersonnage().attackHorsPortee(ennemiSelected.getCoordinate());
                     personnageSelected.setBooleanAttack(true);
-                    printAfterAttack(ennemiSelected, hpEnnemi, Color.RED, console);
+                    printAfterAttack(ennemiSelected, hpEnnemi, Color.web("0xAA3436"), console);
                 }
                 if(personnageSelected.getPersonnage().getCaracteristique().getHp()<=0)
                     personnageSelected.setDeath();
@@ -352,7 +352,7 @@ public class Event {
             public void handle(ActionEvent event){
                 move.setVisible(false);
                 personnageSelected.setBooleanMove(true);
-                printMoveAction(personnageSelected, Color.BLUE, console);
+                printMoveAction(personnageSelected, Color.web("0x209396"), console);
                 affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt, afficheMap, console, endTurn);
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
@@ -466,7 +466,7 @@ public class Event {
                     Label lbl1 = new Label("-------------------------------------");
                     lbl1.setTextFill(Color.YELLOW);
                     Label lbl2 = new Label(personnageSelected.getPersonnage().getCaracteristique().getName());
-                    lbl2.setTextFill(Color.BLUE);
+                    lbl2.setTextFill(Color.web("0x209396"));
                     Label lbl3 = new Label("-------------------------------------");
                     lbl3.setTextFill(Color.YELLOW);
                     HBox hbox = new HBox();
@@ -489,7 +489,7 @@ public class Event {
                     lbl1 = new Label("-------------------------------------");
                     lbl1.setTextFill(Color.YELLOW);
                     lbl2 = new Label(personnageSelected.getPersonnage().getCaracteristique().getName());
-                    lbl2.setTextFill(Color.BLUE);
+                    lbl2.setTextFill(Color.web("0x209396"));
                     lbl3 = new Label("-------------------------------------");
                     lbl3.setTextFill(Color.YELLOW);
                     hbox = new HBox();

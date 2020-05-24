@@ -177,17 +177,17 @@ public class PersonnageDisplay {
         if(isAlive()) {
             if (!action.getPosArrive().equal(action.getPosDepart())) {
                 this.setBooleanMove(true);
-                Event.printMoveAction(this, Color.RED, console);
+                Event.printMoveAction(this, Color.web("0xAA3436"), console);
                 affichePerso.move(this, action.getPosArrive(), perso, grilleMvt, afficheMap, console, endTurn);
             }
             PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(action.getPosDefenceur());
             if (p != null) {
                 int hpEnnemi = getPersonnage().getCaracteristique().getHp();
                 int hpPersonnage = p.getPersonnage().getCaracteristique().getHp();
-                Event.printAttackAction(this, p, Color.RED, Color.BLUE, console);
+                Event.printAttackAction(this, p, Color.web("0xAA3436"), Color.web("0x209396"), console);
                 this.getPersonnage().attack(action.getPosDefenceur());
-                Event.printAfterAttack(p, hpPersonnage, Color.BLUE, console);
-                Event.printCounterAttack(this, p, hpEnnemi, Color.RED, Color.BLUE, console);
+                Event.printAfterAttack(p, hpPersonnage, Color.web("0x209396"), console);
+                Event.printCounterAttack(this, p, hpEnnemi, Color.web("0xAA3436"), Color.web("0x209396"), console);
                 if(!this.getBooleanMove())
                 {
                     if(Event.numEnnemi<Event.listMechantRestant.size()-1)
