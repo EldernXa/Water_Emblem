@@ -346,7 +346,7 @@ public class Event {
         lbl1.setTextFill(Color.WHITE);
         Label lbl2 = new Label(personnage.getPersonnage().getCaracteristique().getName());
         lbl2.setTextFill(color);
-        Label lbl3 = new Label(" se déplace");
+        Label lbl3 = new Label(" se deplace");
         lbl3.setTextFill(Color.WHITE);
         HBox hbox = new HBox();
         hbox.getChildren().addAll(lbl1, lbl2, lbl3);
@@ -375,11 +375,11 @@ public class Event {
         Label lbl3;
         if(hpEnnemi==ennemi.getPersonnage().getCaracteristique().getHp())
         {
-            lbl3 = new Label(" n'a subit aucun dégâts");
+            lbl3 = new Label(" n'a subit aucun degats");
         }else if(!ennemi.isAlive())
             lbl3 = new Label(" est mort");
         else
-            lbl3 = new Label(" a subit " + (hpEnnemi-ennemi.getPersonnage().getCaracteristique().getHp() + " dégâts"));
+            lbl3 = new Label(" a subit " + (hpEnnemi-ennemi.getPersonnage().getCaracteristique().getHp() + " degats"));
         lbl3.setTextFill(Color.WHITE);
         HBox hbox = new HBox();
         hbox.getChildren().addAll(lbl1, lbl2, lbl3);
@@ -402,11 +402,11 @@ public class Event {
         lbl2 = new Label(personnage.getPersonnage().getCaracteristique().getName());
         lbl2.setTextFill(colorPerso);
         if(hpPersonnage==personnage.getPersonnage().getCaracteristique().getHp())
-            lbl3 = new Label(" n'a subit aucun dégâts");
+            lbl3 = new Label(" n'a subit aucun degats");
         else if(!personnage.isAlive())
             lbl3 = new Label(" est mort");
         else
-            lbl3 = new Label(" a subit " + (hpPersonnage-personnage.getPersonnage().getCaracteristique().getHp()) + " dégâts");
+            lbl3 = new Label(" a subit " + (hpPersonnage-personnage.getPersonnage().getCaracteristique().getHp()) + " degats");
         lbl3.setTextFill(Color.WHITE);
         hbox = new HBox();
         hbox.getChildren().addAll(lbl1, lbl2, lbl3);
