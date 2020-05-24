@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 public class Plaine extends Field {
 
     public Plaine(){
-        super("plaine");
+        super("plaine", true);
     }
 
     public void affect(Personnage personnage) {

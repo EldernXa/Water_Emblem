@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 public class Forest extends Field {
 
     public Forest(){
-        super("forest");
+        super("forest", true);
     }
 
     public void affect(Personnage personnage){

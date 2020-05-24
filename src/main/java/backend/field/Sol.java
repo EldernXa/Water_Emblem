@@ -4,7 +4,7 @@ import backend.Personnage;
 
 public class Sol extends Field {
     public Sol() {
-        super("s1");
+        super("s1", true);
     }
 
     @Override

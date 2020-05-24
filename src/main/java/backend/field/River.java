@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 public class River extends Field {
 
     public River(){
-        super("river");
+        super("river", true);
     }
 
     public void affect(Personnage personnage){
