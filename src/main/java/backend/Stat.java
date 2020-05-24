@@ -28,6 +28,10 @@ public class Stat {
 
         int damage = (att - def);
 
+        if (attacker.getSpd() - defender.getSpd() >= 4) {
+            damage = damage * 2;
+        }
+
 
         if (damage < 0) {
             return 0;
