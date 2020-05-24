@@ -72,11 +72,22 @@ public class Event {
                                     }
                                     else if(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
                                             AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
+                                        boolean verif = false;
                                         for(Coordinate coordinate:affichePerso.getAttackAreaAfterMovement(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
                                         {
                                             if(coordinate.equal(new Coordinate(x, y))) {
                                                 buttonAttack(x, y, information, attack, grilleMvt, grilleAttack, stay, affichePerso, console, combat);
+                                                verif = true;
                                             }
+                                        }
+                                        if(!verif) {
+                                            ennemiSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
+                                            information.getChildren().clear();
+                                            combat.getChildren().clear();
+                                            addInformation(information, personnageSelected, "Green", 0);
+                                            addInformation(information, ennemiSelected, "Red", 0);
+                                            addInformation(combat, personnageSelected, "Green", Stat.damage(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
+                                            addInformation(combat, ennemiSelected, "Red", Stat.damage(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
                                         }
                                     }else if(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
                                         AffichePerso.contains(AffichePerso.listPersonnage, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
@@ -91,6 +102,19 @@ public class Event {
                                         }
                                         }
                                     }
+                                }
+                            }
+                            listMvt = affichePerso.getAttackCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate());
+                            for(Coordinate c:listMvt){
+                                PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(c);
+                                if(c.equal(new Coordinate(x, y)) && p!=null &&
+                                    AffichePerso.contains(AffichePerso.listEnnemi, p)){
+                                    information.getChildren().clear();
+                                    combat.getChildren().clear();
+                                    addInformation(information, personnageSelected, "Green", 0);
+                                    addInformation(information, ennemiSelected, "Red", 0);
+                                    addInformation(combat, personnageSelected, "Green", Stat.damage(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
+                                    addInformation(combat, ennemiSelected, "Red", Stat.damage(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
                                 }
                             }
                         }
