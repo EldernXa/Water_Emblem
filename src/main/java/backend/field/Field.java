@@ -13,7 +13,7 @@ import java.io.FileNotFoundException;
 public abstract class Field {
     Pane apsect;
     ImageView imgView;
-    boolean crossable;
+    private boolean crossable;
 
     public Field(String nomImg, boolean crossable){
         apsect = new Pane();
@@ -28,12 +28,25 @@ public abstract class Field {
         }
     }
 
+    public boolean isCrossable(){
+        return this.crossable;
+    }
+
     public Pane getApsect() {
         return apsect;
     }
 
     public ImageView getImgView() {
         return imgView;
+    }
+
+    public boolean compareField(Field field){
+        if(this.getClass()!=field.getClass()){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     public abstract void affect(Personnage personnage);
