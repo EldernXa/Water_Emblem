@@ -226,6 +226,7 @@ public class Event {
                         Event.numEnnemi = 0;
                         if(listMechantRestant.size()!=0)
                             listMechantRestant.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap, listAction.get(numEnnemi), console, endTurn);
+                        AffichePerso.newTurn();
                     }
                 }
             }
