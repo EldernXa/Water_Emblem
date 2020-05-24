@@ -5,7 +5,7 @@ import backend.Personnage;
 
 public class Trappe extends Field {
     public Trappe() {
-        super("trappe");
+        super("trappe",true);
     }
 
     @Override

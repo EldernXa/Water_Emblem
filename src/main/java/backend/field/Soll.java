@@ -4,7 +4,7 @@ import backend.Personnage;
 
 public abstract class Soll extends Field {
     public Soll(String nomImg) {
-        super(nomImg);
+        super(nomImg,true);
     }
     public void affect(Personnage personnage){
 

@@ -5,7 +5,7 @@ import backend.Personnage;
 
 public  abstract class Eau extends Field{
     public Eau(String nomImg) {
-        super(nomImg);
+        super(nomImg,true);
     }
     public void affect(Personnage personnage){
         Carac caracPerso = personnage.getCaracteristique();

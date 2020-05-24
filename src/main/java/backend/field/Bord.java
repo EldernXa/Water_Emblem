@@ -5,7 +5,7 @@ import backend.Personnage;
 
 public abstract class Bord extends Field {
     public Bord(String nomImg) {
-        super(nomImg);
+        super(nomImg,false);
     }
     public void affect(Personnage personnage){
 

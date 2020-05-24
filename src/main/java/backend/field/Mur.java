@@ -4,7 +4,7 @@ import backend.Personnage;
 
 public abstract class Mur extends Field {
     public Mur(String nomImg) {
-        super(nomImg);
+        super(nomImg,false);
     }
     public void affect(Personnage personnage){
 

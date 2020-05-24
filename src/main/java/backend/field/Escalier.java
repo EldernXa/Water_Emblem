@@ -4,7 +4,7 @@ import backend.Personnage;
 
 public abstract class Escalier extends Field{
     public Escalier(String nomImg) {
-        super(nomImg);
+        super(nomImg,true);
     }
 
     public void affect(Personnage personnage){

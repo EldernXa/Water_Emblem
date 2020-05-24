@@ -5,7 +5,7 @@ import backend.Personnage;
 
 public class Escalier3 extends Field {
     public Escalier3() {
-        super("hautEscalier");
+        super("hautEscalier",true);
     }
 
     @Override
