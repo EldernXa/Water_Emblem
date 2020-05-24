@@ -89,8 +89,18 @@ public class Event {
                                             addInformation(information, ennemiSelected, "Red", 0);
                                             addInformation(combat, personnageSelected, "Green", Stat.damage(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
                                             addInformation(combat, ennemiSelected, "Red", Stat.damage(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
-                                            Label lbl1 = new Label("Chance de toucher : " + Stat.accuracy(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
-                                            Label lbl2 = new Label("Chance de toucher : " + Stat.accuracy(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
+                                            int glancingPersonnage = Stat.accuracy(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique());
+                                            if(glancingPersonnage>100)
+                                                glancingPersonnage=100;
+                                            else if(glancingPersonnage<0)
+                                                glancingPersonnage=0;
+                                            int glancingEnnemi = Stat.accuracy(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique());
+                                            if(glancingEnnemi>100)
+                                                glancingEnnemi=100;
+                                            else if(glancingEnnemi<0)
+                                                glancingEnnemi=0;
+                                            Label lbl1 = new Label("Chance de toucher : " + glancingPersonnage + " %");
+                                            Label lbl2 = new Label("Chance de toucher : " + glancingEnnemi + " %");
                                             glancing.getChildren().clear();
                                             glancing.getChildren().addAll(lbl1, lbl2);
                                             glancing.setSpacing(combat.getMaxHeight()/2);
@@ -122,8 +132,18 @@ public class Event {
                                     addInformation(information, ennemiSelected, "Red", 0);
                                     addInformation(combat, personnageSelected, "Green", Stat.damage(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
                                     addInformation(combat, ennemiSelected, "Red", Stat.damage(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
-                                    Label lbl1 = new Label("Chance de toucher : " + Stat.accuracy(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
-                                    Label lbl2 = new Label("Chance de toucher : " + Stat.accuracy(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
+                                    int glancingPersonnage = Stat.accuracy(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique());
+                                    if(glancingPersonnage>100)
+                                        glancingPersonnage=100;
+                                    else if(glancingPersonnage<0)
+                                        glancingPersonnage=0;
+                                    int glancingEnnemi = Stat.accuracy(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique());
+                                    if(glancingEnnemi>100)
+                                        glancingEnnemi=100;
+                                    else if(glancingEnnemi<0)
+                                        glancingEnnemi=0;
+                                    Label lbl1 = new Label("Chance de toucher : " + glancingPersonnage + " %");
+                                    Label lbl2 = new Label("Chance de toucher : " + glancingEnnemi + " %");
                                     glancing.getChildren().clear();
                                     glancing.getChildren().addAll(lbl1, lbl2);
                                     glancing.setSpacing(combat.getMaxHeight()/2);
@@ -348,8 +368,18 @@ public class Event {
         attack.setVisible(true);
         addInformation(combat, personnageSelected, "Green", Stat.damage(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
         addInformation(combat, ennemiSelected, "Red", Stat.damage(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
-        Label lbl1 = new Label("Chance de toucher : " + Stat.accuracy(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique()));
-        Label lbl2 = new Label("Chance de toucher : " + Stat.accuracy(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
+        int glancingPersonnage = Stat.accuracy(personnageSelected.getPersonnage().getCaracteristique(), ennemiSelected.getPersonnage().getCaracteristique());
+        if(glancingPersonnage>100)
+            glancingPersonnage=100;
+        else if(glancingPersonnage<0)
+            glancingPersonnage=0;
+        int glancingEnnemi = Stat.accuracy(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique());
+        if(glancingEnnemi>100)
+            glancingEnnemi=100;
+        else if(glancingEnnemi<0)
+            glancingEnnemi=0;
+        Label lbl1 = new Label("Chance de toucher : " + glancingPersonnage + " %");
+        Label lbl2 = new Label("Chance de toucher : " + glancingEnnemi + " %");
         glancing.getChildren().clear();
         glancing.getChildren().addAll(lbl1, lbl2);
         glancing.setSpacing(combat.getMaxHeight()/2);
