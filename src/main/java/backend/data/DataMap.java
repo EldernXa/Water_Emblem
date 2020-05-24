@@ -235,6 +235,21 @@ public class DataMap {
                 return new Ponton1();
             case "D" : 
                 return new Ponton2();
+            case "z" :
+                return new CoqueD();
+            case "e" :
+                return new CoqueG();
+            case "r" :
+                return new CoqueHaut();
+            case "t" :
+                return new CoqueHautD();
+
+            case "y" :
+                return new CoqueHautG();
+            case "u" :
+                return new CoqueM();
+            case "i" :
+                return new CoquePonton();
 
             default:
                 return new Plaine();
