@@ -38,7 +38,7 @@ public class Event {
     static public ArrayList<PersonnageDisplay> listMechantRestant = null;
 
     static void clickOnMap(GridPane perso, AffichePerso affichePerso, GridPane grilleMvt, GridPane grilleAttack,
-                           VBox information, Button move, Button attack, Button stay, AfficheMap afficheMap, VBox console){
+                           VBox information, Button move, Button attack, Button stay, AfficheMap afficheMap, VBox console, Button endTurn){
         perso.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event)
@@ -63,7 +63,7 @@ public class Event {
                             for (Coordinate c : listMvt) {
                                 if (c.equal(new Coordinate(x, y))) {
                                     if (AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)) == null && !personnageSelected.getBooleanMove()) {
-                                        buttonMove(x, y, move, affichePerso, perso, grilleMvt, afficheMap, grilleAttack, stay, console);
+                                        buttonMove(x, y, move, affichePerso, perso, grilleMvt, afficheMap, grilleAttack, stay, console, endTurn);
                                     }
                                     else if(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
                                             AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
@@ -135,7 +135,7 @@ public class Event {
         }
     }
 
-    public static void buttonStay(Button stay, Button move, Button attack, GridPane grilleMvt, GridPane grilleAttack,
+    public static void buttonStay(Button stay, Button move, Button attack, Button endTurn, GridPane grilleMvt, GridPane grilleAttack,
                                   AfficheMap afficheMap, AffichePerso affichePerso, GridPane perso, VBox console,
                                   GridPane group, GridPane map, GridPane root, ChoiceBox<String> choiceMap, Button start, Label txt,
                                   VBox information, ScrollPane scrollPane, VBox panel, String nameMap){
@@ -163,12 +163,6 @@ public class Event {
                 if(AffichePerso.endTurn())
                 {
                     afficheMap.effectField(AffichePerso.listPersonnage);
-                    for(PersonnageDisplay p: AffichePerso.listPersonnage)
-                    {
-                        p.setOrientation(0);
-                        p.setBooleanAttack(false);
-                        p.setBooleanMove(false);
-                    }
                     if(AffichePerso.isWin() || AffichePerso.isLost()) {
                         Label result = null;
                         if (AffichePerso.isWin()) {
@@ -221,6 +215,7 @@ public class Event {
                                         new Coordinate(p.getCoordinate().getX(), p.getCoordinate().getY())));
                                 listMechantRestant.add(p);
                             }
+                        endTurn.setVisible(false);
                         Etat e = new Etat(listMechant, listGentil, new HeuristiqueBasique(), nameMap);
                         Etat etat = Algo_Minimax.startMini(e, 1, false);
                         listAction = new ArrayList<>();
@@ -229,8 +224,8 @@ public class Event {
                             listAction.add(a.cloner());
                         }
                         Event.numEnnemi = 0;
-                        listMechantRestant.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap, listAction.get(numEnnemi), console);
-                        AffichePerso.newTurn();
+                        if(listMechantRestant.size()!=0)
+                            listMechantRestant.get(Event.numEnnemi).action(affichePerso, perso, grilleMvt, afficheMap, listAction.get(numEnnemi), console, endTurn);
                     }
                 }
             }
@@ -308,7 +303,7 @@ public class Event {
 
     public static void buttonMove(int x, int y, Button move, AffichePerso affichePerso,
                                   GridPane perso, GridPane grilleMvt, AfficheMap afficheMap,
-                                  GridPane grilleAttack, Button stay, VBox console){
+                                  GridPane grilleAttack, Button stay, VBox console, Button endTurn){
         move.setVisible(true);
         move.setOnAction(new EventHandler<ActionEvent>(){
             @Override
@@ -316,7 +311,7 @@ public class Event {
                 move.setVisible(false);
                 personnageSelected.setBooleanMove(true);
                 printMoveAction(personnageSelected, Color.BLUE, console);
-                affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt, afficheMap, console);
+                affichePerso.move(personnageSelected, new Coordinate(x, y), perso, grilleMvt, afficheMap, console, endTurn);
                 grilleMvt.getChildren().clear();
                 grilleAttack.getChildren().clear();
                 stay.setText("Fin");

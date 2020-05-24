@@ -75,8 +75,10 @@ public class AffichageGraphique {
         endTurn.setOnAction(new EventHandler<ActionEvent>(){
            @Override
            public void handle(ActionEvent evnt){
-               for(PersonnageDisplay p: AffichePerso.listPersonnage)
+               for(PersonnageDisplay p: AffichePerso.listPersonnage) {
+                   p.setOrientation(5);
                    p.setEndTurn(true);
+               }
                stay.fire();
            }
         });
@@ -134,10 +136,10 @@ public class AffichageGraphique {
                 map.setAlignment(Pos.TOP_LEFT);
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
-                Event.buttonStay(stay, move, attack, grilleMvt, grilleAttack, afficheMap, affichePerso, perso, console,
+                Event.buttonStay(stay, move, attack, endTurn, grilleMvt, grilleAttack, afficheMap, affichePerso, perso, console,
                         group, map, root, choiceMap, start, txt, information, scrollPane, panel, choiceMap.getValue());
                 Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack, information,
-                        move, attack, stay, afficheMap, console);
+                        move, attack, stay, afficheMap, console, endTurn);
                 root.getChildren().addAll(map, grilleMvt, grilleAttack, group, perso);
                 window.getChildren().add(panel);
                 afficheMap.effectField(AffichePerso.listPersonnage);

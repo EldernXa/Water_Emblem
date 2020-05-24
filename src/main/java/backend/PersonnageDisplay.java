@@ -4,6 +4,7 @@ import IA.Action;
 import frontend.AfficheMap;
 import frontend.AffichePerso;
 import frontend.Event;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -172,11 +173,11 @@ public class PersonnageDisplay {
     }
 
     public void action(AffichePerso affichePerso, GridPane perso, GridPane grilleMvt, AfficheMap afficheMap,
-                       Action action, VBox console){
+                       Action action, VBox console, Button endTurn){
         if(isAlive()) {
             if (!action.getPosArrive().equal(action.getPosDepart())) {
                 Event.printMoveAction(this, Color.RED, console);
-                affichePerso.move(this, action.getPosArrive(), perso, grilleMvt, afficheMap, console);
+                affichePerso.move(this, action.getPosArrive(), perso, grilleMvt, afficheMap, console, endTurn);
             }
             PersonnageDisplay p = AffichePerso.getPersonnageDisplayAt(action.getPosDefenceur());
             if (p != null) {

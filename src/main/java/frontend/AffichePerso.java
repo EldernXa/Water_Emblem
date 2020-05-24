@@ -65,6 +65,7 @@ public class AffichePerso {
 
     public static void newTurn(){
         for(PersonnageDisplay p: listPersonnage){
+            p.setOrientation(0);
             p.setEndTurn(false);
             p.setBooleanAttack(false);
             p.setBooleanMove(false);
@@ -158,7 +159,7 @@ public class AffichePerso {
     }
 
     public void move(PersonnageDisplay persoToMove, Coordinate coordinate, GridPane perso,
-                     GridPane grilleMvt, AfficheMap afficheMap, VBox console){
+                     GridPane grilleMvt, AfficheMap afficheMap, VBox console, Button endTurn){
         perso.getChildren().clear(); // aucun changement si je mets en commentaire
         persoToMove.setPresent(false);
 
@@ -223,8 +224,10 @@ public class AffichePerso {
                         if(AffichePerso.contains(AffichePerso.listEnnemi, persoToMove)) {
                             if(Event.numEnnemi<Event.listAction.size()-1) {
                                 Event.numEnnemi++;
-                                Event.listMechantRestant.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap, Event.listAction.get(Event.numEnnemi), console);
+                                Event.listMechantRestant.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap, Event.listAction.get(Event.numEnnemi), console, endTurn);
                             }else{
+                                AffichePerso.newTurn();
+                                endTurn.setVisible(true);
                                 Event.numEnnemi=0;
                             }
                         }else
