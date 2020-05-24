@@ -41,31 +41,40 @@ public class Etat {
             return deplacerMechant();
         }*/
         ArrayList<Etat> list = new ArrayList<>();
-        ArrayList<Etat> l = new ArrayList<>();
         list.add(this.cloner());
         if (gentilJoue){
             Etat e = this.cloner();
+            ArrayList<Etat> l = new ArrayList<>();
             for(Personnage p : gentils){
                 for (Etat t : (ArrayList<Etat> )list.clone()){
-                    l.addAll(t.deplacerUnCamp(p.getId()));
-                    l.addAll(t.attaqueUnCamp(p.getId()));
-                    l.add(t);
+                    l.add(t.deplacerUnCamp(p.getId()));
+                    e = t.attaqueUnCamp(p.getId());
+                    if(e!=null){
+                        l.add(e);
+                    }
+                    //l.add(t);
                 }
                 list = l;
             }
         }
         else {
             Etat e = this;
+            ArrayList<Etat> l = new ArrayList<>();
             for(Personnage p : listMechant){
                 for (Etat t : (ArrayList<Etat>) list.clone()){
                     //ArrayList<Etat> etats = t.cloner().deplacerUnCamp(p.getId());
-                    l.addAll(t.deplacerUnCamp(p.getId()));
-                    l.addAll(t.attaqueUnCamp(p.getId()));
-                    l.add(t);
+                    l.add(t.deplacerUnCamp(p.getId()));
+                    e = t.attaqueUnCamp(p.getId());
+                    if(e!=null){
+                        l.add(e);
+                    }
+
+                    //l.add(t);
                 }
                 list = l;
             }
         }
+        System.out.println(list.size());
         //list.addAll(attaqueUnCamp(gentilJoue));
         return list;
     }
@@ -195,7 +204,7 @@ public class Etat {
         return listToutDeplacement;
     }
 
-    private ArrayList<Etat> deplacerUnCamp(int id){
+    private Etat deplacerUnCamp(int id){
         ArrayList<Action> actionPrec = (ArrayList<Action>) this.listActionprec.clone();
         boolean equipeGentil;
         ArrayList<Etat> listToutDeplacement = new ArrayList<>();
@@ -215,7 +224,7 @@ public class Etat {
         }
 
         for(Coordinate pos : dataCoordCharacters.getMovementArea(persoAttaque, persoAttaque.getPos())){
-            if (persoAt(pos) == -1){
+            if (persoAt(pos) == -1 || !ameliorePos(persoAttaque, pos, equipeGentil)){
                 Etat etatDep = cloner();
                 Personnage persoA = persoAttaque.cloner();
                 persoA.setPos(pos);
@@ -231,6 +240,7 @@ public class Etat {
                 listToutDeplacement.add(etatDep);
 
                 for(Coordinate coor : dataCoordCharacters.getAttackAreaAfterMovement(persoA, persoA.getPos())){
+
                     int index;
                     if(equipeGentil){
                         index = mechantAt(coor);
@@ -254,15 +264,19 @@ public class Etat {
                         //etatDepAtt.setActionPrecedent(new Action(persoAttaque.getPos().cloner(), pos.cloner(), coor.cloner(), damage ));
                         etatDepAtt.listActionprec.add(new Action(persoAttaque.getPos().cloner(), pos.cloner(), coor.cloner(), damage ));
 
-                        listToutDeplacement.add(etatDepAtt);
+                        listToutDeplacement.clear();
+                        ArrayList<Etat> list = new ArrayList<>();
+                        list.add(etatDepAtt);
+                        return etatDepAtt;
                     }
                 }
             }
         }
-        return listToutDeplacement;
+        System.out.println("tille " + listToutDeplacement.size());
+        return meilleurEtat(listToutDeplacement);
     }
-    private ArrayList<Etat> attaqueUnCamp(int id){
-        ArrayList<Etat> listToutAttaque = new ArrayList<>();
+    private Etat attaqueUnCamp(int id){
+
         ArrayList<Action> actionPrec = (ArrayList<Action>) this.listActionprec.clone();
         boolean estGentil;
         ArrayList<Personnage> listAttaqe ;
@@ -302,10 +316,12 @@ public class Etat {
                 }
                 //etatAttaque.setActionPrecedent(new Action(personnageAttaque.getPos(), pos,damage));
                 etatAttaque.listActionprec.add(new Action(personnageAttaque.getPos().cloner(), pos.cloner(),damage));
-                listToutAttaque.add(etatAttaque);
+
+                return etatAttaque;
+
             }
         }
-        return listToutAttaque;
+        return null;
     }
 
     private ArrayList<Etat> attaqueUnCamp(boolean estGentil){
@@ -343,6 +359,7 @@ public class Etat {
                     }
                     etatAttaque.setActionPrecedent(new Action(personnageAttaque.getPos(), pos,damage));
                     listToutAttaque.add(etatAttaque);
+                    return listToutAttaque;
                 }
             }
         }
@@ -428,6 +445,67 @@ public class Etat {
             }
         }
         return null;
+    }
+
+    private Etat meilleurEtat(ArrayList<Etat> list){
+
+        Etat meilleur = list.get(0);
+        for (Etat e : list){
+            if(meilleur.valDistance() > e.valDistance()){
+                meilleur = e;
+            }
+        }
+        return meilleur;
+    }
+
+    private int valDistance(){
+        int x = 0;
+        int y = 0;
+        int sum = 0;
+        for (Personnage p : gentils){
+            x += p.getPos().getX() + p.getPos().getY();
+        }
+        for (Personnage per : listMechant){
+            y += per.getPos().getX() + per.getPos().getY();
+        }
+
+        for (Personnage gentil : gentils){
+            for (Personnage mechant : listMechant){
+                x = Math.abs(gentil.getPos().getX() - mechant.getPos().getX());
+                y = Math.abs(gentil.getPos().getY() - mechant.getPos().getY());
+                sum += x +y;
+            }
+
+        }
+        return sum;
+    }
+    private boolean ameliorePos(Personnage personnage, Coordinate coor, boolean gentil){
+
+        ArrayList<Personnage> ennemie;
+        int x,y,i,j;
+        int minPos = 1000;
+        int minPerso = 1000;
+        if(gentil){
+            ennemie = listMechant;
+        }
+        else {
+            ennemie = gentils;
+        }
+
+        for (Personnage p : ennemie){
+            x = Math.abs(p.getPos().getX() - personnage.getPos().getX());
+            y = Math.abs(p.getPos().getY() - personnage.getPos().getY());
+            i = Math.abs(p.getPos().getX() - coor.getX());
+            j = Math.abs(p.getPos().getY() - coor.getY());
+            if ( minPerso > x + y){
+                minPerso = x + y;
+            }
+            minPos += (x + y) - (i + j);
+            if(minPos > i + j){
+                minPos = i + j;
+            }
+        }
+        return minPos < minPerso;
     }
 
     public boolean estFinal(){
