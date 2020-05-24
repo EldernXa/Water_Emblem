@@ -471,33 +471,20 @@ public class Event {
                     lbl3.setTextFill(Color.YELLOW);
                     HBox hbox = new HBox();
                     hbox.getChildren().addAll(lbl1, lbl2, lbl3);
-                    hbox.setStyle("-fx-background-color: #36393F");
                     console.getChildren().add(hbox);
                     lbl1 = new Label("HP : " + personnageSelected.getPersonnage().getCaracteristique().getHp());
                     lbl1.setTextFill(Color.WHITE);
-                    lbl1.setStyle("-fx-background-color: #36393F");
-                    lbl1.setMinWidth(console.getMinWidth());
                     lbl2 = new Label("Def : " + personnageSelected.getPersonnage().getCaracteristique().getDef());
                     lbl2.setTextFill(Color.WHITE);
-                    lbl2.setStyle("-fx-background-color: #36393F");
-                    lbl2.setMinWidth(console.getMinWidth());
                     lbl3 = new Label("Str : " + personnageSelected.getPersonnage().getCaracteristique().getStr());
                     lbl3.setTextFill(Color.WHITE);
-                    lbl3.setStyle("-fx-background-color: #36393F");
-                    lbl3.setMinWidth(console.getMinWidth());
                     console.getChildren().addAll(lbl1, lbl2, lbl3);
                     lbl1 = new Label("Magie : " + personnageSelected.getPersonnage().getCaracteristique().getMag());
                     lbl1.setTextFill(Color.WHITE);
-                    lbl1.setStyle("-fx-background-color: #36393F");
-                    lbl1.setMinWidth(console.getMinWidth());
                     lbl2 = new Label("Res : " + personnageSelected.getPersonnage().getCaracteristique().getRes());
                     lbl2.setTextFill(Color.WHITE);
-                    lbl2.setStyle("-fx-background-color: #36393F");
-                    lbl2.setMinWidth(console.getMinWidth());
                     lbl3 = new Label("Lck : " + personnageSelected.getPersonnage().getCaracteristique().getLck());
                     lbl3.setTextFill(Color.WHITE);
-                    lbl3.setStyle("-fx-background-color: #36393F");
-                    lbl3.setMinWidth(console.getMinWidth());
                     console.getChildren().addAll(lbl1, lbl2, lbl3);
                     lbl1 = new Label("-------------------------------------");
                     lbl1.setTextFill(Color.YELLOW);
@@ -507,7 +494,6 @@ public class Event {
                     lbl3.setTextFill(Color.YELLOW);
                     hbox = new HBox();
                     hbox.getChildren().addAll(lbl1, lbl2, lbl3);
-                    hbox.setStyle("-fx-background-color: #36393F");
                     console.getChildren().add(hbox);
                 }
             }
