@@ -5,3 +5,4 @@ Ike;Paladin;23;7;1;4;7;0;4;3;8;Epee;Lance;Hache
 Roy;Mercenaire;18;4;1;8;8;84;14;0;5;Epee
 Eliwood;Mercenaire;18;7;1;5;7;0;5;0;5;Epee
 Hector;Guerrier;17;10;1;7;5;3;8;0;5;Hache
+Cloud;Epeiste;20;20;20;20;20;0;0;4;4;Epee
