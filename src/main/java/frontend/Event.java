@@ -49,7 +49,7 @@ public class Event {
                 {
                     initPersonnageSelected(information, x, y, stay,
                             affichePerso, grilleMvt, grilleAttack,
-                            move, attack);
+                            move, attack, afficheMap);
                     if(personnageSelected!=null && !AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)){
                         stay.setVisible(true);
                     }
@@ -79,7 +79,7 @@ public class Event {
                                         grilleMvt.getChildren().clear();
                                         initPersonnageSelected(information, x, y,
                                                 stay, affichePerso, grilleMvt, grilleAttack,
-                                                move, attack);
+                                                move, attack, afficheMap);
                                         if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)) {
                                             stay.setVisible(true);
                                         }
@@ -105,7 +105,7 @@ public class Event {
                         {
                             initPersonnageSelected(information, x, y,
                                     stay, affichePerso, grilleMvt,
-                                    grilleAttack, move, attack);
+                                    grilleAttack, move, attack, afficheMap);
                             if(!AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)){
                                 stay.setText("Rien faire");
                                 stay.setVisible(true);
@@ -324,7 +324,7 @@ public class Event {
     private static void initPersonnageSelected(VBox information, int x, int y,
                                                Button stay, AffichePerso affichePerso,
                                                GridPane grilleMvt, GridPane grilleAttack,
-                                               Button move, Button attack){
+                                               Button move, Button attack, AfficheMap afficheMap){
         information.getChildren().clear();
         personnageSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
         if(personnageSelected != null){
@@ -332,8 +332,10 @@ public class Event {
         }
         if(personnageSelected!=null && !AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)&&
             !personnageSelected.getEndTurn()){
-            for(Coordinate c: affichePerso.getCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
-                addRectangle(grilleMvt, c, Color.rgb(0, 0, 255, 0.3));
+            for(Coordinate c: affichePerso.getCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate())) {
+                if(afficheMap.getFieldCoordinate(c).isCrossable())
+                    addRectangle(grilleMvt, c, Color.rgb(0, 0, 255, 0.3));
+            }
             for(Coordinate c:affichePerso.getAttackCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate()))
                 addRectangle(grilleAttack, c, Color.rgb(255, 0, 0, 0.3));
             move.setVisible(false);
