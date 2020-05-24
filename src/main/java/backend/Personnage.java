@@ -33,7 +33,7 @@ public class Personnage {
         Personnage adversaire = AffichePerso.getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
         if(adversaire!=null) {
             int damage = Stat.damage(caracteristique, adversaire.getCaracteristique());
-            if(caracteristique.getHp() >0) {
+            if(caracteristique.getHp() > 0) {
                 adversaire.attacked(damage);
             }
             damage = Stat.damage(adversaire.getCaracteristique(), caracteristique);
