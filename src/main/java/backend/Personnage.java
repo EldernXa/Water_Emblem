@@ -24,7 +24,7 @@ public class Personnage {
     }
     private Personnage(Personnage perso){
         id = perso.id;
-        pos = perso.pos;
+        pos = perso.pos.cloner();
         caracteristique = perso.caracteristique.cloner();
     }
     public void attack(Coordinate coodinate){
@@ -75,6 +75,10 @@ public class Personnage {
         }
         caracteristique.setHp(hp);
 
+    }
+
+    public boolean isAlive(){
+        return caracteristique.getHp() > 0;
     }
 
     public Personnage cloner(){

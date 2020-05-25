@@ -14,7 +14,6 @@ public class Etat {
     private int valHeuristique;
     static Heuristique heuristique;
     private static DataCoordCharacters dataCoordCharacters;
-    private Action actionPrecedent;
     private ArrayList<Action> listActionprec;
 
     public Etat(ArrayList<Personnage> listMechant, ArrayList<Personnage> gentils, ArrayList<Action> listActionPrecedent) {
@@ -36,11 +35,14 @@ public class Etat {
         ArrayList<Etat> list = new ArrayList<>();
         list.add(this.cloner());
         if (gentilJoue){
-            Etat e;
+            Etat e,d;
             for(Personnage p : gentils){
                 ArrayList<Etat> l = new ArrayList<>();
                 for (Etat t : (ArrayList<Etat> )list.clone()){
-                    l.add(t.deplacerUnCamp(p.getId()));
+                    d = t.deplacerUnCamp(p.getId());
+                    if(d != null){
+                        l.add(d);
+                    }
                     e = t.attaqueUnCamp(p.getId());
                     if(e!=null){
                         l.add(e);
@@ -50,11 +52,14 @@ public class Etat {
             }
         }
         else {
-            Etat e;
+            Etat d,e;
             for(Personnage p : listMechant){
                 ArrayList<Etat> l = new ArrayList<>();
                 for (Etat t : (ArrayList<Etat>) list.clone()){
-                    l.add(t.deplacerUnCamp(p.getId()));
+                    d = t.deplacerUnCamp(p.getId());
+                    if(d != null){
+                        l.add(d);
+                    }
                     e = t.attaqueUnCamp(p.getId());
                     if(e!=null){
                         l.add(e);
@@ -70,6 +75,7 @@ public class Etat {
        // ArrayList<Action> actionPrec = (ArrayList<Action>) this.listActionprec.clone();
         boolean equipeGentil;
         ArrayList<Etat> listToutDeplacement = new ArrayList<>();
+        ArrayList<Etat> listDeplacementAttaque = new ArrayList<>();
         ArrayList<Personnage> listDef ;
         Personnage persoAttaque;
 
@@ -78,10 +84,13 @@ public class Etat {
             equipeGentil = false;
             listDef = gentils;
         }
-        else {
+        else if (gentilAt(id) != -1){
             persoAttaque = gentils.get(gentilAt(id));
             equipeGentil = true;
             listDef = listMechant;
+        }
+        else {
+            return null;
         }
 
         for(Coordinate pos : dataCoordCharacters.getMovementArea(persoAttaque, persoAttaque.getPos())){
@@ -101,10 +110,10 @@ public class Etat {
                 for(Coordinate coor : dataCoordCharacters.getAttackAreaAfterMovement(persoA, persoA.getPos())){
                     int index;
                     if(equipeGentil){
-                        index = mechantAt(coor);
+                        index = etatDep.mechantAt(coor);
                     }
                     else {
-                        index = gentilAt(coor);
+                        index = etatDep.gentilAt(coor);
                     }
                     if (index != -1){
                         Etat etatDepAtt = etatDep.cloner();
@@ -121,12 +130,34 @@ public class Etat {
                             etatDepAtt.gentils.set(index, newPersoDef);
                         }
                         etatDepAtt.listActionprec.add(new Action(persoAttaque.getPos().cloner(), pos.cloner(), coor.cloner(), damage ));
-                        return etatDepAtt;
+                        listDeplacementAttaque.add(etatDepAtt);
+                        //return etatDepAtt;
                     }
                 }
             }
         }
-        return meilleurEtat(listToutDeplacement);
+        if(listDeplacementAttaque.isEmpty()){
+            return meilleurEtat(listToutDeplacement);
+        }
+        else {
+            int damageMax = 0;
+            Etat etatMax = listDeplacementAttaque.get(0);
+            Action actionMax = etatMax.getListActionprec().get(etatMax.getListActionprec().size()-1);
+            for(Etat etat : listDeplacementAttaque){
+                Action action = etat.getListActionprec().get(etat.getListActionprec().size()-1);
+                if(damageMax < action.getDamage()){
+                    damageMax = action.getDamage();
+                    etatMax = etat;
+                }
+                else if(damageMax == action.getDamage()){
+                    if(action.getDistanceAttaque() > actionMax.getDistanceAttaque()){
+                        damageMax = action.getDamage();
+                        etatMax = etat;
+                    }
+                }
+            }
+            return etatMax;
+        }
     }
     private Etat attaqueUnCamp(int id){
 
@@ -139,12 +170,17 @@ public class Etat {
             estGentil = false;
             listDef = gentils;
         }
-        else {
+        else if(gentilAt(id) != -1) {
             personnageAttaque = gentils.get(gentilAt(id));
             estGentil = true;
             listDef = listMechant;
         }
+        else{
+            return null;
+        }
 
+        int damageMax = 0;
+        Etat etatMax = null;
         for(Coordinate pos : dataCoordCharacters.getAttackArea(personnageAttaque, personnageAttaque.getPos())){
             int index;
             if(estGentil){
@@ -168,12 +204,13 @@ public class Etat {
                     etatAttaque.gentils.set(index, newPersoDef);
                 }
                 etatAttaque.listActionprec.add(new Action(personnageAttaque.getPos().cloner(), pos.cloner(),damage));
-
-                return etatAttaque;
-
+                if(damageMax < damage){
+                    damageMax = damage;
+                    etatMax = etatAttaque;
+                }
             }
         }
-        return null;
+        return etatMax;
     }
 
 
@@ -212,7 +249,7 @@ public class Etat {
     }
     private int mechantAt(Coordinate pos){
         for (int i = 0; i < listMechant.size(); i++){
-            if(listMechant.get(i).getPos().equal(pos)){
+            if(listMechant.get(i).getPos().equal(pos) && listMechant.get(i).isAlive()){
                 return i;
             }
         }
@@ -221,7 +258,7 @@ public class Etat {
 
     private int gentilAt(Coordinate pos){
         for (int i = 0; i < gentils.size(); i++){
-            if(gentils.get(i).getPos().equal(pos)){
+            if(gentils.get(i).getPos().equal(pos) && gentils.get(i).isAlive()){
                 return i;
             }
         }
@@ -229,7 +266,7 @@ public class Etat {
     }
     private int mechantAt(int id){
         for (int i = 0; i < listMechant.size(); i++){
-            if(listMechant.get(i).getId() == id){
+            if(listMechant.get(i).getId() == id  && listMechant.get(i).isAlive()){
                 return i;
             }
         }
@@ -238,7 +275,7 @@ public class Etat {
 
     private int gentilAt(int id){
         for (int i = 0; i < gentils.size(); i++){
-            if(gentils.get(i).getId() == id){
+            if(gentils.get(i).getId() == id && gentils.get(i).isAlive()){
                 return i;
             }
         }
@@ -346,15 +383,6 @@ public class Etat {
 
     public void setGentils(ArrayList<Personnage> gentils) {
         this.gentils = gentils;
-    }
-
-
-    public Action getActionPrecedent() {
-        return actionPrecedent;
-    }
-
-    public void setActionPrecedent(Action actionPrecedent) {
-        this.actionPrecedent = actionPrecedent;
     }
 
     public ArrayList<Action> getListActionprec() {

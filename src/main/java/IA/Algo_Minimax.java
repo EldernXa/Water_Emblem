@@ -4,6 +4,7 @@ public class Algo_Minimax {
 
 
     static public Etat startMini(Etat etat, int depth, boolean maxi){
+        etat.affEtat();
         int value ;
         int alpha = -100000;
         int beta = 100000;
