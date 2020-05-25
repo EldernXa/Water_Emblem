@@ -22,33 +22,23 @@ public class Personnage {
         Stat.calculerStats(this);
 
     }
-
     private Personnage(Personnage perso){
         id = perso.id;
         pos = perso.pos;
         caracteristique = perso.caracteristique.cloner();
     }
     public void attack(Coordinate coodinate){
-
-        Personnage adversaire = AffichePerso.getPersonnageAt(coodinate); // il faut une list de tout les personnage enregistré
+        Personnage adversaire = AffichePerso.getPersonnageAt(coodinate);
         if(adversaire!=null) {
-            int damage = Stat.damageAfterCalc(caracteristique, adversaire.getCaracteristique());
-            if(caracteristique.getHp() > 0) {
-                adversaire.attacked(damage);
-            }
-            damage = Stat.damageAfterCalc(adversaire.getCaracteristique(), caracteristique);
-            if(adversaire.getCaracteristique().getHp() > 0) {
-                this.attacked(damage);
-            }
+            attack(adversaire);
+            adversaire.attack(this);
         }
     }
 
     public void attackHorsPortee(Coordinate coordinate){
         Personnage adversaire = AffichePerso.getPersonnageAt(coordinate);
         if(adversaire != null){
-            int damage = Stat.damageAfterCalc(caracteristique, adversaire.getCaracteristique());
-            if(caracteristique.getHp()>0)
-                adversaire.attacked(damage);
+            attack(adversaire);
         }
     }
 
@@ -68,17 +58,11 @@ public class Personnage {
         else {
              hp = caracteristique.getHp() + damage;
         }
-
         if (hp <= 0) {
             hp = 0;
-
         }
         caracteristique.setHp(hp);
-
-
     }
-
-
 
     public void healed(int hpHeal){
         int hp;
@@ -93,30 +77,8 @@ public class Personnage {
 
     }
 
-
-    public boolean isMage(){
-        return caracteristique.getWep1().compareTo("Magie") == 0;
-    }
-
-
     public Personnage cloner(){
         return new Personnage(this);
-    }
-
-    public ArrayList<Coordinate> getMovmentPossible(){
-        ArrayList<Coordinate> lCoor = new ArrayList<>();
-        for(int i = pos.getX() - 2 ; i <= pos.getX() + 2; i++){
-            for(int j = pos.getY() - 2 ; j <= pos.getY() + 2; j++){
-                if(i != pos.getX() || j != pos.getY()){
-                    lCoor.add(new Coordinate(i,j));
-                }
-            }
-        }
-        return lCoor;
-    }
-
-    public ArrayList<Coordinate> getAttaquePossible(){
-        return new ArrayList<>();
     }
 
     public int getId() {

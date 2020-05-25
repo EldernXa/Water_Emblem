@@ -1,9 +1,6 @@
 package frontend;
 
-import IA.Action;
-import IA.Algo_Minimax;
-import IA.Etat;
-import IA.HeuristiqueBasique;
+import IA.*;
 import backend.Coordinate;
 import backend.Personnage;
 import backend.PersonnageDisplay;
@@ -283,7 +280,7 @@ public class Event {
                                 listMechantRestant.add(p);
                             }
                         endTurn.setVisible(false);
-                        Etat e = new Etat(listMechant, listGentil, new HeuristiqueBasique(), nameMap);
+                        Etat e = new Etat(listMechant, listGentil, new HeuristiqueAmeliorer(), nameMap);
                         Etat etat = Algo_Minimax.startMini(e, 2, false);
                         listAction = new ArrayList<>();
                         for(Action a : etat.getListActionprec())

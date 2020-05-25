@@ -62,9 +62,6 @@ public class Stat {
         int accu = (((attacker.getSkl()) + (attacker.getLck())) * 9 + weaponTriangle(attacker.getWep1(), defender.getWep1()) * 7);
         int avoid = defender.getSpd() + defender.getLck();
 
-        System.out.println("accu " + accu);
-        System.out.println("avoid " + avoid);
-        System.out.println();
         int x = accu - avoid;
 
         if ((x) <= 15) {
@@ -183,7 +180,7 @@ public class Stat {
             att = att * 2;
         }
 
-        System.out.println("att " + att + " def " + def);
+
         int damage = (att - def) * crit;
 
         if (attacker.getSpd() - defender.getSpd() >= 4) {
