@@ -6,6 +6,7 @@ import backend.field.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class DataMap {
 
 
         ArrayList<String> fileLine = new ArrayList<>();
-        try (Stream<String> stream = Files.lines(Paths.get(path))) {
+        try (Stream<String> stream = Files.lines(Paths.get(path), Charset.forName("UTF-8"))) {
             stream.forEach(x -> fileLine.add(x));
             ArrayList<ArrayList<Coordinate>> xCoordinates = new ArrayList<>();
             for (int i = 1; i < fileLine.size(); i++) {
@@ -98,6 +99,7 @@ public class DataMap {
 
 
     private Field getField(String field) {
+
 
         switch (field) {
 
@@ -243,13 +245,35 @@ public class DataMap {
                 return new CoqueHaut();
             case "t" :
                 return new CoqueHautD();
-
             case "y" :
                 return new CoqueHautG();
             case "u" :
                 return new CoqueM();
             case "i" :
                 return new CoquePonton();
+
+            case "\u2022":
+                //•
+                return new Volcan9();
+            case "\u25E6":
+                //◦
+                return new Plaine();
+            case "\u2023":
+                //‣
+                return new Plaine();
+            case "\u00B0":
+                //°
+                return new Plaine();
+            case "\u221E":
+                //∞
+                return new Plaine();
+            case "\u03B1":
+                //α
+                return new Plaine();
+            case "\u03B2":
+                //β
+                return new Plaine();
+
 
             default:
                 return new Plaine();
