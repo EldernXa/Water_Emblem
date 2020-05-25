@@ -452,12 +452,13 @@ public class Event {
         information.getChildren().clear();
         combat.getChildren().clear();
         glancing.getChildren().clear();
+        grilleMvt.getChildren().clear();
+        grilleAttack.getChildren().clear();
         personnageSelected = AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y));
         if(personnageSelected != null){
             addInformation(information, personnageSelected, "Green", 0);
         }
-        if(personnageSelected!=null && !AffichePerso.contains(AffichePerso.listEnnemi, personnageSelected)&&
-            !personnageSelected.getEndTurn()){
+        if(personnageSelected!=null && !personnageSelected.getEndTurn() && !AffichePerso.endTurn()){
             for(Coordinate c: affichePerso.getCoordinate(personnageSelected.getPersonnage(), personnageSelected.getCoordinate())) {
                 if(afficheMap.getFieldCoordinate(c).isCrossable())
                     addRectangle(grilleMvt, c, Color.rgb(0, 0, 255, 0.3));
@@ -466,8 +467,8 @@ public class Event {
                 addRectangle(grilleAttack, c, Color.rgb(255, 0, 0, 0.3));
             move.setVisible(false);
             attack.setVisible(false);
-            stay.setVisible(false);
-            carac.setVisible(false);
+            stay.setVisible(true);
+            carac.setVisible(true);
         }
     }
 
