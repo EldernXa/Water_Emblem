@@ -560,6 +560,11 @@ public class Event {
                     HBox hbox = new HBox();
                     hbox.getChildren().addAll(lbl1, lbl2, lbl3);
                     console.getChildren().add(hbox);
+                    lbl1 = new Label("Classe : " +personnageSelected.getPersonnage().getCaracteristique().getType());
+                    lbl1.setTextFill(Color.WHITE);
+                    lbl2 = new Label("Armes : " + personnageSelected.getPersonnage().getCaracteristique().getWep1());
+                    lbl2.setTextFill(Color.WHITE);
+                    console.getChildren().addAll(lbl1, lbl2);
                     lbl1 = new Label("HP : " + personnageSelected.getPersonnage().getCaracteristique().getHp());
                     lbl1.setTextFill(Color.WHITE);
                     lbl2 = new Label("Def : " + personnageSelected.getPersonnage().getCaracteristique().getDef());

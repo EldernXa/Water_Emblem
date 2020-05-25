@@ -127,9 +127,7 @@ public class AffichageGraphique {
                 console.heightProperty().addListener(observable->scrollPane.setVvalue(1D));
                 scrollPane.setContent(console);
                 scrollPane.setMinSize(500, 500);
-                scrollPane.setMaxSize(500, ((java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight()-scrollPane.getLayoutY())+500<=java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight())?500
-                        :java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight()-scrollPane.getLayoutY());
-                scrollPane.getLayoutX();
+                scrollPane.setMaxSize(500, 500);
                 scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
                 console.setStyle("-fx-background-color: #36393F;");
                 console.setVisible(true);
