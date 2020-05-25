@@ -229,7 +229,7 @@ public class AffichePerso {
                         persoToMove.setOrientation(0);
                         persoToMove.setPresent(true);
                         if(AffichePerso.contains(AffichePerso.listEnnemi, persoToMove)) {
-                            if(Event.numEnnemi<Event.listAction.size()-1) {
+                            if(Event.numEnnemi<Event.listMechantRestant.size()-1) {
                                 Event.numEnnemi++;
                                 Event.listMechantRestant.get(Event.numEnnemi).action(this, perso, grilleMvt, afficheMap, Event.listAction.get(Event.numEnnemi), console, endTurn);
                             }else{
