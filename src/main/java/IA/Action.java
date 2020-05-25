@@ -43,6 +43,15 @@ public  class Action {
         return new Action(posDepart.cloner() , posArrive.cloner(), posDefenceur.cloner(), damage);
     }
 
+    public int getDistanceAttaque(){
+        if (damage == -1){
+            return -1;
+        }
+        int x,y;
+        x = Math.abs(posAttaquant.getX() - posDefenceur.getX());
+        y = Math.abs(posAttaquant.getY() - posDefenceur.getY());
+        return x + y;
+    }
     public Coordinate getPosDepart() {
         return posDepart;
     }

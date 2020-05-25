@@ -44,4 +44,15 @@ public class HeuristiqueAmeliorer implements Heuristique {
 
         return valueG - valueM + distance;
     }
+/*
+    @Override
+    public Etat meilleurFils(ArrayList<Etat> list) {
+        if(list.isEmpty()){
+            return null;
+        }
+        Etat best = list.get(0);
+        for (Etat etat : list){
+            if(best.getValHeuristique()
+        }
+    }*/
 }
