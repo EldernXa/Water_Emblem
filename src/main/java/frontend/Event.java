@@ -125,6 +125,7 @@ public class Event {
                                     attack.setVisible(false);
                                     information.getChildren().clear();
                                     combat.getChildren().clear();
+                                    ennemiSelected = p;
                                     addInformation(information, personnageSelected, "Green", 0);
                                     addInformation(information, ennemiSelected, "Red", 0);
                                     addInformation(combat, personnageSelected, "Green", Stat.damage(ennemiSelected.getPersonnage().getCaracteristique(), personnageSelected.getPersonnage().getCaracteristique()));
@@ -281,7 +282,7 @@ public class Event {
                             }
                         endTurn.setVisible(false);
                         Etat e = new Etat(listMechant, listGentil, new HeuristiqueAmeliorer(), nameMap);
-                        Etat etat = Algo_Minimax.startMini(e, 2, false);
+                        Etat etat = Algo_Minimax.startMini(e, 4, false);
                         listAction = new ArrayList<>();
                         for(Action a : etat.getListActionprec())
                         {
