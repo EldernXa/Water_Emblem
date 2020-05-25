@@ -101,10 +101,10 @@ public class PersonnageDisplay {
     public void initPicture(){
         try {
             File file;
-            if(perso.getCaracteristique().getName().compareTo("mechant")!=0) {
+            if(!isBad()) {
                 file = new File("./src/main/resources/spritesPersos/Sprite" + perso.getCaracteristique().getName());
             }else{
-                file = new File("./src/main/resources/spritesPersos/Sprite" + perso.getCaracteristique().getType());
+                file = new File("./src/main/resources/spritesPersos/SpriteEnnemis/Sprite" + perso.getCaracteristique().getType());
             }
             for(File f: Objects.requireNonNull(file.listFiles())){
                 if(f.getName().contains("Arret") && !f.getName().contains("Nb"))

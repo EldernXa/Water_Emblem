@@ -11,15 +11,14 @@ public class Stat {
         if (attacker.getWep1().compareTo("Magie") == 0) {
             att += attacker.getMag();
             att += weaponTriangle(attacker.getWep1(), defender.getWep1());
-        } else {
-            att += attacker.getStr();
-
-        }
-        if (defender.getWep1().compareTo("Magie") == 0) {
             def += defender.getRes();
+
         } else {
+
+            att += attacker.getStr();
             def += defender.getDef();
         }
+
 
         int adv = defender.getDeplacement();
         if (attacker.getType().equals("Sniper") && (adv == 2 || adv == 3)) {
@@ -62,15 +61,10 @@ public class Stat {
         int accu = (((attacker.getSkl()) + (attacker.getLck())) * 9 + weaponTriangle(attacker.getWep1(), defender.getWep1()) * 7);
         int avoid = defender.getSpd() + defender.getLck();
 
+
         int x = accu - avoid;
 
-        if ((x) <= 15) {
-            if (x <= 0) {
-                x = 0;
-            }
-            Random r = new Random();
-            return r.nextInt(15 - x) + x;
-        }
+
 
         return x;
     }
@@ -160,15 +154,15 @@ public class Stat {
         if (attacker.getWep1().compareTo("Magie") == 0) {
             att += attacker.getMag();
             att += weaponTriangle(attacker.getWep1(), defender.getWep1());
-        } else {
-            att += attacker.getStr();
-
-        }
-        if (defender.getWep1().compareTo("Magie") == 0) {
             def += defender.getRes();
+
         } else {
+
+            att += attacker.getStr();
             def += defender.getDef();
         }
+
+
         int crit = critical(attacker, defender);
         if (!rate(crit)) {
             crit = 1;
@@ -179,7 +173,6 @@ public class Stat {
         if (attacker.getType().equals("Sniper") && (adv == 2 || adv == 3)) {
             att = att * 2;
         }
-
 
         int damage = (att - def) * crit;
 
