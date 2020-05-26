@@ -159,122 +159,161 @@ public class DataMap {
                 return new Gravier8();
             case ">":
                 return new Gravier9();
-            case "B" :
+            case "B":
                 return new Bastion();
-            case "," :
+            case ",":
                 return new Barriere1();
-            case ";" :
+            case ";":
                 return new Barriere2();
-            case ":" :
+            case ":":
                 return new Barriere3();
-            case "j" :
+            case "j":
                 return new BordD1();
-            case "*" :
+            case "*":
                 return new BordD2();
-            case "^" :
+            case "^":
                 return new BordD3();
-            case ")" :
+            case ")":
                 return new BordD4();
-            case "L" :
+            case "L":
                 return new BordD5();
-            case "O" :
+            case "O":
                 return new BordD6();
-            case "I" :
+            case "I":
                 return new BordD7();
-            case "a" :
+            case "a":
                 return new BordG1();
-            case "N" :
+            case "N":
                 return new BordG2();
-            case "M" :
+            case "M":
                 return new BordG3();
-            case "?" :
+            case "?":
                 return new BordG4();
-            case "." :
+            case ".":
                 return new BordG5();
-            case "A" :
+            case "A":
                 return new BordG6();
-            case "Z" :
+            case "Z":
                 return new BordG7();
-            case "E" :
+            case "E":
                 return new Bord1();
             case "q":
                 return new Eau1();
-            case "f" :
+            case "f":
                 return new Eau3();
-            case "d" :
+            case "d":
                 return new Eau4();
-            case "+" :
+            case "+":
                 return new Eau6();
-            case "X" :
+            case "X":
                 return new Eau7();
-            case "p" :
+            case "p":
                 return new Escalier1();
-            case "C" :
+            case "C":
                 return new Escalier2();
-            case "{" :
+            case "{":
                 return new Escalier3();
-            case "9" :
+            case "9":
                 return new Mur1();
-            case "w" :
+            case "w":
                 return new Mur2();
-            case "W" :
+            case "W":
                 return new Sol1();
-            case "x" :
+            case "x":
                 return new Sol2();
-            case "n" :
+            case "n":
                 return new Sol4();
-            case "b" :
+            case "b":
                 return new Sol5();
-            case "!" :
+            case "!":
                 return new Sol6();
-            case "#" :
+            case "#":
                 return new Trappe();
-            case "l" :
+            case "l":
                 return new Porte1();
-            case "Q" :
+            case "Q":
                 return new Porte2();
-            case "S" : 
+            case "S":
                 return new Ponton1();
-            case "D" : 
+            case "D":
                 return new Ponton2();
-            case "z" :
+            case "z":
                 return new CoqueD();
-            case "e" :
+            case "e":
                 return new CoqueG();
-            case "r" :
+            case "r":
                 return new CoqueHaut();
-            case "t" :
+            case "t":
                 return new CoqueHautD();
-            case "y" :
+            case "y":
                 return new CoqueHautG();
-            case "u" :
+            case "u":
                 return new CoqueM();
-            case "i" :
+            case "i":
                 return new CoquePonton();
 
             case "\u2022":
                 //•
-                return new Volcan9();
+                return new MaraisArbre1();
             case "\u25E6":
                 //◦
-                return new Plaine();
+                return new MaraisEeau1();
             case "\u2023":
                 //‣
-                return new Plaine();
+                return new MaraisHerbe();
             case "\u00B0":
                 //°
-                return new Plaine();
+                return new MaraisCascade();
             case "\u221E":
                 //∞
-                return new Plaine();
+                return new MaraisBordBasD1();
             case "\u03B1":
                 //α
-                return new Plaine();
+                return new MaraisBordD1();
             case "\u03B2":
                 //β
-                return new Plaine();
+                return new MaraisBordD2();
+            case "\u20AC":
+                //€
+                return new MaraisBordFullG();
+            case "\u00A3":
+                //£
+                return new MaraisBordG1();
+            case "\u00A5":
+                //¥
+                return new MaraisBordG2();
+            case "\u00A2":
+                //¢
+                return new MaraisBordHautG1();
+            case "\u20B9":
+                //₹
+                return new MaraisCascade();
+            case "\u20A8":
+                //₨
+                return new MaraisHaut();
+            case "\u20B1":
+                //₱
+                return new MaraisBas();
+            case "\u20A9":
+                //₩
+                return new MaraisBordFullD();
+            case "\u0E3F":
+                //฿
+                return new MaraisArbre2();
 
+            case "\u20AB":
+                //₫
+                return new Arbre2();
+            case "\u20AA":
+                //₪
+                return new Arbre1();
 
+            case "\u00A9":
+                //©
+                return new Fort();
+            case "\u2117":
+                //℗
+                return new Pont();
             default:
                 return new Plaine();
         }
