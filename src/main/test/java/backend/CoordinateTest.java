@@ -1,5 +1,6 @@
 package backend;
 
+import backend.field.Forest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -24,25 +25,25 @@ class CoordinateTest {
 
     @Test
     void cloner() {
+        Coordinate coordinate = new Coordinate(3,3);
+        Coordinate clone = coordinate.cloner();
+        Assertions.assertTrue(coordinate.equal(clone));
+
+        clone.setX(2);
+        Assertions.assertFalse(coordinate.equal(clone));
     }
 
-    @Test
-    void affPos() {
-    }
 
     @Test
     void getX() {
+        Coordinate coordinate = new Coordinate(3,2);
+        Assertions.assertEquals(coordinate.getX(),3);
     }
 
     @Test
     void getY() {
+        Coordinate coordinate = new Coordinate(3,2);
+        Assertions.assertEquals(coordinate.getY(),2);
     }
 
-    @Test
-    void getField() {
-    }
-
-    @Test
-    void setField() {
-    }
 }
