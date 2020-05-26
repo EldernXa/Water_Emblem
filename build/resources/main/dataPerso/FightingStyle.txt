@@ -19,3 +19,5 @@ ChevalierFaucon;3
 CavalierWyvern;2
 Hero;0
 ChevalierPegase;3
+Troubadour;1
+Cloud;0
