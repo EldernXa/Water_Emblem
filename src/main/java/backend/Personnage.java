@@ -80,7 +80,6 @@ public class Personnage {
     public boolean isAlive(){
         return caracteristique.getHp() > 0;
     }
-
     public Personnage cloner(){
         return new Personnage(this);
     }

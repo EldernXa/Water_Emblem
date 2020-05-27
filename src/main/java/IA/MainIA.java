@@ -14,11 +14,12 @@ public class MainIA {
         ArrayList<Personnage> LG = new ArrayList<>();
         Personnage persoG = new Personnage("Marth", new Coordinate(1,1));
         Personnage persoG1 = new Personnage("Lyn", new Coordinate(1,2));
+        persoG.isAlive();
         LG.add(persoG);
         LG.add(persoG1);
         ArrayList<Personnage> LM = new ArrayList<>();
-        Personnage persoM = new Personnage("Chevalier", new Coordinate(5,0));
-        Personnage persoM1 = new Personnage("Cavalier", new Coordinate(4,4));
+        Personnage persoM = new Personnage("Soldat", new Coordinate(5,0));
+        Personnage persoM1 = new Personnage("Archer", new Coordinate(4,4));
         LM.add(persoM);
         LM.add(persoM1);
         System.out.println("quoi                             " + persoM.getCaracteristique().getName());

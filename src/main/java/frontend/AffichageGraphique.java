@@ -19,6 +19,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
 
+import java.awt.*;
 import java.beans.Expression;
 import java.io.File;
 import java.io.FileInputStream;
@@ -145,6 +146,14 @@ public class AffichageGraphique {
                 map.setAlignment(Pos.TOP_LEFT);
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
+                map.setMaxHeight(root.getHeight());
+                map.setMinHeight(root.getHeight());
+                perso.setMaxHeight(root.getHeight());
+                perso.setMinHeight(root.getHeight());
+                grilleAttack.setMaxHeight(root.getHeight());
+                grilleAttack.setMinHeight(root.getHeight());
+                grilleMvt.setMaxHeight(root.getHeight());
+                grilleMvt.setMinHeight(root.getHeight());
                 Event.buttonStay(stay, move, attack, endTurn, grilleMvt, grilleAttack, afficheMap, affichePerso, perso, console,
                         group, map, root, choiceMap, start, txt, information, scrollPane, panel, choiceMap.getValue(), carac, combat, glancing);
                 Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack, information,
