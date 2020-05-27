@@ -18,7 +18,7 @@ public class Etat {
     private static Heuristique heuristique;
     private static DataCoordCharacters dataCoordCharacters;
     private ArrayList<Action> listActionprec;
-    private AffichePerso affichePerso;
+    private static AffichePerso affichePerso;
   //  private List<PersonnageDisplay> listMechantDisplay;
    // private List<PersonnageDisplay> listGentilDisplay;
 
@@ -39,11 +39,13 @@ public class Etat {
     }
 
     public Etat(AffichePerso affichePersos, Heuristique h ) {
+        gentils = new ArrayList<>();
+        listMechant = new ArrayList<>();
         for (PersonnageDisplay personnageDisplay : AffichePerso.listPersonnage){
             Personnage p = personnageDisplay.getPersonnage();
             Personnage perso = p.cloner();
             perso.setPos(personnageDisplay.getCoordinate());
-            gentils.add(perso);
+                gentils.add(perso);
         }
 
         for (PersonnageDisplay personnageDisplay : AffichePerso.listEnnemi){
@@ -132,6 +134,7 @@ public class Etat {
         }
         listDeplacementPossible = affichePerso.getCoordinate(persoAttaque, persoAttaque.getPos());
         listDeplacementPossible.add(persoAttaque.getPos());
+
         for(Coordinate pos : listDeplacementPossible){
             if (persoAt(pos) == -1){
                 Etat etatDep = cloner();
