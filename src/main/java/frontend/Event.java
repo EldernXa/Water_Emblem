@@ -511,7 +511,7 @@ public class Event {
         {
             lbl3 = new Label(" n'a subit aucun degats");
         }else if(!ennemi.isAlive())
-            lbl3 = new Label(" est mort");
+            lbl3 = new Label(" a subit " + (hpEnnemi-ennemi.getPersonnage().getCaracteristique().getHp() + " degats et en est mort"));
         else
             lbl3 = new Label(" a subit " + (hpEnnemi-ennemi.getPersonnage().getCaracteristique().getHp() + " degats"));
         lbl3.setTextFill(Color.WHITE);
@@ -538,7 +538,7 @@ public class Event {
         if(hpPersonnage==personnage.getPersonnage().getCaracteristique().getHp())
             lbl3 = new Label(" n'a subit aucun degats");
         else if(!personnage.isAlive())
-            lbl3 = new Label(" est mort");
+            lbl3 = new Label(" a subit " + (hpPersonnage-personnage.getPersonnage().getCaracteristique().getHp()) + " degats et en est mort");
         else
             lbl3 = new Label(" a subit " + (hpPersonnage-personnage.getPersonnage().getCaracteristique().getHp()) + " degats");
         lbl3.setTextFill(Color.WHITE);
