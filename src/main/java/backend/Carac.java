@@ -13,23 +13,6 @@ public class Carac {
     private int def;
     private int spd;
     private int maxSpd;
-
-    public int getMaxSpd() {
-        return maxSpd;
-    }
-
-    public void setMaxSpd(int maxSpd) {
-        this.maxSpd = maxSpd;
-    }
-
-    public int getMaxLck() {
-        return maxLck;
-    }
-
-    public void setMaxLck(int maxLck) {
-        this.maxLck = maxLck;
-    }
-
     private int mag;
     private int skl;
     private int lck;
@@ -44,7 +27,6 @@ public class Carac {
     private int deplacement;
     // Prenom / nomUnite / HP / STR / MAG / Skl / Spd /Lck / Def / Res / Mov / Arme1 / Arme2 / Arme3
     //nom / type /HP / STR / MAG / Skl / Spd /Lck / Def / Res / Mov / Arme1 / Arme2 / Arme3
-
 
 
     public Carac(String name){
@@ -66,8 +48,8 @@ public class Carac {
             return;
         }
 
+        deplacement = DataPerso.getFightingType(type);
         this.type = list.get(i++);
-
 
         maxHp = hp = Integer.parseInt(list.get(i++));
         str = Integer.parseInt(list.get(i++));
@@ -78,7 +60,6 @@ public class Carac {
         def = Integer.parseInt(list.get(i++));
         res = Integer.parseInt(list.get(i++));
         maxMov = mov = Integer.parseInt(list.get(i++));
-        deplacement = DataPerso.getFightingType(type);
         if(list.size() == i){
             return;
         }
@@ -91,9 +72,6 @@ public class Carac {
             return;
         }
         wep3 = list.get(i);
-
-
-
 
     }
 
@@ -259,11 +237,28 @@ public class Carac {
     public void setSpd(int spd) {
         this.spd = spd;
     }
+
     public int getDeplacement() {
-
         return deplacement;
-
     }
 
+    public int getMaxSpd() {
+        return maxSpd;
+    }
 
+    public void setMaxSpd(int maxSpd) {
+        this.maxSpd = maxSpd;
+    }
+
+    public int getMaxLck() {
+        return maxLck;
+    }
+
+    public void setMaxLck(int maxLck) {
+        this.maxLck = maxLck;
+    }
+
+    public void setDeplacement(int deplacement) {
+        this.deplacement = deplacement;
+    }
 }

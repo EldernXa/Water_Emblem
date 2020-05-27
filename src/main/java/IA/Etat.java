@@ -16,26 +16,14 @@ public class Etat {
     private ArrayList<Personnage> gentils;
     private int valHeuristique;
     private static Heuristique heuristique;
-    private static DataCoordCharacters dataCoordCharacters;
     private ArrayList<Action> listActionprec;
     private static AffichePerso affichePerso;
-  //  private List<PersonnageDisplay> listMechantDisplay;
-   // private List<PersonnageDisplay> listGentilDisplay;
 
     public Etat(ArrayList<Personnage> listMechant, ArrayList<Personnage> gentils, ArrayList<Action> listActionPrecedent) {
         this.listActionprec = listActionPrecedent;
         this.listMechant = listMechant;
         this.gentils = gentils;
         valHeuristique = heuristique.calculerHeuristique(this);
-    }
-
-    public Etat(ArrayList<Personnage> listMechant, ArrayList<Personnage> gentils, Heuristique h , String map) {
-        dataCoordCharacters = new DataCoordCharacters(map);
-        this.listMechant = listMechant;
-        this.gentils = gentils;
-        heuristique = h;
-        valHeuristique = heuristique.calculerHeuristique(this);
-        listActionprec = new ArrayList<>();
     }
 
     public Etat(AffichePerso affichePersos, Heuristique h ) {
@@ -82,7 +70,6 @@ public class Etat {
 
                 }
                 list = nouvelList;
-
             }
         }
         else {
@@ -152,7 +139,7 @@ public class Etat {
                         Personnage newPersoDef = persoDef.cloner();
                         persoA.attack(newPersoDef);
                         int contreAttaque = 0;
-                        if(newPersoDef.getCaracteristique().getPortee() > newPersoDef.getPos().distanceEntre(persoA.getPos()) ){
+                        if(newPersoDef.getCaracteristique().getPortee() > newPersoDef.getPos().distanceEntre(persoA.getPos()) && newPersoDef.isAlive() ){
                             contreAttaque = persoA.getCaracteristique().getHp();
                             newPersoDef.attack(persoA);
                             contreAttaque -= persoA.getCaracteristique().getHp();
@@ -223,19 +210,6 @@ public class Etat {
 
     }
 
-    public void affEtat(){
-        System.out.println("etat : ");
-        for (Personnage p :listMechant){
-            System.out.print(p.getCaracteristique().getName()+ " hp : "+p.getCaracteristique().getHp());
-            p.getPos().affPos();
-        }
-        for (Personnage p : gentils){
-            System.out.print(p.getCaracteristique().getName() + " hp : "+p.getCaracteristique().getHp());
-            p.getPos().affPos();
-        }
-        System.out.println();
-    }
-
     private int persoAt(Coordinate pos){
         if(mechantAt(pos) != -1){
             return mechantAt(pos);
@@ -260,6 +234,7 @@ public class Etat {
         }
         return -1;
     }
+
     private int mechantAt(int id){
         for (int i = 0; i < listMechant.size(); i++){
             if(listMechant.get(i).getId() == id  && listMechant.get(i).isAlive()){
@@ -268,7 +243,6 @@ public class Etat {
         }
         return -1;
     }
-
     private int gentilAt(int id){
         for (int i = 0; i < gentils.size(); i++){
             if(gentils.get(i).getId() == id && gentils.get(i).isAlive()){
@@ -318,6 +292,19 @@ public class Etat {
             return true;
         }
         return false;
+    }
+
+    public void affEtat(){
+        System.out.println("etat : ");
+        for (Personnage p :listMechant){
+            System.out.print(p.getCaracteristique().getName()+ " hp : "+p.getCaracteristique().getHp());
+            p.getPos().affPos();
+        }
+        for (Personnage p : gentils){
+            System.out.print(p.getCaracteristique().getName() + " hp : "+p.getCaracteristique().getHp());
+            p.getPos().affPos();
+        }
+        System.out.println();
     }
 
     public int getValHeuristique() {

@@ -2,6 +2,7 @@ package IA;
 
 import backend.Coordinate;
 import backend.Personnage;
+import frontend.AffichePerso;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ class EtatTest {
         Personnage persoM1 = new Personnage("Archer", new Coordinate(4,4));
         mechants.add(persoM);
         mechants.add(persoM1);
-        etat = new Etat(mechants, gentils, new HeuristiqueAmeliorer(), "Map");
+        etat = new Etat(new AffichePerso("Map"), new HeuristiqueAmeliorer());
         etat.setListActionprec(listAction);
     }
 
