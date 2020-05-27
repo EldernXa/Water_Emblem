@@ -113,7 +113,6 @@ public class Etat {
 
         for(Coordinate pos : listDeplacementPossible){
             if (persoAt(pos) == -1 && !pos.getField().compareField(new Void())  && !aEviterAToutPris(pos.getField())){
-                System.out.println(pos.getField().getClass().toString());
                 Etat etatDep = cloner();
                 Personnage persoA = persoAttaque.cloner();
                 persoA.setPos(pos);
