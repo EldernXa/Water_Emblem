@@ -28,7 +28,7 @@ import java.util.Objects;
 
 
 public class AffichageGraphique {
-    static int size = 50;
+    public static int size = 50;
     private AfficheMap afficheMap;
     private AffichePerso affichePerso;
     private GridPane map;
@@ -70,6 +70,8 @@ public class AffichageGraphique {
         Button stay = new Button("Attendre");
         Button endTurn = new Button("Terminer le tour");
         Button carac = new Button("Caracteristique");
+        Button pb = new Button("NE SURTOUT PAS APPUYEZ SAUF SI VOUS NE POUVEZ PAS JOUER");
+        pb.setStyle("-fx-background-color: red;");
         carac.setVisible(false);
         move.setVisible(false);
         attack.setVisible(false);
@@ -136,7 +138,20 @@ public class AffichageGraphique {
                 button = new VBox();
                 endTurn.setVisible(true);
                 button.setSpacing(10);
-                button.getChildren().addAll(carac, move, attack, stay, endTurn);
+                button.getChildren().addAll(carac, move, attack, stay, endTurn, pb);
+                pb.setOnAction(new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(ActionEvent event){
+                        for(PersonnageDisplay p: AffichePerso.listPersonnage){
+                            p.setEndTurn(false);
+                            p.setOrientation(0);
+                        }
+                        for(PersonnageDisplay p: AffichePerso.listEnnemi){
+                            p.setEndTurn(false);
+                            p.setOrientation(0);
+                        }
+                    }
+                });
                 panel.getChildren().addAll(informationAndCombat, button, scrollPane);
                 grilleMvt = initGridPane();
                 grilleAttack = initGridPane();
@@ -146,14 +161,6 @@ public class AffichageGraphique {
                 map.setAlignment(Pos.TOP_LEFT);
                 perso.setAlignment(map.getAlignment());
                 root.getChildren().clear();
-                map.setMaxHeight(root.getHeight());
-                map.setMinHeight(root.getHeight());
-                perso.setMaxHeight(root.getHeight());
-                perso.setMinHeight(root.getHeight());
-                grilleAttack.setMaxHeight(root.getHeight());
-                grilleAttack.setMinHeight(root.getHeight());
-                grilleMvt.setMaxHeight(root.getHeight());
-                grilleMvt.setMinHeight(root.getHeight());
                 Event.buttonStay(stay, move, attack, endTurn, grilleMvt, grilleAttack, afficheMap, affichePerso, perso, console,
                         group, map, root, choiceMap, start, txt, information, scrollPane, panel, choiceMap.getValue(), carac, combat, glancing);
                 Event.clickOnMap(perso, affichePerso, grilleMvt, grilleAttack, information,

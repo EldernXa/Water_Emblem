@@ -1,6 +1,7 @@
 package backend.field;
 
 import backend.Personnage;
+import frontend.AffichageGraphique;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -22,6 +23,7 @@ public abstract class Field {
             FileInputStream inputStream = new FileInputStream("src/main/resources/dataMap/"+ nomImg +".png");
             Image img = new Image(inputStream);
             imgView = new ImageView(img);
+            apsect.setMaxSize(AffichageGraphique.size, AffichageGraphique.size);
             apsect.getChildren().add(imgView);
         }catch(FileNotFoundException exception){
             System.out.println("Image non existant.");
