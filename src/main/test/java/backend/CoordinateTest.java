@@ -54,6 +54,7 @@ class CoordinateTest {
         int distance = coordinate.distanceEntre(new Coordinate(3,6));
         Assertions.assertEquals(3,distance );
 
+        coordinate.setX(1);
         distance = coordinate.distanceEntre(new Coordinate(2,4));
         Assertions.assertEquals(2,distance );
     }

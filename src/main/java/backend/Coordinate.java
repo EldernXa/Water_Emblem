@@ -25,7 +25,7 @@ public class Coordinate {
     public int distanceEntre(Coordinate coor){
         int a,b;
         a = Math.abs(x - coor.getX());
-        b = Math.abs(x - coor.getY());
+        b = Math.abs(y - coor.getY());
         return a + b;
     }
 
