@@ -150,6 +150,7 @@ public class AffichageGraphique {
                             p.setEndTurn(false);
                             p.setOrientation(0);
                         }
+                        endTurn.setVisible(true);
                     }
                 });
                 panel.getChildren().addAll(informationAndCombat, button, scrollPane);

@@ -1,4 +1,4 @@
-nomMap
+MapBateau
 qqqqqqaN*jqqqqqq
 qqqqqaNb!*jqqqqq
 qqqqaNbxx!*jqqqq
@@ -15,5 +15,3 @@ qq+AWW#WW#WWOXqq
 qqqZiiiiiiiiIqqq
 qqqqyrrrrrrtqqqq
 qqqqeuuuuuuzqqqq
-//
-//(avec F une forêt, V volcan, R rivière et le reste plaine)
