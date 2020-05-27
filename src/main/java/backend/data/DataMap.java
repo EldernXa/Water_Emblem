@@ -346,8 +346,6 @@ public class DataMap {
             case "\u03B8":
                 //θ
                 return new MuretLargeur();
-
-
             case "\u03BA":
                 //κ
                 return new TapisBasDroit();
