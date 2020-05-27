@@ -9,10 +9,6 @@ public abstract class Escalier extends Field{
     }
 
     public void affect(Personnage personnage){
-        Carac caracPerso = personnage.getCaracteristique();
-
-            int heal = (int) (caracPerso.getMaxHp() * 0.80);
-            personnage.healed(caracPerso.getMaxHp() - heal);
 
     }
 

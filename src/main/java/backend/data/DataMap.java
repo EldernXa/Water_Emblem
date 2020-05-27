@@ -3,6 +3,7 @@ package backend.data;
 import backend.Coordinate;
 
 import backend.field.*;
+import backend.field.Void;
 
 import java.io.File;
 import java.io.IOException;
@@ -314,6 +315,79 @@ public class DataMap {
             case "\u2117":
                 //℗
                 return new Pont();
+
+            case "\u00AE":
+                //®
+                return new EscalierG();
+            case "\u2122":
+                //™
+                return new EscalierM();
+            case "\u2120":
+                //℠
+                return new EscalierD();
+            case "\u03B3":
+                //γ
+                return new Void();
+            case "\u03B4":
+                //δ
+                return new Dalle2();
+            case "\u03B5":
+                //ε
+                return new Dalle1();
+            case "\u03B6":
+                //ζ
+                return new MuretG();
+            case "\u03B7":
+                //η
+                return new MuretD();
+            case "\u03B9":
+                //ι
+                return new MuretLongueur();
+            case "\u03B8":
+                //θ
+                return new MuretLargeur();
+
+
+            case "\u03BA":
+                //κ
+                return new TapisBasDroit();
+            case "\u03BB":
+                //λ
+                return new TapisBasGauche();
+            case "\u03BC":
+                //μ
+                return new Trone2();
+            case "\u03BD":
+                //ν
+                return new TapisCentreDroiteBas();
+            case "\u03BE":
+                //ξ
+                return new TapisCentreDroiteHaut();
+            case "\u03BF":
+                //ο
+                return new TapisCentreGaucheBas();
+            case "\u03C0":
+                //π
+                return new TapisCentreGaucheHaut();
+            case "\u03C8":
+                //ψ
+                return new Trone1();
+            case "\u03C3":
+                //σ
+                return new TapisMilieuHautDroit();
+            case "\u03C4":
+                //τ
+                return new TapisMilieuBas();
+
+            case "\u03C5":
+                //υ
+                return new TapisMilieuBasDroit();
+            case "\u03C6":
+                //φ
+                return new TapisMilieuBasGauche();
+            case "\u03C7":
+                //χ
+                return new TapisMilieuHautGauche();
             default:
                 return new Plaine();
         }
