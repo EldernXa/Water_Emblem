@@ -8,14 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class StatTest {
 
     @Test
-    void damage() {
-    }
-
-    @Test
-    void accuracy() {
-    }
-
-    @Test
     void weaponTriangle() {
         String epee ="Epee" ;
         String hache = "Hache";
@@ -33,11 +25,4 @@ class StatTest {
         Assertions.assertEquals(w, 0);
     }
 
-    @Test
-    void calculerStats() {
-    }
-
-    @Test
-    void damageAfterCalc() {
-    }
 }

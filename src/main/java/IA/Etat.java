@@ -3,8 +3,9 @@ package IA;
 import backend.Coordinate;
 import backend.PersonnageDisplay;
 import backend.data.DataCoordCharacters;
-import backend.field.Field;
+import backend.field.*;
 import backend.Personnage;
+import backend.field.Void;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import frontend.AffichePerso;
 
@@ -111,7 +112,8 @@ public class Etat {
         listDeplacementPossible.add(persoAttaque.getPos());
 
         for(Coordinate pos : listDeplacementPossible){
-            if (persoAt(pos) == -1){
+            if (persoAt(pos) == -1 && !pos.getField().compareField(new Void())  && !aEviterAToutPris(pos.getField())){
+                System.out.println(pos.getField().getClass().toString());
                 Etat etatDep = cloner();
                 Personnage persoA = persoAttaque.cloner();
                 persoA.setPos(pos);
@@ -250,6 +252,13 @@ public class Etat {
             }
         }
         return -1;
+    }
+
+    public boolean aEviterAToutPris(Field field){
+        if(field.compareField(new Void())){
+            return true;
+        }
+        return false;
     }
 
     public Etat meilleurEtat(ArrayList<Etat> list){

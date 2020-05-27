@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CoordinateTest {
-    Coordinate coordinate;
+    private Coordinate coordinate;
     @BeforeEach
     void setUp() {
         coordinate = new Coordinate(3,3);
