@@ -8,8 +8,12 @@ Cloud;4;12;0
 Troubadour;9;0;1
 Troubadour;12;6;1
 Sage;12;12;1
-Mage;11;11;1
-Mage;13;11;1
+Mercenaire;11;11;1
+Mercenaire;13;11;1
+Mage;12;11;1
+Mage;14;11;1
 General;1;1;1
-Mercenaire;0;0;1
-Mercenaire;2;0;1
+General;1;5;1
+Paladin;0;0;1
+Sniper;1;0;1
+Hero;2;0;1
