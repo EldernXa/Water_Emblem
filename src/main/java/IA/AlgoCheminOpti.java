@@ -17,6 +17,7 @@ public class AlgoCheminOpti {
     backend.Coordinate arrivalPos;
     ArrayList<Coordinate> chemin;
     ArrayList<ArrayList<Coordinate>> map;
+    int pointCardinal ;
 
     public AlgoCheminOpti(backend.Coordinate initialPos, backend.Coordinate arrivalPos, ArrayList<ArrayList<Coordinate>> map){
         this.initialPos = initialPos;
@@ -196,7 +197,6 @@ public class AlgoCheminOpti {
         }
         return chemin;
     }
-
 
     public static boolean belongsToListCoord(ArrayList<Coordinate> listCoord, Coordinate coordinate){
         for(Coordinate coord : listCoord){
