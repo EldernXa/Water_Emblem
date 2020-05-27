@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CaracTest {
+
     @Test
     void testConstructeur() {
         Carac carac = new Carac("Marth");

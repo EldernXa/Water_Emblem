@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EtatTest {
-    Etat etat;
+    private Etat etat;
     @BeforeEach
     void setUp() {
         ArrayList<Personnage> gentils = new ArrayList<>();
@@ -67,5 +67,6 @@ class EtatTest {
         Assertions.assertFalse(etat.estFinal());
 
     }
+
 
 }

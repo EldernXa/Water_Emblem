@@ -14,7 +14,6 @@ public class Algo_Minimax {
             for (Etat e : etat.getToutPossibilite(maxi)){
                 int x =  minimax(e, depth - 1, !maxi, alpha, beta);
                 if(alpha >= x){
-                    System.out.println("OKKKKKKKKKK");
                     return e;
                 }
                 beta = Math.min(beta, x);
@@ -31,7 +30,6 @@ public class Algo_Minimax {
             for (Etat e : etat.getToutPossibilite(maxi)){
                 int x =  minimax(e, depth - 1, !maxi, alpha , beta);
                 if(x >= beta){
-                    System.out.println("OKKKKKKKKKK");
                     return e;
                 }
                 alpha = Math.max(alpha, x);
@@ -55,7 +53,6 @@ public class Algo_Minimax {
             for (Etat e : etat.getToutPossibilite(maxi)){
                 value = Math.max(value, minimax(e, depth - 1, !maxi, alpha, beta));
                 if(alpha >= value){
-                    //System.out.println("aaaaaaaaaaaaaaaaaaaa");
                     return value;
                 }
                 beta = Math.min(beta, value);
@@ -68,7 +65,6 @@ public class Algo_Minimax {
             for (Etat e : etat.getToutPossibilite(maxi)){
                 value = Math.min(value, minimax(e, depth - 1, !maxi, alpha, beta));
                 if(value >= beta){
-                    //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbb");
                     return value;
                 }
                 alpha = Math.max(alpha, value);

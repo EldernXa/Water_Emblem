@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ActionTest {
-    Action action;
+    private Action action;
     @BeforeEach
     void setUp() {
         action = new Action(new Coordinate(1,1), new Coordinate(2,2), new Coordinate(3,3), 7);

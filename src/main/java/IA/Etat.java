@@ -39,13 +39,14 @@ public class Etat {
             for(Personnage p : gentils){
                 ArrayList<Etat> l = new ArrayList<>();
                 for (Etat t : (ArrayList<Etat> )list.clone()){
-                    d = t.deplacerUnCamp(p.getId());
-                    if(d != null){
-                        l.add(d);
-                    }
                     e = t.attaqueUnCamp(p.getId());
                     if(e!=null){
                         l.add(e);
+                    }
+
+                    d = t.deplacerUnCamp(p.getId());
+                    if(d != null){
+                        l.add(d);
                     }
                 }
                 list = l;
@@ -56,13 +57,13 @@ public class Etat {
             for(Personnage p : listMechant){
                 ArrayList<Etat> l = new ArrayList<>();
                 for (Etat t : (ArrayList<Etat>) list.clone()){
-                    d = t.deplacerUnCamp(p.getId());
-                    if(d != null){
-                        l.add(d);
-                    }
                     e = t.attaqueUnCamp(p.getId());
                     if(e!=null){
                         l.add(e);
+                    }
+                    d = t.deplacerUnCamp(p.getId());
+                    if(d != null){
+                        l.add(d);
                     }
                 }
                 list = l;

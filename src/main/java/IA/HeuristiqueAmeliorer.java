@@ -13,17 +13,6 @@ public class HeuristiqueAmeliorer implements Heuristique {
         int distance = 0;
         int valueG = 0;
         int valueM = 0;
-        /*
-        for (Personnage p : e.getListMechant()){
-            for (Personnage g : e.getGentils()){
-                x = Math.abs(p.getPos().getX() - g.getPos().getX());
-                y = Math.abs(p.getPos().getY() - g.getPos().getY());
-                if(min > x + y){
-                    min = x + y;
-                }
-            }
-            distance += min;
-        }*/
 
         distance = e.valDistance();
         for (Personnage persoG : e.getGentils()){
