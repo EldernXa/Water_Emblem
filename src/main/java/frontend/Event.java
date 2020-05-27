@@ -65,7 +65,10 @@ public class Event {
                             for (Coordinate c : listMvt) {
                                 if (c.equal(new Coordinate(x, y))) {
                                     if (AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)) == null && !personnageSelected.getBooleanMove()) {
-                                        buttonMove(x, y, move, attack, affichePerso, perso, grilleMvt, afficheMap, grilleAttack, stay, console, endTurn);
+                                        if(afficheMap.getFieldCoordinate(c).isCrossable())
+                                            buttonMove(x, y, move, attack, affichePerso, perso, grilleMvt, afficheMap, grilleAttack, stay, console, endTurn);
+                                        else
+                                            move.setVisible(false);
                                     }
                                     else if(AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y))!=null&&
                                             AffichePerso.contains(AffichePerso.listEnnemi, AffichePerso.getPersonnageDisplayAt(new Coordinate(x, y)))){
