@@ -1,4 +1,4 @@
-nomMap
+MapLave
 sssssssssssH345
 ssssss'_sss[==H
 sssssH1'ssssssH
@@ -14,5 +14,3 @@ sssssssssssssss
 sssssssssssssss
 sss[==~=~=~~]ss
 ss&g'1234567(_s
-//
-//(avec F une forêt, V volcan, R rivière et le reste plaine)
