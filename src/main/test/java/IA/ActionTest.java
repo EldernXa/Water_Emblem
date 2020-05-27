@@ -11,7 +11,7 @@ class ActionTest {
     private Action action;
     @BeforeEach
     void setUp() {
-        action = new Action(new Coordinate(1,1), new Coordinate(2,2), new Coordinate(3,3), 7);
+        action = new Action(new Coordinate(1,1), new Coordinate(2,2), new Coordinate(3,3), 7, 3);
     }
 
     @Test

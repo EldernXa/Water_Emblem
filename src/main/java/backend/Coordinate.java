@@ -22,6 +22,13 @@ public class Coordinate {
         return coor;
     }
 
+    public int distanceEntre(Coordinate coor){
+        int a,b;
+        a = Math.abs(x - coor.getX());
+        b = Math.abs(x - coor.getY());
+        return a + b;
+    }
+
     public void affPos(){
         System.out.println(" x : "+ x + ", y : " + y);
     }

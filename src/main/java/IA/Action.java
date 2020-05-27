@@ -107,4 +107,5 @@ public  class Action {
     public void setContreAttaque(int contreAttaque) {
         this.contreAttaque = contreAttaque;
     }
+
 }

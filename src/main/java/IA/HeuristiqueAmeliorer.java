@@ -8,9 +8,7 @@ public class HeuristiqueAmeliorer implements Heuristique {
 
     @Override
     public int calculerHeuristique(Etat e) {
-        int x,y ;
-        int min = 10000;
-        int distance = 0;
+        int distance;
         int valueG = 0;
         int valueM = 0;
 

@@ -2,15 +2,20 @@ package backend;
 
 import backend.field.Forest;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CoordinateTest {
+    Coordinate coordinate;
+    @BeforeEach
+    void setUp() {
+        coordinate = new Coordinate(3,3);
+    }
 
     @Test
     void equal() {
-        Coordinate coordinate = new Coordinate(3,3);
         Coordinate coor = new Coordinate(3,3);
         Coordinate troisDeux = new Coordinate(3,2);
         Coordinate deuxTrois = new Coordinate(2,3);
@@ -25,7 +30,7 @@ class CoordinateTest {
 
     @Test
     void cloner() {
-        Coordinate coordinate = new Coordinate(3,3);
+
         Coordinate clone = coordinate.cloner();
         Assertions.assertTrue(coordinate.equal(clone));
 
@@ -36,14 +41,20 @@ class CoordinateTest {
 
     @Test
     void getX() {
-        Coordinate coordinate = new Coordinate(3,2);
         Assertions.assertEquals(coordinate.getX(),3);
     }
 
     @Test
     void getY() {
-        Coordinate coordinate = new Coordinate(3,2);
-        Assertions.assertEquals(coordinate.getY(),2);
+        Assertions.assertEquals(coordinate.getY(),3);
     }
 
+    @Test
+    void distanceEntre() {
+        int distance = coordinate.distanceEntre(new Coordinate(3,6));
+        Assertions.assertEquals(3,distance );
+
+        distance = coordinate.distanceEntre(new Coordinate(2,4));
+        Assertions.assertEquals(2,distance );
+    }
 }
