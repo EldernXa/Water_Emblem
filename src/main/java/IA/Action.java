@@ -57,6 +57,17 @@ public  class Action {
         return x + y;
     }
 
+    public void affAction(){
+        System.out.print("posDepart : " );
+        posDepart.affPos();
+        System.out.print("posArrive : " );
+        posArrive.affPos();
+        System.out.print("posAttaque : " );
+        posAttaquant.affPos();
+        System.out.print("posDef : " );
+        posDefenceur.affPos();
+    }
+
     public int getTotalDamage(){
         return damage - contreAttaque;
     }

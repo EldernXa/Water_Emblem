@@ -284,7 +284,7 @@ public class Event {
                                 listMechantRestant.add(p);
                             }
                         endTurn.setVisible(false);
-                        Etat e = new Etat(listMechant, listGentil, new HeuristiqueAmeliorer(), nameMap);
+                        Etat e = new Etat(affichePerso, new HeuristiqueAmeliorer());
                         Etat etat = Algo_Minimax.startMini(e, 4, false);
                         listAction = new ArrayList<>();
                         for(Action a : etat.getListActionprec())
