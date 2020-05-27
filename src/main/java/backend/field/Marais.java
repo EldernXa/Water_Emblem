@@ -15,16 +15,17 @@ public abstract class Marais extends Field {
         Carac caracPerso = personnage.getCaracteristique();
         int skl = caracPerso.getSkl();
         int spd = caracPerso.getSpd();
+
         if(caracPerso.getDeplacement() == 1){
             caracPerso.setMov(1);
         }
 
-        caracPerso.setMov(1);
+
         if (caracPerso.getDeplacement() == 0) {
 
 
 
-
+            caracPerso.setMov(2);
         }
         caracPerso.setSkl(skl - 2);
         caracPerso.setSpd(spd - 5);

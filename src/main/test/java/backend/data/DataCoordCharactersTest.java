@@ -1,17 +1,27 @@
 package backend.data;
 
+import backend.Coordinate;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DataCoordCharactersTest {
 
+
+
+
     @Test
     void setCoord() {
+
+
     }
 
     @Test
     void getGentilCharactersList() {
+
     }
 
     @Test
@@ -32,6 +42,9 @@ class DataCoordCharactersTest {
 
     @Test
     void getAttackArea() {
+
+
+
     }
 
     @Test
