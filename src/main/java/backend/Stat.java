@@ -5,7 +5,6 @@ import java.util.Random;
 public class Stat {
 
     public static int damage(Carac attacker, Carac defender) {
-
         int att = 0;
         int def = 0;
         if (attacker.getWep1().compareTo("Magie") == 0) {
@@ -14,24 +13,18 @@ public class Stat {
             def += defender.getRes();
 
         } else {
-
             att += attacker.getStr();
             def += defender.getDef();
         }
-
 
         int adv = defender.getDeplacement();
         if (attacker.getType().equals("Sniper") && (adv == 2 || adv == 3)) {
             att = att * 2;
         }
-
         int damage = (att - def);
-
         if (attacker.getSpd() - defender.getSpd() >= 4) {
             damage = damage * 2;
         }
-
-
         if (damage < 0) {
             return 0;
         }
@@ -57,16 +50,9 @@ public class Stat {
     }
 
     public static int accuracy(Carac attacker, Carac defender) {
-        //System.out.println("skl " + attacker.getSkl() +" lck " + attacker.getLck());
         int accu = (((attacker.getSkl()) + (attacker.getLck())) * 8 + weaponTriangle(attacker.getWep1(), defender.getWep1()) * 7);
         int avoid = defender.getSpd()  + defender.getLck();
-
-
-        int x = accu - avoid;
-
-
-
-        return x;
+        return accu - avoid;
     }
 
 
@@ -192,8 +178,6 @@ public class Stat {
         if (damage < 0) {
             return 0;
         }
-
-
         return damage;
     }
 }
