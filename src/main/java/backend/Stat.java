@@ -55,8 +55,6 @@ public class Stat {
         return accu - avoid;
     }
 
-
-    //Epee;Lance;Hache
     public static int weaponTriangle(String wepAttack, String wepDefence) {
         if (wepAttack.compareTo(wepDefence) == 0 || wepAttack.compareTo("Magie") == 0 || wepDefence.compareTo("Magie") == 0) {
             return 0;
@@ -82,7 +80,7 @@ public class Stat {
                 return -1;
             }
         }
-        return 0; //nomalement inutile
+        return 0;
     }
 
     public static void calculerStats(Personnage perso) {
@@ -131,10 +129,7 @@ public class Stat {
     }
 
     public static int damageAfterCalc(Carac attacker, Carac defender) {
-//        System.out.println(attacker.getName() +" attaque "+ defender.getName());
-        int accu = accuracy(attacker, defender);
-//        System.out.println("accuracy :" + accu);
-//        System.out.println();
+        int accu = accuracy(attacker, defender);;
         if (!rate(accu)) {
             return 0;
         }
