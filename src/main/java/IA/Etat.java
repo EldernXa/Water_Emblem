@@ -43,17 +43,17 @@ public class Etat {
                 for (Etat etat : (ArrayList<Etat> )list.clone()){
                     etatTemp = etat.cloner();
                     etatTemp.listActionprec.add(new Action());
-
+/*
                     nouvelEtatAttaque = etat.attaqueUnCamp(p.getId());
                     if(nouvelEtatAttaque!=null){
                         nouvelList.add(nouvelEtatAttaque);
                     }
-
+*/
                     nouvelEtatDeplacement = etat.deplacerUnCamp(p.getId());
                     if(nouvelEtatDeplacement != null){
                         nouvelList.add(nouvelEtatDeplacement);
                     }
-                    nouvelList.add(etatTemp);
+  //                  nouvelList.add(etatTemp);
                 }
                 list = nouvelList;
             }
@@ -64,16 +64,16 @@ public class Etat {
                 for (Etat etat : (ArrayList<Etat>) list.clone()){
                     etatTemp = etat.cloner();
                     etatTemp.listActionprec.add(new Action());
-
+/*
                     nouvelEtatAttaque = etat.attaqueUnCamp(p.getId());
                     if(nouvelEtatAttaque!=null){
                         nouvelList.add(nouvelEtatAttaque);
                     }
-                    nouvelEtatDeplacement = etat.deplacerUnCamp(p.getId());
+*/                    nouvelEtatDeplacement = etat.deplacerUnCamp(p.getId());
                     if(nouvelEtatDeplacement != null){
                         nouvelList.add(nouvelEtatDeplacement);
                     }
-                    nouvelList.add(etatTemp);
+  //                  nouvelList.add(etatTemp);
                 }
                 list = nouvelList;
             }
@@ -89,7 +89,7 @@ public class Etat {
         ArrayList<Etat> listDeplacementAttaque = new ArrayList<>();
         ArrayList<Personnage> listDef ;
         Personnage persoAttaque;
-
+        ArrayList<Coordinate> listDeplacementPossible;
         if(mechantAt(id) != -1){
             persoAttaque = listMechant.get(mechantAt(id));
             equipeGentil = false;
@@ -103,8 +103,9 @@ public class Etat {
         else {
             return null;
         }
-
-        for(Coordinate pos : dataCoordCharacters.getMovementArea(persoAttaque, persoAttaque.getPos())){
+        listDeplacementPossible = dataCoordCharacters.getMovementArea(persoAttaque, persoAttaque.getPos());
+        listDeplacementPossible.add(persoAttaque.getPos());
+        for(Coordinate pos : listDeplacementPossible){
             if (persoAt(pos) == -1){
                 Etat etatDep = cloner();
                 Personnage persoA = persoAttaque.cloner();
