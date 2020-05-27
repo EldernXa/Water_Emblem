@@ -48,8 +48,8 @@ public class Carac {
             return;
         }
 
-        deplacement = DataPerso.getFightingType(type);
         this.type = list.get(i++);
+        deplacement = DataPerso.getFightingType(type);
 
         maxHp = hp = Integer.parseInt(list.get(i++));
         str = Integer.parseInt(list.get(i++));

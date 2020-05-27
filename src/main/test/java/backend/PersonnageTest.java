@@ -2,6 +2,7 @@ package backend;
 
 import frontend.AffichePerso;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -9,19 +10,18 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PersonnageTest {
-
-    @Test
-    void attack() {
-    }
-
-    @Test
-    void attackHorsPortee() {
+    Personnage cloud;
+    Personnage chevalier;
+    @BeforeEach
+    void setUp() {
+        Personnage cloud = new Personnage("Cloud");
+        Personnage chevalier = new Personnage("Chevalier");
     }
 
     @Test
     void attack1() {
-        Personnage attaque = new Personnage("Marth");
-        Personnage def = new Personnage("Chevalier");
+        Personnage attaque = cloud.cloner();
+        Personnage def = chevalier.cloner();
         int damage = Stat.damageAfterCalc(attaque.getCaracteristique(), def.getCaracteristique());
         attaque.attack(def);
         Assertions.assertEquals(def.getCaracteristique().getHp(), def.getCaracteristique().getMaxHp() - damage);
@@ -30,17 +30,17 @@ class PersonnageTest {
 
     @Test
     void attacked() {
-        Personnage def = new Personnage("Chevalier");
-        Personnage marth = new Personnage("Marth");
+        Personnage def = cloud.cloner();
+        Personnage attaque = chevalier.cloner()
         def.attacked(4);
         Assertions.assertEquals(def.getCaracteristique().getHp(), def.getCaracteristique().getMaxHp() - 4);
-        marth.attacked(0);
-        Assertions.assertEquals(marth.getCaracteristique().getHp(), marth.getCaracteristique().getMaxHp());
+        attaque.attacked(0);
+        Assertions.assertEquals(attaque.getCaracteristique().getHp(), attaque.getCaracteristique().getMaxHp());
     }
 
     @Test
     void healed() {
-        Personnage def = new Personnage("Chevalier");
+        Personnage def =chevalier.cloner()
         def.attacked(3);
         def.healed(1);
         Assertions.assertEquals(def.getCaracteristique().getHp(), def.getCaracteristique().getMaxHp() -2);
@@ -50,7 +50,7 @@ class PersonnageTest {
 
     @Test
     void isAlive() {
-        Personnage def = new Personnage("Chevalier");
+        Personnage def = cloud.cloner();
         Assertions.assertTrue(def.isAlive());
         def.getCaracteristique().setHp(0);
         Assertions.assertFalse(def.isAlive());
