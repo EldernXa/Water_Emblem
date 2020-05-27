@@ -37,14 +37,5 @@ public class HeuristiqueAmeliorer implements Heuristique {
     }
 
 
-    public Etat meilleurEtat(ArrayList<Etat> list){
 
-        Etat meilleur = list.get(0);
-        for (Etat e : list){
-            if(meilleur.valDistance() > e.valDistance()){
-                meilleur = e;
-            }
-        }
-        return meilleur;
-    }
 }
