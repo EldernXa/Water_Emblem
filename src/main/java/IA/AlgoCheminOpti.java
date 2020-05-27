@@ -3,11 +3,15 @@ package IA;
 import backend.Coordinate;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class AlgoCheminOpti {
 
     ArrayList<backend.Coordinate> posMorte;
+    Coordinate X;
+    Coordinate Y;
     Stack<Coordinate> pilePos;
     backend.Coordinate initialPos;
     backend.Coordinate arrivalPos;
@@ -80,6 +84,117 @@ public class AlgoCheminOpti {
             return chemin;
         }
 
+    }
+
+    /*public ArrayList<ArrayList<Coordinate>> AlgoCheminOptiFct1(backend.Coordinate initialPos, backend.Coordinate arrivalPos, ArrayList<ArrayList<Coordinate>> map){
+
+        double distInitArri = calculDistance(initialPos,arrivalPos);
+
+        if(!initialPos.equal(arrivalPos)) {
+            if(initialPos.getX() < arrivalPos.getX()){
+                if (!map.get(initialPos.getX() + 1).get(initialPos.getY()).getField().isCrossable()) {
+                    posMorte.add(map.get(initialPos.getX() + 1).get(initialPos.getY()));
+                }
+                else {
+                    if(!belongsToListCoord(posMorte,map.get(initialPos.getX() + 1).get(initialPos.getY()))) {
+                        pilePos.offer(map.get(initialPos.getX() + 1).get(initialPos.getY()));
+                        AlgoCheminOptiFct1(pilePos.poll(),arrivalPos,map);
+                    }
+                }
+            }
+
+            else if(initialPos.getX() == arrivalPos.getX()){
+                if(initialPos.getY() < arrivalPos.getY()){
+                    if (!map.get(initialPos.getX()).get(initialPos.getY() + 1).getField().isCrossable()) {
+                        posMorte.add(map.get(initialPos.getX()).get(initialPos.getY() + 1));
+                        AlgoCheminOptiFct1(pilePos.poll(),arrivalPos,map);
+                    }
+                    else {
+                        if(!belongsToListCoord(posMorte,map.get(initialPos.getX()).get(initialPos.getY() + 1))) {
+                            pilePos.offer(map.get(initialPos.getX()).get(initialPos.getY() + 1));
+                            AlgoCheminOptiFct1(pilePos.poll(),arrivalPos,map);
+                        }
+                    }
+                }
+                else {
+                    if (!map.get(initialPos.getX()).get(initialPos.getY() - 1).getField().isCrossable()) {
+                        posMorte.add(map.get(initialPos.getX()).get(initialPos.getY() - 1));
+                        AlgoCheminOptiFct1(pilePos.poll(),arrivalPos,map);
+                    }
+                    else {
+                        if(!belongsToListCoord(posMorte,map.get(initialPos.getX()).get(initialPos.getY() - 1))) {
+                            pilePos.offer(map.get(initialPos.getX()).get(initialPos.getY() - 1));
+                            AlgoCheminOptiFct1(pilePos.poll(),arrivalPos,map);
+                        }
+                    }
+                }
+            }
+
+            else{
+                if (!map.get(initialPos.getX() -1).get(initialPos.getY()).getField().isCrossable()) {
+                    posMorte.add(map.get(initialPos.getX() - 1).get(initialPos.getY()));
+                    AlgoCheminOptiFct1(pilePos.poll(),arrivalPos,map);
+                }
+                else {
+                    if(!belongsToListCoord(posMorte,map.get(initialPos.getX() - 1).get(initialPos.getY()))) {
+                        pilePos.offer(map.get(initialPos.getX() - 1).get(initialPos.getY()));
+                        AlgoCheminOptiFct1(pilePos.poll(),arrivalPos,map);
+                    }
+                }
+            }
+        }
+        return null;
+    }*/
+
+    /*public ArrayList<Coordinate> AlgoChemin(Coordinate depart, Coordinate arrivee, ArrayList<ArrayList<Coordinate>> map){
+        if(!depart.equal(arrivalPos)){
+            if(depart.getX() < arrivee.getX()){
+                if (depart.getY() < arrivee.getY()){
+
+                }
+                else {
+
+                }
+            }
+            else{
+                if (depart.getY() < arrivee.getY()){
+
+                }
+                else{
+
+                }
+
+            }
+        }
+
+
+
+        return chemin;
+    }*/
+
+    public ArrayList<Coordinate> algoChemin(Coordinate debut, Coordinate fin, ArrayList<ArrayList<Coordinate>> map){
+        if(debut.getX() < fin.getX()){
+            if(map.get(debut.getX()+1).get(debut.getY()).getField().isCrossable()){
+                chemin.add(map.get(debut.getX()+1).get(debut.getY()));
+                X = map.get(debut.getX()).get(debut.getY());
+                algoChemin(map.get(debut.getX()+1).get(debut.getY()),fin,map);
+            }
+            else{
+                if(debut.getY() < fin.getY()){
+                    if(map.get(debut.getX()).get(debut.getY()+1).getField().isCrossable()){
+                        algoChemin(map.get(debut.getX()).get(debut.getY()+1),fin,map);
+                    }
+
+                }
+            }
+        }
+        if(debut.getX() == fin.getX()){
+            if(debut.getY() < fin.getY()){
+                chemin.add(map.get(debut.getX()).get(debut.getY()+1));
+                algoChemin(map.get(debut.getX()).get(debut.getY()+1),fin,map);
+            }
+        }
+        return chemin;
     }
 
 
