@@ -58,8 +58,8 @@ public class Stat {
 
     public static int accuracy(Carac attacker, Carac defender) {
         //System.out.println("skl " + attacker.getSkl() +" lck " + attacker.getLck());
-        int accu = (((attacker.getSkl()) + (attacker.getLck())) * 9 + weaponTriangle(attacker.getWep1(), defender.getWep1()) * 7);
-        int avoid = defender.getSpd() + defender.getLck();
+        int accu = (((attacker.getSkl()) + (attacker.getLck())) * 8 + weaponTriangle(attacker.getWep1(), defender.getWep1()) * 7);
+        int avoid = defender.getSpd()  + defender.getLck();
 
 
         int x = accu - avoid;
@@ -116,6 +116,9 @@ public class Stat {
                 break;
             }
             case "Lance": {
+                if(caracteristique.getType().equals("Roi")){
+                    caracteristique.setPortee(2);
+                }
                 caracteristique.setStr(str + 3);
                 caracteristique.setLck(lck + 2);
 

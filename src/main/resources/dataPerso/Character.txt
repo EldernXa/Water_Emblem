@@ -1,8 +1,5 @@
 // Prenom / nomUnite / HP / STR / MAG / Skl / Spd /Lck / Def / Res / Mov / Arme1 / Arme2 / Arme3
 Lyn;Epeiste;21;8;1;11;10;7;4;2;6;Epee
-Marth;Chevalier;17;5;0;2;0;0;9;0;4;Lance
-Ike;Paladin;23;7;1;4;7;0;4;3;8;Epee
-Roy;Mercenaire;18;4;1;8;8;84;14;0;5;Epee
 Eliwood;Mercenaire;20;7;1;7;7;6;5;2;5;Epee
 Hector;Guerrier;24;12;1;7;5;3;2;0;5;Hache
 Cloud;Epeiste;21;8;1;8;12;5;5;2;6;Epee
