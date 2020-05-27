@@ -121,7 +121,10 @@ public class Etat {
                         Personnage persoDef = listDef.get(index).cloner();
                         Personnage newPersoDef = persoDef.cloner();
                         persoA.attack(newPersoDef);
-                        newPersoDef.attack(persoA);
+                        if(newPersoDef.getCaracteristique().getPortee() > distanceEntre(newPersoDef.getPos(), persoA.getPos()) ){
+                            newPersoDef.attack(persoA);
+                        }
+
                         int damage = persoDef.getCaracteristique().getHp() - newPersoDef.getCaracteristique().getHp();
                         if(equipeGentil){
                             etatDepAtt.listMechant.set(index, newPersoDef);
@@ -137,7 +140,7 @@ public class Etat {
             }
         }
         if(listDeplacementAttaque.isEmpty()){
-            return meilleurEtat(listToutDeplacement);
+            return heuristique.meilleurEtat(listToutDeplacement);
         }
         else {
             int damageMax = 0;
@@ -191,11 +194,16 @@ public class Etat {
             }
             if(index != -1){
                 Etat etatAttaque = this.cloner();
+                int contreDamage = 0;
                 //etatAttaque.setListActionprec((ArrayList<Action>) actionPrec.clone());
                 Personnage p = listDef.get(index);
                 Personnage newPersoDef = p.cloner();
                 personnageAttaque.attack(newPersoDef);
-                newPersoDef.attack(personnageAttaque);
+                if(newPersoDef.getCaracteristique().getPortee() > distanceEntre(newPersoDef.getPos(), personnageAttaque.getPos()) ){
+                    contreDamage = personnageAttaque.getCaracteristique().getHp();
+                    newPersoDef.attack(personnageAttaque);
+                    contreDamage -= personnageAttaque.getCaracteristique().getHp();
+                }
                 int damage = p.getCaracteristique().getHp() - newPersoDef.getCaracteristique().getHp();
                 if(estGentil){
                     etatAttaque.listMechant.set(index, newPersoDef);
@@ -204,8 +212,8 @@ public class Etat {
                     etatAttaque.gentils.set(index, newPersoDef);
                 }
                 etatAttaque.listActionprec.add(new Action(personnageAttaque.getPos().cloner(), pos.cloner(),damage));
-                if(damageMax < damage){
-                    damageMax = damage;
+                if(damageMax < damage + damageMax){
+                    damageMax = damage + damageMax;
                     etatMax = etatAttaque;
                 }
             }
@@ -225,7 +233,13 @@ public class Etat {
             lGentil.add(p.cloner());
         }
 
-        return new Etat(lMechant, lGentil, (ArrayList<Action>) listActionprec.clone());
+        ArrayList<Action> newListAction = new ArrayList<>();
+        for (Action action : listActionprec){
+            newListAction.add(action.cloner());
+        }
+
+        return new Etat(lMechant, lGentil, newListAction);
+
     }
 
     public void affEtat(){
@@ -284,18 +298,8 @@ public class Etat {
 
 
 
-    private Etat meilleurEtat(ArrayList<Etat> list){
 
-        Etat meilleur = list.get(0);
-        for (Etat e : list){
-            if(meilleur.valDistance() > e.valDistance()){
-                meilleur = e;
-            }
-        }
-        return meilleur;
-    }
-
-    private int valDistance(){
+    public int valDistanceGlobal(){
         int x = 0;
         int y = 0;
         int sum = 0;
@@ -316,6 +320,27 @@ public class Etat {
         }
         return sum;
     }
+
+    public int valDistance(){
+        int minDistance = 3000;
+        for (Personnage p : gentils){
+            for (Personnage per : listMechant){
+                int x = distanceEntre(p.getPos(), per.getPos());
+                if(x < minDistance){
+                    minDistance = x;
+                }
+            }
+        }
+        return minDistance ;
+    }
+
+    private int distanceEntre(Coordinate perso, Coordinate p){
+        int x,y;
+        x = Math.abs(perso.getX() - p.getX());
+        y = Math.abs(perso.getY() - p.getY());
+        return x + y;
+    }
+
     private boolean ameliorePos(Personnage personnage, Coordinate coor, boolean gentil){
 
         ArrayList<Personnage> ennemie;

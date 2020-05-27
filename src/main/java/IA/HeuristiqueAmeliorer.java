@@ -13,6 +13,7 @@ public class HeuristiqueAmeliorer implements Heuristique {
         int distance = 0;
         int valueG = 0;
         int valueM = 0;
+        /*
         for (Personnage p : e.getListMechant()){
             for (Personnage g : e.getGentils()){
                 x = Math.abs(p.getPos().getX() - g.getPos().getX());
@@ -22,8 +23,9 @@ public class HeuristiqueAmeliorer implements Heuristique {
                 }
             }
             distance += min;
-        }
+        }*/
 
+        distance = e.valDistance();
         for (Personnage persoG : e.getGentils()){
             valueG += persoG.getCaracteristique().getHp();
         }
@@ -44,15 +46,16 @@ public class HeuristiqueAmeliorer implements Heuristique {
 
         return valueG - valueM + distance;
     }
-/*
-    @Override
-    public Etat meilleurFils(ArrayList<Etat> list) {
-        if(list.isEmpty()){
-            return null;
+
+
+    public Etat meilleurEtat(ArrayList<Etat> list){
+
+        Etat meilleur = list.get(0);
+        for (Etat e : list){
+            if(meilleur.valDistance() > e.valDistance()){
+                meilleur = e;
+            }
         }
-        Etat best = list.get(0);
-        for (Etat etat : list){
-            if(best.getValHeuristique()
-        }
-    }*/
+        return meilleur;
+    }
 }
