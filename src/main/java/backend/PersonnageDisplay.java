@@ -186,8 +186,10 @@ public class PersonnageDisplay {
                 int hpPersonnage = p.getPersonnage().getCaracteristique().getHp();
                 Event.printAttackAction(this, p, Color.web("0xAA3436"), Color.web("0x209396"), console);
                 this.getPersonnage().attack(action.getPosDefenceur());
-                Event.printAfterAttack(p, hpPersonnage, Color.web("0x209396"), console);
-                Event.printCounterAttack(this, p, hpEnnemi, Color.web("0xAA3436"), Color.web("0x209396"), console);
+                if(p.isAlive()) {
+                    Event.printAfterAttack(p, hpPersonnage, Color.web("0x209396"), console);
+                    Event.printCounterAttack(this, p, hpEnnemi, Color.web("0xAA3436"), Color.web("0x209396"), console);
+                }
                 if(!this.getBooleanMove())
                 {
                     if(Event.numEnnemi<Event.listMechantRestant.size()-1)
