@@ -8,7 +8,6 @@ Epeiste;21;8;1;11;10;8;4;2;6;Epee
 Soldat;20;6;0;5;3;5;5;2;5;Lance
 General;25;8;0;4;0;5;10;2;5;Lance
 Guerrier;28;8;0;5;6;5;5;0;6;Hache
-Brigand;20;5;0;1;5;5;3;0;5;Hache
 Mage;16;1;6;3;2;7;2;8;5;Magie
 Sage;20;1;8;4;4;8;5;10;6;Magie
 Paladin;23;7;1;4;7;5;8;3;8;Epee
@@ -17,4 +16,4 @@ CavalierWyvern;23;7;0;5;6;5;8;0;7;Lance
 Hero;24;7;2;9;3;5;7;2;6;Epee
 ChevalierPegase;17;7;3;7;15;5;2;5;7;Lance
 Troubadour;15;4;7;5;7;5;2;3;7;Magie
-Roi;80;20;0;4;0;4;8;8;18;Lance
+Roi;120;22;0;4;0;2;10;5;18;Lance
