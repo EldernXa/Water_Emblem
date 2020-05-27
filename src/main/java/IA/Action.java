@@ -51,10 +51,7 @@ public  class Action {
         if (damage == -1){
             return -1;
         }
-        int x,y;
-        x = Math.abs(posAttaquant.getX() - posDefenceur.getX());
-        y = Math.abs(posAttaquant.getY() - posDefenceur.getY());
-        return x + y;
+        return posAttaquant.distanceEntre(posDefenceur);
     }
 
     public void affAction(){
